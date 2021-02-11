@@ -1,0 +1,38 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Card test suite renders the stored snapshot 1`] = `
+<div
+  class="Flexbox-sc-18yd7vq-0 Card___StyledFlexbox-sc-1w5gsob-0 gxblUI"
+>
+  <div
+    class="Box-sc-1v2etov-0 guzVPE"
+  >
+    <div
+      class="Box-sc-1v2etov-0 kDqmRE"
+    >
+      <span
+        class="Text-sc-6c1xd4-0 inZhph"
+        font-weight="bold"
+      >
+        Queen of hearts
+      </span>
+    </div>
+    <div
+      class="Box-sc-1v2etov-0 kAhoak"
+    >
+      <span
+        class="Text-sc-6c1xd4-0 NIkAq"
+        color="grays.4"
+        font-size="sm"
+      >
+        Not a bad draw
+      </span>
+    </div>
+  </div>
+  <div
+    class="Box-sc-1v2etov-0 Card___StyledBox-sc-1w5gsob-1 lhVxmz"
+  >
+    Face cards tend to diverge from the normal appearance of cards with a value between 2 and 10
+  </div>
+</div>
+`;

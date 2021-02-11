@@ -1,0 +1,3 @@
+```jsx
+<InputLabel>Label</InputLabel>
+```

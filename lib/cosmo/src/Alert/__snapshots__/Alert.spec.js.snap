@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Alert test suite renders the stored snapshot 1`] = `
+<div
+  class="Box-sc-1v2etov-0 Alert___StyledBox-sc-58vwap-2 bdtPIe Alert-sc-58vwap-4 jeLLIR"
+>
+  <div
+    class="Flexbox-sc-18yd7vq-0 gxRiyp"
+  >
+    <div
+      class="Box-sc-1v2etov-0 hnNyio"
+    >
+      <div
+        class="Flexbox-sc-18yd7vq-0 gxRiyp"
+      >
+        <div
+          class="Dot-sc-9cqjbq-0 uaGKB"
+        />
+      </div>
+    </div>
+    <div
+      class="Box-sc-1v2etov-0 Alert___StyledBox2-sc-58vwap-3 izgxMS"
+    />
+  </div>
+</div>
+`;

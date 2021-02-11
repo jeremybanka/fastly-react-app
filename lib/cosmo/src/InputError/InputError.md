@@ -1,0 +1,3 @@
+```jsx
+<InputError>Error</InputError>
+```

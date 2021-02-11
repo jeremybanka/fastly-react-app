@@ -1,0 +1,63 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`RadioInput test suite renders the stored snapshot 1`] = `
+<div
+  class="Box-sc-1v2etov-0 kAhoak"
+>
+  <div
+    class="Flexbox-sc-18yd7vq-0 dZrqmk"
+  >
+    <div
+      class="Box-sc-1v2etov-0 kAhoak"
+    >
+      <label
+        class="RadioInput__StyledInputContainer-sc-11eyk1g-1 cTGbcA"
+        for="fruit-apple"
+      >
+        <input
+          checked=""
+          class="RadioInput__StyledInput-sc-11eyk1g-0 kwYayU"
+          id="fruit-apple"
+          name="fruit"
+          type="radio"
+          value="apple"
+        />
+        <div
+          class="RadioInput__StyledDot-sc-11eyk1g-2 hPmtDE"
+        />
+      </label>
+    </div>
+    <div
+      class="Box-sc-1v2etov-0 fAwoJg"
+    >
+      <div
+        class="Box-sc-1v2etov-0 kAhoak"
+      >
+        <label
+          class="Text-sc-6c1xd4-0 fXfEJU"
+          color="grays.6"
+          font-size="xs"
+          font-weight="semibold"
+          for="fruit-apple"
+          letter-spacing="sm"
+        >
+          Apple
+        </label>
+      </div>
+      <div
+        class="Box-sc-1v2etov-0 kAhoak"
+      >
+        <label
+          class="Text-sc-6c1xd4-0 bYunon"
+          color="grays.4"
+          font-size="xs"
+          for="fruit-apple"
+          letter-spacing="sm"
+        >
+          Often crunchy
+        </label>
+      </div>
+    </div>
+  </div>
+</div>
+`;

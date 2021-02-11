@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Form test suite renders the stored snapshot 1`] = `
+<form
+  class="Box-sc-1v2etov-0 kAhoak"
+>
+  Hi
+</form>
+`;

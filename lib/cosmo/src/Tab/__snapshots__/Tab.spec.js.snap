@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Tab test suite renders the stored snapshot 1`] = `
+<a
+  class="Box-sc-1v2etov-0 Tab___StyledBox-sc-1b9e60u-0 eQuihY"
+  href="#asdf"
+>
+  <span
+    class="Text-sc-6c1xd4-0 gJmlqU"
+    color="indigo"
+    font-weight="semibold"
+  >
+    Hi
+  </span>
+</a>
+`;

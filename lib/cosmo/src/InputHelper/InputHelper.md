@@ -1,0 +1,3 @@
+```jsx
+<InputHelper>Helper</InputHelper>
+```

@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`InputError test suite renders the stored snapshot 1`] = `
+<label
+  class="Text-sc-6c1xd4-0 frfOcY"
+  color="reds.5"
+  font-size="xxs"
+>
+  Error
+</label>
+`;

@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`InputValue test suite renders the stored snapshot 1`] = `
+<label
+  class="Text-sc-6c1xd4-0 fXfEJU"
+  color="grays.6"
+  font-size="xs"
+  font-weight="semibold"
+  letter-spacing="sm"
+>
+  Label
+</label>
+`;

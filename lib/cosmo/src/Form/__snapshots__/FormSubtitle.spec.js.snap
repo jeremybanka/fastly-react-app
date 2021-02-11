@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FormSubtitle test suite renders the stored snapshot 1`] = `
+<div
+  class="Box-sc-1v2etov-0 kAhoak"
+>
+  <span
+    class="Text-sc-6c1xd4-0 QgRYE"
+    font-size="sm"
+  >
+    My Subtitle
+  </span>
+</div>
+`;

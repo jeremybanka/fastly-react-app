@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`InputValueHelper test suite renders the stored snapshot 1`] = `
+<label
+  class="Text-sc-6c1xd4-0 bYunon"
+  color="grays.4"
+  font-size="xs"
+  letter-spacing="sm"
+>
+  Label
+</label>
+`;
