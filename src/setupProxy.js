@@ -9,7 +9,7 @@ module.exports = function (app) {
     })
   );
   app.use(
-    ["/stats", "/service"],
+    ["/stats", "/service", "/verify"],
     createProxyMiddleware({
       target: "https://api.fastly.com",
       changeOrigin: true,
