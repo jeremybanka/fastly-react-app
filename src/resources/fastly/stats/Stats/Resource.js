@@ -6,7 +6,7 @@ import { Resource } from "rsrc";
 import { AuthMissing } from "../../../../components";
 import useLocalStorage from "../../../../hooks/useLocalStorage";
 import Chart from "./Chart";
-import getDuration from "./getDuration";
+import getIncrement from "./getIncrement";
 
 type Props = {
   params: {
@@ -29,7 +29,7 @@ function Stats(props: Props): React.Node {
   const { params, query, children } = props;
   const { serviceId } = params;
   const { from, to, region } = query;
-  const by = getDuration(
+  const by = getIncrement(
     Number(Number(from) * 1000),
     Number(to ? Number(to) * 1000 : Date.now())
   );
