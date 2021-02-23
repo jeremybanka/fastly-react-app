@@ -1,3 +1,5 @@
+// @flow
+
 import Services from "./Services";
 
 export { Services };

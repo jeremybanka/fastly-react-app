@@ -18,7 +18,7 @@ import {
 } from "../../components";
 import FastlyCharts from "./Charts";
 import RegionSelect from "./RegionSelect";
-import { Services } from "../../resources/fastly/services";
+import { Verify } from "../../resources/fastly/verify";
 
 import type { OnChange as HandleServiceChange } from "../../resources/fastly/services/Services/Select";
 import type { OnChange as HandleTimeRangeChange } from "../../components/TimerangePresets";
@@ -74,7 +74,7 @@ function FastlyPage(props: Props): React.Node {
 
   if (!serviceId) {
     return (
-      <Services>
+      <Verify query={{ active_services_only: true }}>
         {(rsrc) => {
           const { state } = rsrc;
 
@@ -82,21 +82,21 @@ function FastlyPage(props: Props): React.Node {
             return <RequestRejected reason={state.reason.message} />;
           if (state.pending) return null;
 
-          const { value } = state;
+          const { services } = state.value;
 
-          if (value.length === 0)
+          const serviceIds = Object.keys(services);
+
+          if (serviceIds.length === 0)
             return <RequestRejected reason="No services found for this user" />;
 
-          return <Redirect to={`/fastly/${value[0].id}`} />;
+          return <Redirect to={`/fastly/${serviceIds[0]}`} />;
         }}
-      </Services>
+      </Verify>
     );
   }
 
   return (
     <Page>
-      {/* cache Services early */}
-      <Services />
       <Page.Header>
         <Flexbox
           alignItems="flex-start"
@@ -109,15 +109,15 @@ function FastlyPage(props: Props): React.Node {
                 <Text style={{ whiteSpace: "nowrap" }}>Fastly</Text>
               </Page.Title>
               <Box minWidth="250px" maxWidth="350px">
-                <Services>
+                <Verify query={{ active_services_only: true }}>
                   {(rsrc) => (
-                    <Services.Select
+                    <Verify.ServiceSelect
                       resource={rsrc}
                       onChange={handleServiceChange}
                       value={serviceId}
                     />
                   )}
-                </Services>
+                </Verify>
               </Box>
               <Box minWidth="250px" maxWidth="350px">
                 <RegionSelect value={region} onChange={handleRegionChange} />
