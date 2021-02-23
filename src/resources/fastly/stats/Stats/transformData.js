@@ -28,12 +28,6 @@ type DataPoint = {
   [key: string]: number,
 };
 
-const second = 1000;
-const minute = 60 * second;
-const hour = 60 * minute;
-const day = 24 * hour;
-const periods = { second, minute, hour, day };
-
 // return a Date object from a data point (start_time is seconds)
 const getDate = (d: Object): Date => new Date(d.start_time * 1000);
 
@@ -53,16 +47,14 @@ function transformData(value: StatsType, metrics: string[]): DataPoint[] {
   if (increment === "hour") timePeriod = utcHour;
   if (increment === "day") timePeriod = utcDay;
   // Offset by 1 since range defaults to exclude the last interval
-  const intervals = timePeriod.count(fromDate, timePeriod.offset(toDate, 1));
+  const intervals = timePeriod.range(fromDate, timePeriod.offset(toDate, 1));
 
-  const transformed = [...Array(intervals)].map((_, idx) => {
-    // Determine the actual datum time by incrementing period from start
-    const datumTime = fromDate.valueOf() + idx * periods[increment];
+  const transformed = intervals.map((interval) => {
     // Is there a match for the timestamp in the timeseries data?
-    const match = data.find((d) => getDate(d).valueOf() === datumTime);
-    // Create the datum point, using matching data (if present), otherwise empty
+    const match = data.find((d) => getDate(d).valueOf() === interval.valueOf());
+    // Create the datum point using matched data if present, otherwise empty
     const datum = {
-      date: match ? getDate(match) : new Date(datumTime),
+      date: match ? getDate(match) : interval,
     };
     metrics.forEach((m) => {
       datum[m] = match && match[m] ? match[m] : 0;
