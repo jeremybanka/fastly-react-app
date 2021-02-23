@@ -20,7 +20,7 @@
 */
 
 import { utcDay, utcHour, utcMinute } from "d3-time";
-import getDuration from "./getDuration";
+import getIncrement from "./getIncrement";
 import type { StatsType } from "..";
 
 type DataPoint = {
@@ -40,24 +40,24 @@ function transformData(value: StatsType, metrics: string[]): DataPoint[] {
   const { from, to } = meta;
   const fromDate = new Date(formatTimestamp(from));
   const toDate = new Date(formatTimestamp(to));
-  const duration = getDuration(fromDate.getTime(), toDate.getTime());
+  const increment = getIncrement(fromDate.getTime(), toDate.getTime());
 
-  // Get a range of intervals from start to end date. We offset by 1 since
-  // range defaults to exclude the last interval.
-  let timeDuration = utcMinute;
-  if (duration === "hour") timeDuration = utcHour;
-  if (duration === "day") timeDuration = utcDay;
+  // Get a range of intervals from start to end date
+  let timePeriod = utcMinute;
+  if (increment === "hour") timePeriod = utcHour;
+  if (increment === "day") timePeriod = utcDay;
+  // Offset by 1 since range defaults to exclude the last interval
+  const intervals = timePeriod.range(fromDate, timePeriod.offset(toDate, 1));
 
-  const intervals = timeDuration.range(
-    fromDate,
-    timeDuration.offset(toDate, 1)
-  );
-
-  const transformed = intervals.map((h) => {
-    const match = data.find((d) => getDate(d).valueOf() === h.valueOf());
-    const datum = { date: match ? getDate(match) : h };
+  const transformed = intervals.map((interval) => {
+    // Is there a match for the timestamp in the timeseries data?
+    const match = data.find((d) => getDate(d).valueOf() === interval.valueOf());
+    // Create the datum point using matched data if present, otherwise empty
+    const datum = {
+      date: match ? getDate(match) : interval,
+    };
     metrics.forEach((m) => {
-      datum[m] = match ? match[m] : 0;
+      datum[m] = match && match[m] ? match[m] : 0;
     });
     return datum;
   });
