@@ -7,7 +7,9 @@ fastlyPipeline(script: this) {
       dockerFile: 'Dockerfile',
       dockerContextPath: '.',
       imageName: 'fastly/data-engineering/observe-edge-ui',
-      additionalBuildArgs: []
+      additionalBuildArgs: [],
+      cache: true,
+      pushImage: true
     ]
     builtVersion = fastlyDockerBuild([script: this, containers: containers])
   }
