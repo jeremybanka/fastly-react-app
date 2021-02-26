@@ -31,3 +31,6 @@ node_modules
 
 server/*.spec.js
 kubernetes
+
+# ignore git internal files
+/.git
