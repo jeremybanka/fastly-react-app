@@ -1,3 +1,4 @@
+---
 replicaCount: 1
 
 image:
@@ -14,8 +15,12 @@ serviceAccount:
   create: true
   annotations: {}
   # The name of the service account to use.
-  # If not set and create is true, a name is generated using the fullname template
-  name: ""
+  # If not set and create is true, a name is generated using the fullname
+  # template.
+  #
+  # Note: Going forward, we should just use the default --- i.e., fullname ---
+  # and not override.
+  name: "observe-edge-ui"
 
 podAnnotations: {}
 podSecurityContext: {}
