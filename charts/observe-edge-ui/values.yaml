@@ -2,18 +2,18 @@
 replicaCount: 1
 
 image:
-  repository: container-registry.secretcdn.net/fastly/data-engineering/observe-edge-ui
+  repository: container-registry.secretcdn.net/playground/data-engineering/observe-edge-ui
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "0.1.0-rc1"
+  tag: "0.1.0-rc3"
 
-imagePullSecrets: []
+imagePullSecrets: [ ]
 nameOverride: ""
 fullnameOverride: ""
 
 serviceAccount:
   create: true
-  annotations: {}
+  annotations: { }
   # The name of the service account to use.
   # If not set and create is true, a name is generated using the fullname
   # template.
@@ -22,23 +22,24 @@ serviceAccount:
   # and not override.
   name: "observe-edge-ui"
 
-podAnnotations: {}
-podSecurityContext: {}
-securityContext: {}
+podAnnotations: { }
+podSecurityContext: { }
+securityContext: { }
 
 service:
   type: ClusterIP
   port: 80
+  internalPort: 5000
 
 ingress:
   enabled: false
-  annotations: {}
+  annotations: { }
   hosts:
     - host: chart-example.local
-      paths: []
-  tls: []
+      paths: [ ]
+  tls: [ ]
 
-resources: {}
+resources: { }
 
 autoscaling:
   enabled: false
@@ -47,6 +48,6 @@ autoscaling:
   targetCPUUtilizationPercentage: 80
   # targetMemoryUtilizationPercentage: 80
 
-nodeSelector: {}
-tolerations: []
-affinity: {}
+nodeSelector: { }
+tolerations: [ ]
+affinity: { }
