@@ -37,15 +37,18 @@ In order to mitigate CORS, a small nodejs server is used to proxy requests to AP
 
 ## Metadata
 
-- Team: @ben-fastly / @alitorbati / @johnmdonahue
+- Team: Data Engineering + UI, UX Engineering
 - Slack: #stats-chart-poc
 - Engineer: Ben Pinkerton
 - Engineer: Ali Torbati
 - Engineer: John Donahue
+- Engineer: Colton McCurdy
+- Engineer: Herman Schaaf
+- Engineer: Shawn Smith
 - SRE: TODO
 - Reference: TODO
 - Runbook: TODO
-- Shiply: TODO
+- Shiply: https://shiply.fastly.com/fastly/observe-edge-ui
 - PagerDuty: TODO
-- JIRA: TODO
-- Jenkins: TODO
+- JIRA: https://jira.corp.fastly.com/projects/DATAENG
+- Jenkins: https://ci.secretcdn.net/job/team-data/job/observe-edge-ui/
