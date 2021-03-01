@@ -1,4 +1,4 @@
-FROM node:14.15.4
+FROM node:14.16.0-alpine3.10
 WORKDIR /app
 COPY . /app
 RUN yarn build
