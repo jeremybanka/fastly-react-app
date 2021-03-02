@@ -9,6 +9,7 @@ fastlyPipeline(script: this) {
       imageName: 'fastly/data-engineering/observe-edge-ui',
       additionalBuildArgs: [],
       cache: true,
+      slackChannel: '#stats',
       pushImage: true
     ]
     builtVersion = fastlyDockerBuild([script: this, containers: containers])
