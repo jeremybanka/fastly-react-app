@@ -1,7 +1,7 @@
 def containers = []
 def builtVersion
 
-fastlyPipeline(script: this) {
+fastlyPipeline(script: this, slackChannel: '#stats') {
   stage('Build Containers') {
     containers << [
       dockerFile: 'Dockerfile',
@@ -9,7 +9,6 @@ fastlyPipeline(script: this) {
       imageName: 'fastly/data-engineering/observe-edge-ui',
       additionalBuildArgs: [],
       cache: true,
-      slackChannel: '#stats',
       pushImage: true
     ]
     builtVersion = fastlyDockerBuild([script: this, containers: containers])
