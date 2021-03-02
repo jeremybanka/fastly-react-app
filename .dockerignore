@@ -1,5 +1,5 @@
 # Logs
-logs
+**/logs
 *.log
 
 # Runtime data
@@ -11,7 +11,7 @@ pids
 lib-cov
 
 # Coverage directory used by tools like istanbul
-coverage
+**/coverage
 
 # Grunt intermediate storage (http://gruntjs.com/creating-plugins#storing-task-files)
 .grunt
@@ -20,17 +20,18 @@ coverage
 .lock-wscript
 
 # build directories
-build
+**/build
 
 # Compiled binary addons (http://nodejs.org/api/addons.html)
-build/Release
+**/build/Release
 
 # Dependency directory
 # https://www.npmjs.org/doc/misc/npm-faq.html#should-i-check-my-node_modules-folder-into-git
-node_modules
+**/node_modules
 
 server/*.spec.js
 kubernetes
 
 # ignore git internal files
-/.git
+**/.git
+
