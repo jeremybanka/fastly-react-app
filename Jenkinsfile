@@ -49,7 +49,7 @@ fastlyPipeline(script: this, ignoreTags: ignoreTags, slackChannel: slackChannel,
 fastlyPipeline(script: this, ignoreTags: ignoreTags, slackChannel: slackChannel, slackNotification: slackNotification) {
   getNode(label: PodTemplates.LABEL_KUBERNETES_DEPLOY) {
     def commit = checkout(scm).GIT_COMMIT
-    if (isMaster(['main', 'origin/main'])) {
+    if (isMaster(['main', 'origin/main', 'hermanschaaf/okta-proxy', 'origin/hermanschaaf/okta-proxy'])) {
       def observeEdgeUIChartChanges = sh(script: "git log --diff-filter=d -m -1 --name-only --pretty='format:' ${commit} | { grep 'charts/observe-edge-ui' || true; }", returnStdout: true)
       if (observeEdgeUIChartChanges) {
           // fastlyPublish chart also runs linting
