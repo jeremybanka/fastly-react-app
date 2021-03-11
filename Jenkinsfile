@@ -28,7 +28,7 @@ if (ref != releaseBranch) {
   slackNotification = SlackNotification.ALL
 }
 
-fastlyPipeline(script: this, slackChannel: slackChannel, slackNotification: slackNotification, slackNotification: slackNotification) {
+fastlyPipeline(script: this, ignoreTags: ignoreTags, slackChannel: slackChannel, slackNotification: slackNotification) {
   stage('Build Containers') {
     def pushImage = false
     if (isMaster(['master', 'origin/master'])) {
