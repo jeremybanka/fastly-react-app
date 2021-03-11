@@ -6,7 +6,7 @@ import pipeline.fastly.slack.SlackNotification
 def slackChannel = '#stats'
 def slackNotification = SlackNotification.FAILURE
 def ignoreTags = true
-def releaseBranch = "master"
+def releaseBranch = "main"
 def containers = []
 def builtVersion
 
@@ -31,7 +31,7 @@ if (ref != releaseBranch) {
 fastlyPipeline(script: this, ignoreTags: ignoreTags, slackChannel: slackChannel, slackNotification: slackNotification) {
   stage('Build Containers') {
     def pushImage = false
-    if (isMaster(['master', 'origin/master'])) {
+    if (isMaster(['main', 'origin/main'])) {
       pushImage = true
     }
     containers << [
@@ -49,7 +49,7 @@ fastlyPipeline(script: this, ignoreTags: ignoreTags, slackChannel: slackChannel,
 fastlyPipeline(script: this, ignoreTags: ignoreTags, slackChannel: slackChannel, slackNotification: slackNotification) {
   getNode(label: PodTemplates.LABEL_KUBERNETES_DEPLOY) {
     def commit = checkout(scm).GIT_COMMIT
-    if (isMaster(['master', 'origin/master'])) {
+    if (isMaster(['main', 'origin/main'])) {
       def observeEdgeUIChartChanges = sh(script: "git log --diff-filter=d -m -1 --name-only --pretty='format:' ${commit} | { grep 'charts/observe-edge-ui' || true; }", returnStdout: true)
       if (observeEdgeUIChartChanges) {
           // fastlyPublish chart also runs linting
