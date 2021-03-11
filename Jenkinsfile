@@ -51,9 +51,10 @@ fastlyPipeline(script: this, ignoreTags: ignoreTags, slackChannel: slackChannel,
     def commit = checkout(scm).GIT_COMMIT
     if (isMaster(['main', 'origin/main', 'hermanschaaf/okta-proxy', 'origin/hermanschaaf/okta-proxy'])) {
       def observeEdgeUIChartChanges = sh(script: "git log --diff-filter=d -m -1 --name-only --pretty='format:' ${commit} | { grep 'charts/observe-edge-ui' || true; }", returnStdout: true)
+      def publishedVersion = fastlyPublishChart(script: this, charts: ['charts/observe-edge-ui']) // temporary
       if (observeEdgeUIChartChanges) {
           // fastlyPublish chart also runs linting
-          def publishedVersion = fastlyPublishChart(script: this, charts: ['charts/observe-edge-ui'])
+          // def publishedVersion = fastlyPublishChart(script: this, charts: ['charts/observe-edge-ui'])
     //         def pr = updateElevationData(
     //           script: this,
     //           name: "${env.JOB_BASE_NAME}-${gitCommit.take(7)}",
