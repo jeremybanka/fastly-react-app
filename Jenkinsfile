@@ -54,16 +54,16 @@ fastlyPipeline(script: this, ignoreTags: ignoreTags, slackChannel: slackChannel,
       if (isMaster(['master', 'origin/master'])) {
         // fastlyPublish chart also runs linting
         def publishedVersion = fastlyPublishChart(script: this, charts: ['charts/observe-edge-ui'])
-        def pr = updateElevationData(
-          script: this,
-          name: "${env.JOB_BASE_NAME}-${gitCommit.take(7)}",
-          updates: [
-            [file: "workloads/stg-usc1/data-engineering/observe-edge-ui.yaml", keys: ["spec.chart.spec.version"], value: publishedVersion]
-          ]
-        )
-        if (slackChannel) {
-          slackSend color: 'good', message: "Created ElevationData Release [${containerName}:${imageTag}] PR: ${pr.github_pr_url}", channel: slackChannel
-        }
+//         def pr = updateElevationData(
+//           script: this,
+//           name: "${env.JOB_BASE_NAME}-${gitCommit.take(7)}",
+//           updates: [
+//             [file: "workloads/stg-usc1/data-engineering/observe-edge-ui.yaml", keys: ["spec.chart.spec.version"], value: publishedVersion]
+//           ]
+//         )
+//         if (slackChannel) {
+//           slackSend color: 'good', message: "Created ElevationData Release [${containerName}:${imageTag}] PR: ${pr.github_pr_url}", channel: slackChannel
+//         }
       } else {
         fastlyLintChart(script: this, charts: ['charts/observe-edge-ui'])
       }
