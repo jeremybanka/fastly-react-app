@@ -36,6 +36,14 @@ ingress:
   enabled: true
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt-prod
+    nginx.ingress.kubernetes.io/auth-signin: "https://vouch.int.usc1.dev.k8s.secretcdn.net/login?url=$scheme://$http_host$request_uri&vouch-failcount=$auth_resp_failcount&X-Vouch-Token=$auth_resp_jwt&error=$auth_resp_err"
+    nginx.ingress.kubernetes.io/auth-url: https://vouch.int.usc1.dev.k8s.secretcdn.net/validate
+    nginx.ingress.kubernetes.io/auth-response-headers: X-Vouch-User
+    nginx.ingress.kubernetes.io/auth-snippet: |
+      # these return values are used by the @error401 call
+      auth_request_set $auth_resp_jwt $upstream_http_x_vouch_jwt;
+      auth_request_set $auth_resp_err $upstream_http_x_vouch_err;
+      auth_request_set $auth_resp_failcount $upstream_http_x_vouch_failcount;
   hosts:
     - host: observe-edge-ui.int.usc1.dev.k8s.secretcdn.net
       paths:
