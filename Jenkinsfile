@@ -40,30 +40,26 @@ fastlyPipeline(script: this, ignoreTags: ignoreTags, slackChannel: slackChannel,
       imageName: 'fastly/data-engineering/observe-edge-ui',
       additionalBuildArgs: [],
       cache: true,
-      pushImage: pushImage
+      pushImage: pushImage,
     ]
     builtVersion = fastlyDockerBuild([script: this, containers: containers])
   }
-}
 
-fastlyPipeline(script: this, ignoreTags: ignoreTags, slackChannel: slackChannel, slackNotification: slackNotification) {
   getNode(label: PodTemplates.LABEL_KUBERNETES_DEPLOY) {
     def commit = checkout(scm).GIT_COMMIT
     if (isMaster(['main', 'origin/main'])) {
-      def observeEdgeUIChartChanges = sh(script: "git log --diff-filter=d -m -1 --name-only --pretty='format:' ${commit} | { grep 'charts/observe-edge-ui' || true; }", returnStdout: true)
-      if (observeEdgeUIChartChanges) {
-        // fastlyPublish chart also runs linting
-        def publishedVersion = fastlyPublishChart(script: this, charts: ['charts/observe-edge-ui'])
-        def pr = updateElevationData(
-          script: this,
-          name: "${env.JOB_BASE_NAME}-${gitCommit.take(7)}",
-          updates: [
-            [file: "workloads/stg-usc1/data-engineering/observe-edge-ui.yaml", keys: ["spec.chart.spec.version"], value: publishedVersion]
-          ]
-        )
-        if (slackChannel) {
-          slackSend color: 'good', message: "Created ElevationData Release [${containerName}:${imageTag}] PR: ${pr.github_pr_url}", channel: slackChannel
-        }
+      // fastlyPublish chart also runs linting
+      def publishedVersion = fastlyPublishChart(script: this, charts: ['charts/observe-edge-ui'])
+      def pr = updateElevationData(
+        script: this,
+        name: "${env.JOB_BASE_NAME}-${gitCommit.take(7)}",
+        updates: [
+          [file: "workloads/stg-usc1/data-engineering/observe-edge-ui.yaml", keys: ["spec.chart.spec.version"], value: publishedVersion],
+          [file: "workloads/stg-usc1/data-engineering/observe-edge-ui.yaml", keys: ["spec.values.image.tag"], value: builtVersion]
+        ]
+      )
+      if (slackChannel) {
+        slackSend color: 'good', message: "Created ElevationData Release [${containerName}:${imageTag}] PR: ${pr.github_pr_url}", channel: slackChannel
       }
     } else {
       def observeEdgeUIChartChanges = sh(script: "git diff --name-only origin/main HEAD | { grep 'charts/observe-edge-ui' || true; }")
