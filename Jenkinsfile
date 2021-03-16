@@ -52,7 +52,7 @@ fastlyPipeline(script: this, ignoreTags: ignoreTags, slackChannel: slackChannel,
       def publishedVersion = fastlyPublishChart(script: this, charts: ['charts/observe-edge-ui'])
       def pr = updateElevationData(
         script: this,
-        name: "${env.JOB_BASE_NAME}-${gitCommit.take(7)}",
+        name: "${env.JOB_BASE_NAME}-${commit.take(7)}",
         updates: [
           [file: "workloads/stg-usc1/data-engineering/observe-edge-ui.yaml", keys: ["spec.chart.spec.version"], value: publishedVersion],
           [file: "workloads/stg-usc1/data-engineering/observe-edge-ui.yaml", keys: ["spec.values.image.tag"], value: builtVersion]
