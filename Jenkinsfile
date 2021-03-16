@@ -69,7 +69,7 @@ fastlyPipeline(script: this, ignoreTags: ignoreTags, slackChannel: slackChannel,
         updates << [
             file: "workloads/stg-usc1/data-engineering/observe-edge-ui.yaml",
             keys: ["spec.values.image.tag"],
-            value: publishedImageVersion]
+            value: publishedImageVersion
         ]
       }
       if (publishedChartVersion || publishedImageVersion) {
