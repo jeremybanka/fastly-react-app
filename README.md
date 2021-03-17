@@ -6,7 +6,8 @@ Observe@Edge Stats UI
 
 ## Overview
 
-This is a demo site that uses live data from Fastly and Signal Sciences APIs to demonstrate the [signalsciences/rvis](https://github.com/signalsciences/rvis) charting library.
+This is a demo site that uses live data from Fastly and Signal Sciences APIs to demonstrate
+the [signalsciences/rvis](https://github.com/signalsciences/rvis) charting library.
 
 ## Getting started
 
@@ -16,7 +17,8 @@ Run `yarn` from root to install project dependencies.
 
 Run `yarn start` to run a development webserver.
 
-The devserver will by default open a browser and use port `3000`. To specify different behavior, add a `.env` file to root:
+The devserver will by default open a browser and use port `3000`. To specify different behavior, add a `.env` file to
+root:
 
 ```
 BROWSER=none
@@ -34,6 +36,56 @@ To serve the production build, run `yarn serve`.
 ## Notes
 
 In order to mitigate CORS, a small nodejs server is used to proxy requests to API endpoints.
+
+## Deployment
+
+This project is deployed to Kubernetes using the Elevation platform. The Helm chart is defined
+under [charts/observe-edge-ui](charts/observe-edge-ui).
+
+### Deploying to the Dev Cluster
+
+Deployments to the dev Kubernetes cluster can be done locally using `kubectl`. To set this up, follow the steps
+under [Onboarding Process](https://docs.elevation.secretcdn.net/onboarding/kubernetes/). You will also need to
+be [connected to the VPN](https://docs.elevation.secretcdn.net/onboarding/vpn/).
+
+Once logged in with `oulogin`, you are now ready to deploy. Within the [charts](charts) directory, run:
+
+```shell
+helm -n data-engineering upgrade -f observe-edge-ui/values.yaml -i observe-edge-ui observe-edge-ui
+```
+
+If successful, the changes should be viewable
+at [https://observe-edge-ui.int.usc1.dev.k8s.secretcdn.net/](https://observe-edge-ui.int.usc1.dev.k8s.secretcdn.net/).
+Again, `.int.` indicates that this is an internal endpoint, and you need to be connected to the VPN to view it.
+
+You may then use `kubectl` to further inspect the deployment. Here are some useful commands:
+
+#### List Deployments
+
+```shell
+kubectl -n data-engineering describe deployments
+```
+
+#### List Pods
+
+```shell
+kubectl -n data-engineering get pods
+```
+
+#### List Ingresses
+
+```shell
+kubectl -n data-engineering get ing
+```
+
+### Deploying to the Staging Cluster
+
+After your changes to the code are reviewed and merged to the `main` branch, a pull request will automatically be raised
+to [elevation-data](https://github.com/fastly/elevation-data). Merge this to bump the image version and deploy to
+staging.
+
+Staging deploys are available
+under [observe-edge-ui.stg.k8s.secretcdn.net](https://observe-edge-ui.stg.k8s.secretcdn.net/).
 
 ## Metadata
 
