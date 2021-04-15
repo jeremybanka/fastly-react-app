@@ -21,20 +21,20 @@ const defaultOptions: Option[] = [
     label: "1 hour ago",
   },
   {
-    timerange: { from: (Date.now() - 6 * hour).toString(), until: "" },
+    timerange: { from: (Date.now() - 1 * day).toString(), until: "" },
     label: "1 day ago",
   },
   {
-    timerange: { from: (Date.now() - 1 * day).toString(), until: "" },
+    timerange: { from: (Date.now() - 7 * day).toString(), until: "" },
     label: "7 days ago",
   },
   {
-    timerange: { from: (Date.now() - 3 * day).toString(), until: "" },
-    label: "1 month ago",
+    timerange: { from: (Date.now() - 30 * day).toString(), until: "" },
+    label: "30 days ago",
   },
   {
     timerange: { from: (Date.now() - 90 * day).toString(), until: "" },
-    label: "3 months ago",
+    label: "90 days ago",
   },
 ];
 
