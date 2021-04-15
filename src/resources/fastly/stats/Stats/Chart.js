@@ -50,6 +50,9 @@ const Chart = (props: Props): React.Node => {
     return <Box height={height} backgroundColor="grays.1" />;
 
   const { value } = state;
+  if (!value.data) {
+    return <Box height={height} backgroundColor="grays.1" />;
+  }
 
   const transformedData = transformData(value, metrics);
 

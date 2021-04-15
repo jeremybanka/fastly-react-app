@@ -19,6 +19,10 @@ const ServiceSelect = (props: Props): React.Node => {
 
   const { services } = state.value;
 
+  if (!services) {
+    return null;
+  }
+
   const serviceIds = Object.keys(services);
 
   if (serviceIds.length === 0) return null;
