@@ -27,7 +27,7 @@ function Verify(props: Props): React.Node {
   const options = {
     headers: {
       "Content-Type": "application/json",
-      "Fastly-key": accessToken,
+      "Fastly-Key": accessToken,
     },
   };
 

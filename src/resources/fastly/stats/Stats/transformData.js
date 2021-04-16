@@ -46,8 +46,7 @@ function transformData(value: StatsType, metrics: string[]): DataPoint[] {
   let timePeriod = utcMinute;
   if (increment === "hour") timePeriod = utcHour;
   if (increment === "day") timePeriod = utcDay;
-  // Offset by 1 since range defaults to exclude the last interval
-  const intervals = timePeriod.range(fromDate, timePeriod.offset(toDate, 1));
+  const intervals = timePeriod.range(fromDate, toDate);
 
   const transformed = intervals.map((interval) => {
     // Is there a match for the timestamp in the timeseries data?
