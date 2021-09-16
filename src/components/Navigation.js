@@ -70,6 +70,7 @@ function Navigation(props: Props): React.Node {
         <NavItems>
           {[
             { path: "/fastly", label: "Fastly" },
+            { path: "/origins", label: "Origin Inspector" },
             { path: "/sigsci", label: "Signal Sciences" },
             { path: "/auth", label: "Auth" },
           ].map((x) => (
