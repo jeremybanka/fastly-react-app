@@ -38,7 +38,6 @@ function Origins(props: Props): React.Node {
   const qs = stringify({ sum_by: 'host', metric: metrics.join(','), start, end, downsample, region });
 
   const url = `/metrics/origins/services/${serviceId}?${qs}`;
-  console.log(url)
   const options = {
     headers: {
       "Content-Type": "application/json",

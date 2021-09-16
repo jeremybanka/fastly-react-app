@@ -56,7 +56,6 @@ function transformData(value: OriginsType, metrics: string[]): DataPoint[] {
 
     data.forEach((d) => {
       // Is there a match for the timestamp in the timeseries data?
-      // console.log('values', d.values)
       const match = d.values.find((v) => getDate(v).valueOf() === interval.valueOf());
       // Create the datum point using matched data if present, otherwise empty
 
@@ -66,7 +65,6 @@ function transformData(value: OriginsType, metrics: string[]): DataPoint[] {
       })
     })
 
-    // console.log('datum', datum);
     return datum;
   });
 

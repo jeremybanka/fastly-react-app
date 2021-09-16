@@ -72,7 +72,6 @@ function FastlyOriginsPage(props: Props): React.Node {
   const toSecs =
     !until || isNaN(until) ? "" : parseInt(Number(until) / 1000, 10).toString();
 
-  console.log('serviceId',serviceId);
   if (!serviceId) {
     return (
       <Verify query={{ active_services_only: true }}>
@@ -86,7 +85,6 @@ function FastlyOriginsPage(props: Props): React.Node {
           const { services } = state.value;
 
           const serviceIds = Object.keys(services);
-          console.log(services)
           if (serviceIds.length === 0)
             return <RequestRejected reason="No services found for this user" />;
 
