@@ -10,6 +10,7 @@ import GlobalStyle from "./GlobalStyle";
 import MultiSelectInput from "./MultiSelectInput";
 import Navigation from "./Navigation";
 import OriginsMetricSelect from "./OriginsMetricSelect";
+import DomainsMetricSelect from "./DomainsMetricSelect";
 import RequestRejected from "./RequestRejected";
 import ThemePicker from "./ThemePicker";
 import TimerangeDisplay from "./TimerangeDisplay";
@@ -26,6 +27,7 @@ export {
   MultiSelectInput,
   Navigation,
   OriginsMetricSelect,
+  DomainsMetricSelect,
   RequestRejected,
   ThemePicker,
   TimerangeDisplay,

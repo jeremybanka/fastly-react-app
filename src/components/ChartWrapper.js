@@ -17,7 +17,7 @@ export type Chart = {
 };
 type Props = {
   defaultChart: Chart,
-  api: "sigsci" | "fastly" | "origins",
+  api: "sigsci" | "fastly" | "origins" | "domains",
   params: {
     siteName: string,
   },
