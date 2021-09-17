@@ -45,7 +45,7 @@ const charts: Chart[] = [
     format: "number",
   },
   {
-    id: "response",
+    id: "status_2xx",
     title: "Status_2xx by Origin",
     subtitle: "Number of status 2xx codes returned by each origin host",
     metrics: ["status_2xx"],
@@ -53,7 +53,7 @@ const charts: Chart[] = [
     format: "number",
   },
   {
-    id: "response",
+    id: "status_5xx",
     title: "Status_5xx by Origin",
     subtitle: "Number of status 5xx codes returned by each origin host",
     metrics: ["status_5xx"],
