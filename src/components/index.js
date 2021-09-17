@@ -9,6 +9,7 @@ import FastlyMetricSelect from "./FastlyMetricSelect";
 import GlobalStyle from "./GlobalStyle";
 import MultiSelectInput from "./MultiSelectInput";
 import Navigation from "./Navigation";
+import OriginsMetricSelect from "./OriginsMetricSelect";
 import RequestRejected from "./RequestRejected";
 import ThemePicker from "./ThemePicker";
 import TimerangeDisplay from "./TimerangeDisplay";
@@ -24,6 +25,7 @@ export {
   GlobalStyle,
   MultiSelectInput,
   Navigation,
+  OriginsMetricSelect,
   RequestRejected,
   ThemePicker,
   TimerangeDisplay,
