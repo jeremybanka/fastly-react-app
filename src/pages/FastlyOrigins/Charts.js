@@ -92,7 +92,7 @@ function FastlyOriginsCharts(props: Props): React.Node {
           {(rsrc) =>
             charts.map((chart) => (
               <GridItem key={chart.id}>
-                <ChartWrapper defaultChart={chart} api="fastly">
+                <ChartWrapper defaultChart={chart} api="origins">
                   {({
                     chartType,
                     metrics,
