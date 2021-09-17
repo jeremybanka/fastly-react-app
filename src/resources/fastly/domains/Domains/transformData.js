@@ -21,7 +21,7 @@
 
 import { utcDay, utcHour, utcMinute } from "d3-time";
 import getIncrement from "./getIncrement";
-import type { OriginsType } from "..";
+import type { DomainsType } from "..";
 
 type DataPoint = {
   date: Date,
@@ -31,7 +31,7 @@ type DataPoint = {
 // return a Date object from a data point (timestamp is seconds)
 const getDate = (d: Object): Date => new Date(d.timestamp * 1000);
 
-function transformData(value: OriginsType, metrics: string[]): DataPoint[] {
+function transformData(value: DomainsType, metrics: string[]): DataPoint[] {
   const { data, meta } = value;
   const { start, end } = meta;
   const startDate = new Date(start);
@@ -55,7 +55,7 @@ function transformData(value: OriginsType, metrics: string[]): DataPoint[] {
       const match = d.values.find((v) => getDate(v).valueOf() === interval.valueOf());
       // Create the datum point using matched data if present, otherwise empty
 
-      let key = d.dimensions.host;
+      let key = d.dimensions.domain;
       metrics.forEach((m) => {
         datum[key] = match && match[m] ? match[m] : 0;
       })
