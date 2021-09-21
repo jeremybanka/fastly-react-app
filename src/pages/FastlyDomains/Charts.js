@@ -10,7 +10,7 @@ import {
   themeGet,
   css,
 } from "cosmo";
-import { Origins } from "../../resources/fastly/origins";
+import { Domains } from "../../resources/fastly/domains";
 import { ChartWrapper } from "../../components";
 import type { OnChange as HandleTimeRangeChange } from "../../components/TimerangePresets";
 import type { Chart } from "../../components/ChartWrapper";
@@ -37,57 +37,57 @@ const GridItem = styled.div`
 
 const charts: Chart[] = [
   {
-    id: "response",
-    title: "Responses by Origin",
-    subtitle: "Number of responses processed by each origin host",
-    metrics: ["responses"],
+    id: "edge",
+    title: "Edge by Domain",
+    subtitle: "Number of requests from the edge to domain",
+    metrics: ["edge"],
     chartType: "bar",
     format: "number",
   },
   {
     id: "resp_body_bytes",
-    title: "Response body bytes by Origin",
-    subtitle: "Total number of response body bytes returned by each origin host",
+    title: "Response body bytes by Domain",
+    subtitle: "Number of body bytes from domain.",
     metrics: ["resp_body_bytes"],
     chartType: "bar",
     format: "bytes",
   },
   {
     id: "resp_header_bytes",
-    title: "Response header bytes by Origin",
-    subtitle: "Total number of response header bytes returned by each origin host",
+    title: "Response header bytes by Domain",
+    subtitle: "Number of header bytes from domain.",
     metrics: ["resp_header_bytes"],
     chartType: "bar",
     format: "bytes",
   },
   {
     id: "status_2xx",
-    title: "2xx by Origin",
-    subtitle: "Number of status 2xx codes returned by each origin host",
+    title: "2xx by Domain",
+    subtitle: "Number of 2xx \"Success\" status codes delivered from domain.",
     metrics: ["status_2xx"],
     chartType: "bar",
     format: "number",
   },
   {
     id: "status_3xx",
-    title: "3xx by Origin",
-    subtitle: "Number of status 3xx codes returned by each origin host",
+    title: "3xx by Domain",
+    subtitle: "Number of 3xx \"Redirection\" codes delivered from domain.",
     metrics: ["status_3xx"],
     chartType: "bar",
     format: "number",
   },
   {
     id: "status_4xx",
-    title: "4xx by Origin",
-    subtitle: "Number of status 4xx codes returned by each origin host",
+    title: "4xx by Domain",
+    subtitle: "Number of 4xx \"Client Error\" codes delivered from domain.",
     metrics: ["status_4xx"],
     chartType: "bar",
     format: "number",
   },
   {
     id: "status_5xx",
-    title: "5xx by Origin",
-    subtitle: "Number of status 5xx codes returned by each origin host",
+    title: "5xx by Domain",
+    subtitle: "Number of 5xx \"Server Error\" codes delivered from domain.",
     metrics: ["status_5xx"],
     chartType: "bar",
     format: "number",
@@ -105,7 +105,7 @@ type Props = {
   },
   onTimerangeChange: HandleTimeRangeChange,
 };
-function FastlyOriginsCharts(props: Props): React.Node {
+function FastlyDomainsCharts(props: Props): React.Node {
   const [yScale, setYScale] = React.useState<"linear" | "log">("linear");
   const { params, query, onTimerangeChange } = props;
   const { serviceId } = params;
@@ -120,11 +120,11 @@ function FastlyOriginsCharts(props: Props): React.Node {
   return (
     <ChartProvider>
       <Grid>
-        <Origins params={{ serviceId }} query={{ start, end, region, metrics }}>
+        <Domains params={{ serviceId }} query={{ start, end, region, metrics }}>
           {(rsrc) =>
             charts.map((chart) => (
               <GridItem key={chart.id}>
-                <ChartWrapper defaultChart={chart} api="origins">
+                <ChartWrapper defaultChart={chart} api="Domains">
                   {({
                     chartType,
                     metrics,
@@ -133,7 +133,7 @@ function FastlyOriginsCharts(props: Props): React.Node {
                     disabledMetrics,
                     handleLegendItemClick,
                   }) => (
-                    <Origins.Chart
+                    <Domains.Chart
                       resource={rsrc}
                       height={height}
                       yScale={yScale}
@@ -182,10 +182,10 @@ function FastlyOriginsCharts(props: Props): React.Node {
               </GridItem>
             ))
           }
-        </Origins>
+        </Domains>
       </Grid>
     </ChartProvider>
   );
 }
 
-export default FastlyOriginsCharts;
+export default FastlyDomainsCharts;

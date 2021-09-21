@@ -71,6 +71,7 @@ function Navigation(props: Props): React.Node {
           {[
             { path: "/fastly", label: "Fastly" },
             { path: "/origins", label: "Origin Inspector" },
+            { path: "/domains", label: "Domain Inspector" },
             { path: "/sigsci", label: "Signal Sciences" },
             { path: "/auth", label: "Auth" },
           ].map((x) => (
