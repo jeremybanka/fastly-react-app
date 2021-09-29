@@ -1,7 +1,16 @@
 import { render } from "@testing-library/react";
+import { MemoryRouter } from "react-router";
 import App from "./App";
 
-test("renders learn react link", () => {
-  render(<App />);
-  expect(true).toBe(true);
+// This is an example test that just snapshots the <App />.
+// Expectation is that this test would be removed in favour of more discreet
+// component tests.
+
+test("example snapshot test for <App />", () => {
+  const Component = render(
+    <MemoryRouter>
+      <App />
+    </MemoryRouter>
+  );
+  expect(Component).toMatchSnapshot();
 });
