@@ -3,7 +3,7 @@
 import pipeline.fastly.kubernetes.jenkins.PodTemplates
 import pipeline.fastly.slack.SlackNotification
 
-def slackChannel = '#stats'
+def slackChannel = '#stats-bots'
 def slackNotification = SlackNotification.FAILURE
 def ignoreTags = true
 def releaseBranch = "main"
