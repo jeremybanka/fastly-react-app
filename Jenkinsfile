@@ -79,7 +79,7 @@ fastlyPipeline(script: this, ignoreTags: ignoreTags, slackChannel: slackChannel,
           updates: updates
         )
         if (slackChannel) {
-          slackSend color: 'good', message: "Created ElevationData Release [${containerName}:${imageTag}] PR: ${pr.github_pr_url}", channel: slackChannel
+          slackSend color: 'good', message: "Created ElevationData Release [observe-edge-ui:${imageTag}] PR: ${pr.github_pr_url}", channel: slackChannel
         }
       }
     } else {
