@@ -7,10 +7,10 @@ import App from "./App";
 // component tests.
 
 test("example snapshot test for <App />", () => {
-  const Component = render(
+  const { asFragment } = render(
     <MemoryRouter>
       <App />
     </MemoryRouter>
   );
-  expect(Component).toMatchSnapshot();
+  expect(asFragment()).toMatchSnapshot();
 });

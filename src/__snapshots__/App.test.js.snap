@@ -1,282 +1,115 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`example snapshot test for <App /> 1`] = `
-Object {
-  "asFragment": [Function],
-  "baseElement": <body>
-    <div>
-      <div
-        class="sc-kfzAmx fGnnXi"
-      >
-        <div
-          class="sc-fKFyDc gTMLx"
-        >
-          <a
-            aria-current="page"
-            class="sc-bBXqnf flaYrT isActive"
-            href="/fastly"
-          >
-            Fastly
-          </a>
-          <a
-            class="sc-bBXqnf flaYrT"
-            href="/origins"
-          >
-            Origin Inspector
-          </a>
-          <a
-            class="sc-bBXqnf flaYrT"
-            href="/domains"
-          >
-            Domain Inspector
-          </a>
-          <a
-            class="sc-bBXqnf flaYrT"
-            href="/sigsci"
-          >
-            Signal Sciences
-          </a>
-          <a
-            class="sc-bBXqnf flaYrT"
-            href="/auth"
-          >
-            Auth
-          </a>
-        </div>
-        <div
-          class="sc-dlfnbm eiGZdo"
-        />
-        <div
-          class="sc-dlfnbm isWJdv"
-        >
-          <div
-            class="sc-dlfnbm isWJdv"
-          >
-            <div
-              class="sc-jrAGrp ipUvmh"
-            >
-              <div
-                class="sc-dlfnbm isWJdv"
-              >
-                <label
-                  class="sc-bkzZxe iTwkIl"
-                  for="theme"
-                >
-                  <input
-                    class="sc-fFubgz hHftiS"
-                    id="theme"
-                    name="theme"
-                    type="checkbox"
-                    value="dark"
-                  />
-                  <div
-                    class="sc-idOhPF cKYVLL"
-                  />
-                </label>
-              </div>
-              <div
-                class="sc-dlfnbm cMVmUG"
-              >
-                <div
-                  class="sc-dlfnbm isWJdv"
-                >
-                  <label
-                    class="sc-hHftDr bkogVI"
-                    color="grays.6"
-                    font-size="xs"
-                    font-weight="semibold"
-                    for="theme"
-                    letter-spacing="sm"
-                  >
-                    Dark mode
-                  </label>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div
-        class="sc-dlfnbm ePuIJd"
-      >
-        <div
-          class="sc-dlfnbm gxZzRO"
-        >
-          <span
-            class="sc-hHftDr zPloS"
-            font-weight="semibold"
-          >
-            🔑 Auth credentials missing
-          </span>
-          <div
-            class="sc-dlfnbm ikYQkK"
-          />
-          Are your auth credentials present and correct?
-        </div>
-      </div>
-    </div>
-  </body>,
-  "container": <div>
+<DocumentFragment>
+  <div
+    class="sc-kfzAmx fGnnXi"
+  >
     <div
-      class="sc-kfzAmx fGnnXi"
+      class="sc-fKFyDc gTMLx"
     >
-      <div
-        class="sc-fKFyDc gTMLx"
+      <a
+        aria-current="page"
+        class="sc-bBXqnf flaYrT isActive"
+        href="/fastly"
       >
-        <a
-          aria-current="page"
-          class="sc-bBXqnf flaYrT isActive"
-          href="/fastly"
-        >
-          Fastly
-        </a>
-        <a
-          class="sc-bBXqnf flaYrT"
-          href="/origins"
-        >
-          Origin Inspector
-        </a>
-        <a
-          class="sc-bBXqnf flaYrT"
-          href="/domains"
-        >
-          Domain Inspector
-        </a>
-        <a
-          class="sc-bBXqnf flaYrT"
-          href="/sigsci"
-        >
-          Signal Sciences
-        </a>
-        <a
-          class="sc-bBXqnf flaYrT"
-          href="/auth"
-        >
-          Auth
-        </a>
-      </div>
-      <div
-        class="sc-dlfnbm eiGZdo"
-      />
+        Fastly
+      </a>
+      <a
+        class="sc-bBXqnf flaYrT"
+        href="/origins"
+      >
+        Origin Inspector
+      </a>
+      <a
+        class="sc-bBXqnf flaYrT"
+        href="/domains"
+      >
+        Domain Inspector
+      </a>
+      <a
+        class="sc-bBXqnf flaYrT"
+        href="/sigsci"
+      >
+        Signal Sciences
+      </a>
+      <a
+        class="sc-bBXqnf flaYrT"
+        href="/auth"
+      >
+        Auth
+      </a>
+    </div>
+    <div
+      class="sc-dlfnbm eiGZdo"
+    />
+    <div
+      class="sc-dlfnbm isWJdv"
+    >
       <div
         class="sc-dlfnbm isWJdv"
       >
         <div
-          class="sc-dlfnbm isWJdv"
+          class="sc-jrAGrp ipUvmh"
         >
           <div
-            class="sc-jrAGrp ipUvmh"
+            class="sc-dlfnbm isWJdv"
+          >
+            <label
+              class="sc-bkzZxe iTwkIl"
+              for="theme"
+            >
+              <input
+                class="sc-fFubgz hHftiS"
+                id="theme"
+                name="theme"
+                type="checkbox"
+                value="dark"
+              />
+              <div
+                class="sc-idOhPF cKYVLL"
+              />
+            </label>
+          </div>
+          <div
+            class="sc-dlfnbm cMVmUG"
           >
             <div
               class="sc-dlfnbm isWJdv"
             >
               <label
-                class="sc-bkzZxe iTwkIl"
+                class="sc-hHftDr bkogVI"
+                color="grays.6"
+                font-size="xs"
+                font-weight="semibold"
                 for="theme"
+                letter-spacing="sm"
               >
-                <input
-                  class="sc-fFubgz hHftiS"
-                  id="theme"
-                  name="theme"
-                  type="checkbox"
-                  value="dark"
-                />
-                <div
-                  class="sc-idOhPF cKYVLL"
-                />
+                Dark mode
               </label>
-            </div>
-            <div
-              class="sc-dlfnbm cMVmUG"
-            >
-              <div
-                class="sc-dlfnbm isWJdv"
-              >
-                <label
-                  class="sc-hHftDr bkogVI"
-                  color="grays.6"
-                  font-size="xs"
-                  font-weight="semibold"
-                  for="theme"
-                  letter-spacing="sm"
-                >
-                  Dark mode
-                </label>
-              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
+  </div>
+  <div
+    class="sc-dlfnbm ePuIJd"
+  >
     <div
-      class="sc-dlfnbm ePuIJd"
+      class="sc-dlfnbm gxZzRO"
     >
-      <div
-        class="sc-dlfnbm gxZzRO"
+      <span
+        class="sc-hHftDr zPloS"
+        font-weight="semibold"
       >
-        <span
-          class="sc-hHftDr zPloS"
-          font-weight="semibold"
-        >
-          🔑 Auth credentials missing
-        </span>
-        <div
-          class="sc-dlfnbm ikYQkK"
-        />
-        Are your auth credentials present and correct?
-      </div>
+        🔑 Auth credentials missing
+      </span>
+      <div
+        class="sc-dlfnbm ikYQkK"
+      />
+      Are your auth credentials present and correct?
     </div>
-  </div>,
-  "debug": [Function],
-  "findAllByAltText": [Function],
-  "findAllByDisplayValue": [Function],
-  "findAllByLabelText": [Function],
-  "findAllByPlaceholderText": [Function],
-  "findAllByRole": [Function],
-  "findAllByTestId": [Function],
-  "findAllByText": [Function],
-  "findAllByTitle": [Function],
-  "findByAltText": [Function],
-  "findByDisplayValue": [Function],
-  "findByLabelText": [Function],
-  "findByPlaceholderText": [Function],
-  "findByRole": [Function],
-  "findByTestId": [Function],
-  "findByText": [Function],
-  "findByTitle": [Function],
-  "getAllByAltText": [Function],
-  "getAllByDisplayValue": [Function],
-  "getAllByLabelText": [Function],
-  "getAllByPlaceholderText": [Function],
-  "getAllByRole": [Function],
-  "getAllByTestId": [Function],
-  "getAllByText": [Function],
-  "getAllByTitle": [Function],
-  "getByAltText": [Function],
-  "getByDisplayValue": [Function],
-  "getByLabelText": [Function],
-  "getByPlaceholderText": [Function],
-  "getByRole": [Function],
-  "getByTestId": [Function],
-  "getByText": [Function],
-  "getByTitle": [Function],
-  "queryAllByAltText": [Function],
-  "queryAllByDisplayValue": [Function],
-  "queryAllByLabelText": [Function],
-  "queryAllByPlaceholderText": [Function],
-  "queryAllByRole": [Function],
-  "queryAllByTestId": [Function],
-  "queryAllByText": [Function],
-  "queryAllByTitle": [Function],
-  "queryByAltText": [Function],
-  "queryByDisplayValue": [Function],
-  "queryByLabelText": [Function],
-  "queryByPlaceholderText": [Function],
-  "queryByRole": [Function],
-  "queryByTestId": [Function],
-  "queryByText": [Function],
-  "queryByTitle": [Function],
-  "rerender": [Function],
-  "unmount": [Function],
-}
+  </div>
+</DocumentFragment>
 `;
