@@ -78,9 +78,8 @@ fastlyPipeline(script: this, ignoreTags: ignoreTags, slackChannel: slackChannel,
           name: "${env.JOB_BASE_NAME}-${commit.take(7)}",
           updates: updates
         )
-        def containerVersion = fastlyDockerBuild(script: this, containers: containers)
         if (slackChannel) {
-          slackSend color: 'good', message: "Created ElevationData Release [observe-edge-ui:${containerVersion}] PR: ${pr.github_pr_url}", channel: slackChannel
+          slackSend color: 'good', message: "Created ElevationData Release [observe-edge-ui:${publishedImageVersion}] PR: ${pr.github_pr_url}", channel: slackChannel
         }
       }
     } else {
