@@ -9,6 +9,16 @@ module.exports = function (app) {
     })
   );
   app.use(
+    "/rt",
+    createProxyMiddleware({
+      target: "https://rt.fastly.com",
+      changeOrigin: true,
+      headers: {
+        Origin: "https://manage.fastly.com",
+      },
+    })
+  );
+  app.use(
     ["/stats", "/service", "/verify", "/metrics"],
     createProxyMiddleware({
       target: "https://api.fastly.com",

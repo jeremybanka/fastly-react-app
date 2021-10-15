@@ -4,7 +4,7 @@ import * as React from "react";
 import { Switch, Route, Redirect, useLocation } from "react-router-dom";
 import { theme as cosmoTheme, getTheme, Box, ThemeProvider } from "cosmo";
 import useLocalStorage from "./hooks/useLocalStorage";
-import { AuthPage, FastlyPage, FastlyOriginsPage, FastlyDomainsPage, SigsciPage } from "./pages";
+import { AuthPage, FastlyPage, FastlyOriginsPage, FastlyDomainsPage, FastlyRealTimePage, SigsciPage } from "./pages";
 import { GlobalStyle, Navigation } from "./components";
 
 function App(): React.Node {
@@ -41,6 +41,9 @@ function App(): React.Node {
           </Route>
           <Route path={"/domains/:serviceId?"}>
             <FastlyDomainsPage />
+          </Route>
+          <Route path={"/realtime/:serviceId?"}>
+            <FastlyRealTimePage />
           </Route>
           <Route path="/sigsci/:siteName?">
             <SigsciPage />
