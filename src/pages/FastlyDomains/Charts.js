@@ -37,10 +37,10 @@ const GridItem = styled.div`
 
 const charts: Chart[] = [
   {
-    id: "edge",
+    id: "edge_requests",
     title: "Edge by Domain",
     subtitle: "Number of requests from the edge to domain",
-    metrics: ["edge"],
+    metrics: ["edge_requests"],
     chartType: "bar",
     format: "number",
   },
