@@ -5,6 +5,7 @@ import { RequestRejected } from "../../../../components";
 import { Box } from "cosmo";
 import type { RealTimeType } from "../"
 import transformData from "./transformData";
+import _ from 'lodash';
 
 const defaults = {
   dataset: [],
@@ -39,7 +40,10 @@ const Poller = (props: Props): React.Node => {
 
   const storeValues = (response:RealTimeType, replace:boolean=false) => {
     const transformedData = transformData(response.Data);
-    setDataset(replace ? [...transformedData] : [...dataset,...transformedData]);
+    const updatedData = replace 
+      ? [...transformedData] 
+      : [...dataset,...transformedData];
+    setDataset(_.takeRight(updatedData, 120));
     setLastResponseTimestamp(response.Timestamp);
   }
 

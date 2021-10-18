@@ -13,7 +13,6 @@ import {
 import { RealTime } from "../../resources/fastly/realtime";
 import { ChartWrapper } from "../../components"
 import type { Chart } from "../../components/ChartWrapper";
-import _ from 'lodash';
 
 const height = 200;
 

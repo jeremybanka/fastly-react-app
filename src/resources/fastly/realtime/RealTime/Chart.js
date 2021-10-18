@@ -42,7 +42,7 @@ const Chart = (props: Props): React.Node => {
     formatLegendTotalLabel = (value) => value,
   } = props;
   
-  const formattedData = _.takeRight(dataset, 120).map((record) => _.pick(record, ['date', ...metrics]))
+  const formattedData = dataset.map((record) => _.pick(record, ['date', ...metrics]))
 
   return (
     <>
