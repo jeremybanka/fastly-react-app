@@ -2,8 +2,8 @@
 
 import * as React from "react";
 import { TimeseriesChart, TimeseriesLegend } from "rvis";
-import transformData from "./transformData";
 import type { ChartType } from "../../../../components/ChartWrapper";
+import _ from 'lodash';
 
 type YScale = "linear" | "log";
 type FormatLabel = (label: string) => string;
@@ -42,13 +42,13 @@ const Chart = (props: Props): React.Node => {
     formatLegendTotalLabel = (value) => value,
   } = props;
   
-  const transformedData = transformData(dataset, metrics);
+  const formattedData = _.takeRight(dataset, 120).map((record) => _.pick(record, ['date', ...metrics]))
 
   return (
     <>
       <TimeseriesChart
         height={height}
-        data={transformedData}
+        data={formattedData}
         chartType={chartType}
         yScale={yScale}
         onYAxisClick={onYAxisClick}
@@ -59,7 +59,7 @@ const Chart = (props: Props): React.Node => {
         formatYTickLabel={formatYTickLabel}
       />
       <TimeseriesLegend
-        data={transformedData}
+        data={formattedData}
         disabledKeys={disabledMetrics}
         onClick={onLegendItemClick}
         formatLabelText={formatLegendLabel}

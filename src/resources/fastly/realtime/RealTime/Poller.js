@@ -4,6 +4,7 @@ import * as React from "react";
 import { RequestRejected } from "../../../../components";
 import { Box } from "cosmo";
 import type { RealTimeType } from "../"
+import transformData from "./transformData";
 
 const defaults = {
   dataset: [],
@@ -37,7 +38,8 @@ const Poller = (props: Props): React.Node => {
   const getLatest = async () => storeValues(await resource.actions.getLatest(lastResponseTimestamp));
 
   const storeValues = (response:RealTimeType, replace:boolean=false) => {
-    setDataset(replace ? [...response.Data] : [...dataset,...response.Data]);
+    const transformedData = transformData(response.Data);
+    setDataset(replace ? [...transformedData] : [...dataset,...transformedData]);
     setLastResponseTimestamp(response.Timestamp);
   }
 
@@ -52,7 +54,7 @@ const Poller = (props: Props): React.Node => {
 
   const { value } = state;
   if (value.Data && value.Timestamp && !dataset.length) storeValues(value);
-
+  
   return (
     <>
       {typeof children === "function"

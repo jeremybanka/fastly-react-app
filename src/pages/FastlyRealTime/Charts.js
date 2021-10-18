@@ -13,6 +13,7 @@ import {
 import { RealTime } from "../../resources/fastly/realtime";
 import { ChartWrapper } from "../../components"
 import type { Chart } from "../../components/ChartWrapper";
+import _ from 'lodash';
 
 const height = 200;
 
@@ -63,8 +64,6 @@ const FastlyRealTimeCharts = (props: Props): React.Node => {
   const { params } = props;
   const { serviceId } = params;
 
-  const metrics = charts.map(c => c.metrics[0]);
-
   const valueAsNumber = (value: string): number =>
     parseFloat(value.split(",").join(""));
   const isPrecise = (value: number): boolean => value >= 1000;
@@ -73,7 +72,7 @@ const FastlyRealTimeCharts = (props: Props): React.Node => {
       <Grid>
         <RealTime params={{ serviceId }}>
           {(rsrc) =>
-            <RealTime.Poller resource={rsrc}>
+            <RealTime.Poller resource={rsrc} >
               {({dataset}) =>
                 charts.map((chart) => (
                   <GridItem key={chart.id}>
