@@ -13,11 +13,12 @@ import {
 import { SiteTags } from "../resources/sigsci/tags";
 import { FastlyMetricSelect } from "./";
 import { OriginsMetricSelect } from "./";
+import { RealTimeMetricSelect } from "./";
 import { DomainsMetricSelect } from "./";
 
 type Props = {
   formValues: Object,
-  api: "sigsci" | "fastly" | "origins" | "domains",
+  api: "sigsci" | "fastly" | "origins" | "domains" | "rt",
   params: {
     siteName: string,
   },
@@ -87,6 +88,16 @@ function ChartConfig(props: Props): React.Node {
           />
         ) : api === "origins" ? (
           <OriginsMetricSelect
+            value={metrics}
+            onChange={(options) =>
+              onInputChange(
+                "metrics",
+                options.map((v) => v.value)
+              )
+            }
+          />
+        ) : api === "rt" ? (
+          <RealTimeMetricSelect
             value={metrics}
             onChange={(options) =>
               onInputChange(
