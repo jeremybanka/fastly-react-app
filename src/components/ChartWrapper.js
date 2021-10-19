@@ -14,6 +14,8 @@ export type Chart = {
   metrics: string[],
   chartType: ChartType,
   format: ChartFormat,
+  disabledMetrics: string[],
+  handleLegendItemClick: (string) => void,
 };
 type Props = {
   defaultChart: Chart,
@@ -26,11 +28,13 @@ type Props = {
     metrics: string[],
     format: ChartFormat,
     theme: Object,
+    disabledMetrics: string[],
+    handleLegendItemClick: Object,
   }) => React.Node,
 };
 
 function ChartWrapper(props: Props): React.Node {
-  const { defaultChart, api, params = {}, children } = props;
+  const { defaultChart, api, params = {siteName:  ''}, children } = props;
   const [disabledMetrics, setDisabledMetrics] = React.useState<string[]>([]);
   const [chartConfig, setChartConfig] = useLocalStorage(
     defaultChart.id,
@@ -46,7 +50,7 @@ function ChartWrapper(props: Props): React.Node {
       [id]: value,
     });
 
-  const handleLegendItemClick = (label) => {
+  const handleLegendItemClick = (label:string) => {
     setDisabledMetrics(
       disabledMetrics.includes(label)
         ? disabledMetrics.filter((m) => m !== label)

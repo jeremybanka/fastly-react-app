@@ -13,6 +13,7 @@ import {
 import { RealTime } from "../../resources/fastly/realtime";
 import { ChartWrapper } from "../../components"
 import type { Chart } from "../../components/ChartWrapper";
+import type { OnChange as HandleTimeRangeChange } from "../../components/TimerangePresets";
 
 const height = 200;
 
@@ -36,20 +37,64 @@ const GridItem = styled.div`
 
 const charts: Chart[] = [
   {
-    id: "requests",
+    id: "rt-requests",
     title: "Requests",
     subtitle: "Number of requests processed each second",
     metrics: ["requests"],
-    chartType: "bar",
+    chartType: "line",
     format: "number",
+    disabledMetrics: [],
+    handleLegendItemClick: () => {},
   },
   {
-    id: "errors",
+    id: "rt-errors",
     title: "Errors",
     subtitle: "Number of errors returned each second",
     metrics: ["errors"],
+    chartType: "line",
+    format: "number",
+    disabledMetrics: [],
+    handleLegendItemClick: () => {},
+  },
+  {
+    id: "rt-status",
+    title: "Response Status",
+    subtitle: "Status counts returned each second",
+    metrics: ["status_2xx","status_3xx","status_4xx","status_5xx"],
     chartType: "bar",
     format: "number",
+    disabledMetrics: [],
+    handleLegendItemClick: () => {},
+  },
+  {
+    id: "rt-bandwidth",
+    title: "Bandwidth",
+    subtitle: "Number of bytes transferred per second",
+    metrics: ["bandwidth"],
+    chartType: "bar",
+    format: "bytes",
+    disabledMetrics: [],
+    handleLegendItemClick: () => {},
+  },
+  {
+    id: "rt-logs",
+    title: "Logs",
+    subtitle: "Number of logs sent to endpoints from Fastly",
+    metrics: ["logging"],
+    chartType: "line",
+    format: "number",
+    disabledMetrics: [],
+    handleLegendItemClick: () => {},
+  },
+  {
+    id: "rt-ratio",
+    title: "Hit Ratio",
+    subtitle: "Percentage of requests being delivered from cache",
+    metrics: ["hit_ratio"],
+    chartType: "line",
+    format: "percent",
+    disabledMetrics: [],
+    handleLegendItemClick: () => {},
   },
 ];
 
@@ -57,10 +102,15 @@ type Props = {
   params: {
     serviceId: string,
   },
+  query?: {
+    from?: number,
+    until?: number,
+  },
+  onTimerangeChange: HandleTimeRangeChange,
 };
 const FastlyRealTimeCharts = (props: Props): React.Node => {
   const [yScale, setYScale] = React.useState<"linear" | "log">("linear");
-  const { params } = props;
+  const { params, query, onTimerangeChange } = props;
   const { serviceId } = params;
 
   const valueAsNumber = (value: string): number =>
@@ -71,18 +121,18 @@ const FastlyRealTimeCharts = (props: Props): React.Node => {
       <Grid>
         <RealTime params={{ serviceId }}>
           {(rsrc) =>
-            <RealTime.Poller resource={rsrc} >
+            <RealTime.Poller resource={rsrc} query={query}>
               {({dataset}) =>
                 charts.map((chart) => (
                   <GridItem key={chart.id}>
-                    <ChartWrapper defaultChart={chart} api="rt">
+                    <ChartWrapper defaultChart={chart} api="rt" params={{ siteName: ''}}>
                       {({
                         chartType,
                         metrics,
                         format,
                         theme,
                         disabledMetrics,
-                        handleLegendItemClick,
+                        handleLegendItemClick
                       }) => (
                         <RealTime.Chart
                           dataset={dataset}
@@ -96,12 +146,12 @@ const FastlyRealTimeCharts = (props: Props): React.Node => {
                           onYAxisClick={(currentScale) =>
                             setYScale(currentScale === "linear" ? "log" : "linear")
                           }
-                          // onApplyBrush={({ start, end }) =>
-                          //   onTimerangeChange({
-                          //     from: start ? start.getTime().toString() : "",
-                          //     until: end ? end.getTime().toString() : "",
-                          //   })
-                          // }
+                          onApplyBrush={({ start, end }) =>
+                            onTimerangeChange({
+                              from: start ? start.getTime().toString() : "",
+                              until: end ? end.getTime().toString() : "",
+                            })
+                          }
                           formatYTickLabel={(label) => {
                             if (format === "bytes") {
                               return formatBytes(valueAsNumber(label));

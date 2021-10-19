@@ -11,6 +11,16 @@ type Props = {
 
 const options: OptionType[] = [
   {
+    value: "hit_ratio",
+    label: "hit_ratio", 
+    description: "The percentage of requests being delivered from cache.",
+  },
+  {
+    value: "bandwidth",
+    label: "bandwidth", 
+    description: "The total bytes of data transferred.",
+  },
+  {
     value: "attack_blocked_req_body_bytes",
     label: "attack_blocked_req_body_bytes", 
     description: "Total body bytes received from requests that triggered a WAF rule that was blocked.",
