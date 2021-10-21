@@ -7,14 +7,43 @@ import type { RealTimeType } from "../"
 import transformData from "./transformData";
 import _ from 'lodash';
 
-const defaults = {
-  dataset: [],
+const dataInitialState = {
+  filteredData: [],
   collectedData: [],
-  lastResponseTimestamp: null,
-  doPolling: true
+  lastReceived: null,
+  from: null,
+  until: null,
 }
 
+const dataReducer = (state, action) => {
+  let tmp = { ...state };
+  switch (action.type) {
+    case "set":
+      tmp.collectedData = _.takeRight([...transformData(action.data)], 120);
+      tmp.lastReceived = action.timestamp;
+      tmp.filteredData = (action.from && action.until) 
+        ? tmp.collectedData.filter((item) => (item.date >= action.from && item.date <= action.until))
+        : null;
+      break;
+    case "append":
+      tmp.collectedData = _.takeRight([...state.collectedData,...transformData(action.data)], 120);
+      tmp.lastReceived = action.timestamp;
+      break;
+    case "filter":
+      tmp.filteredData = (action.from && action.until) 
+        ? tmp.collectedData.filter((item) => (item.date >= action.from && item.date <= action.until))
+        : null;
+      break;
+    default:
+      return tmp;
+  }
+  return tmp;
+};
+
 type Props = {
+  params: {
+    serviceId: string,
+  },
   resource: {
     state: {
       rejected?: boolean,
@@ -26,6 +55,7 @@ type Props = {
     },
     actions: {
       getLatest: (?number) => Promise<RealTimeType>,
+      getHistory: (?number) => Promise<RealTimeType>,
     },
   },
   query?: {
@@ -35,29 +65,23 @@ type Props = {
   children: (resource: Object) => React.Node,
 };
 const Poller = (props: Props): React.Node => {
-  const { resource, query, children } = props;
+  const { params, resource, query, children } = props;
+  const { serviceId } = params;
   const { state } = resource;
   const { from, until } = query || { from: null, until: null };
 
-  const [dataset, setDataset] = React.useState<{date:number}[]>(defaults.dataset);
-  const [collectedData, setCollectedData] = React.useState<{date:number}[]>(defaults.collectedData);
-  const [lastResponseTimestamp, setLastResponseTimestamp] = React.useState<?number>(defaults.lastResponseTimestamp);
+  const [dataState, dataDispatch] = React.useReducer(dataReducer, dataInitialState);
 
-  const getLatest = async () => storeValues(await resource.actions.getLatest(lastResponseTimestamp));
-
-  const filterData = (data:{date:number}[], from:?number=null, until:?number=null):{date:number}[] => { 
-    const endTime = until || _.last(data)?.date || Math.floor(new Date() / 1000) * 1000;
-    const startTime = from || _.first(data)?.date || endTime - (1000 * 120);
-    return data.filter((item:{date:number}) => (item.date >= startTime && item.date <= endTime));
-  }
-
-  const storeValues = (response:RealTimeType, replace:boolean=false) => {
-    const transformedData = transformData(response.Data);
-    const combinedData = replace ? [...transformedData] : [...collectedData,...transformedData]
-    setCollectedData(_.takeRight(combinedData, 120));
-    if (!from || !dataset.length) setDataset(filterData(collectedData, from, until));
-    setLastResponseTimestamp(response.Timestamp);
-  }
+  const getLatest = async () => {
+    if (dataState.lastReceived) {
+      const response = await resource.actions.getLatest(dataState.lastReceived);
+      dataDispatch({ 
+        type: "append", 
+        data: response.Data,
+        timestamp: response.Timestamp,
+      });
+    }
+  };
 
   React.useEffect(() => {
     let pollTimer = setTimeout(() => getLatest(), 1000);
@@ -65,7 +89,7 @@ const Poller = (props: Props): React.Node => {
   });
 
   React.useEffect(() => {
-    setDataset(filterData(collectedData, from, until));
+    dataDispatch({ type: "filter", from: from, until: until })
   }, [from, until]);
 
   if (state.rejected) return <RequestRejected reason={state.reason.message} />;
@@ -73,12 +97,28 @@ const Poller = (props: Props): React.Node => {
   if (!state.fulfilled) return <Box backgroundColor="grays.1">Awaiting Data...</Box>;
 
   const { value } = state;
-  if (value.Data && value.Timestamp && !dataset.length) storeValues(value);
+  if (value.Timestamp && !dataState.lastReceived) {
+    dataDispatch({ 
+      type: "set", 
+      data: value.Data,
+      timestamp: value.Timestamp,
+      from: from,
+      until: until,
+    });
+  }
+
+  if (!dataState.filteredData && !dataState.collectedData.length) {
+    return <div>No data for Service ID: '{serviceId}' selected range.</div>
+  }
+
   
   return (
     <>
       {typeof children === "function"
-        ? children({ dataset, lastResponseTimestamp })
+        ? children({ 
+            dataset: dataState.filteredData || dataState.collectedData, 
+            lastResponseTimestamp: dataState.lastReceived 
+          })
         : children}
     </>
   );

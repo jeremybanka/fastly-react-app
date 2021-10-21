@@ -48,8 +48,16 @@ function RealTime(props: Props): React.Node {
     },
   });
 
+  const getHistory = (ts) => ({
+    url: url,
+    options: {
+      ...options,
+      method: "GET",
+    },
+  });
+
   return (
-    <Resource url={url} options={options} actions={{getLatest}}>
+    <Resource url={url} options={options} actions={{getLatest, getHistory}}>
       {children}
     </Resource>
   );

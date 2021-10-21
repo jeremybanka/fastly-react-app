@@ -41,8 +41,15 @@ const Chart = (props: Props): React.Node => {
     formatLegendLabel = (label) => label,
     formatLegendTotalLabel = (value) => value,
   } = props;
+
+  const zeros = _.fromPairs(metrics.map(k => [k,0]));
   
-  const formattedData = dataset.map((record) => _.pick(record, ['date', ...metrics]))
+  const formattedData = dataset.map((record) => {
+    return _.chain(record)
+      .pick(['date', ...metrics])
+      .defaults(zeros)
+      .value()
+  })
 
   return (
     <>

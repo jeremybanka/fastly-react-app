@@ -119,9 +119,9 @@ const FastlyRealTimeCharts = (props: Props): React.Node => {
   return (
     <ChartProvider>
       <Grid>
-        <RealTime params={{ serviceId }}>
+        <RealTime key={serviceId} params={{ serviceId }}>
           {(rsrc) =>
-            <RealTime.Poller resource={rsrc} query={query}>
+            <RealTime.Poller params={{ serviceId }} resource={rsrc} query={query}>
               {({dataset}) =>
                 charts.map((chart) => (
                   <GridItem key={chart.id}>
