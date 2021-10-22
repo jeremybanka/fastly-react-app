@@ -40,13 +40,13 @@ const dataReducer = (state:DataState, action:DataAction) => {
   switch (action.type) {
     case "set":
       action.setDatacenters?.(_.uniq([...action.datacenters || [], ...extractDatacenters(action.data || [])]).sort());
-      tmp.collectedData = (action.data) ? [...action.data] : [];
+      tmp.collectedData = (action.data) ? _.takeRight([...action.data], 120) : [];
       tmp.lastReceived = action.timestamp;
       tmp.filteredData = transformData(tmp.collectedData, action.from, action.until, action.datacenter);
       break;
     case "append":
       action.setDatacenters?.(_.uniq([...action.datacenters || [], ...extractDatacenters(action.data || [])]).sort());
-      tmp.collectedData = (action.data) ? [...state.collectedData,...action.data] : [...state.collectedData];
+      tmp.collectedData = _.takeRight((action.data) ? [...state.collectedData,...action.data] : [...state.collectedData], 120);
       tmp.lastReceived = action.timestamp;
       tmp.filteredData = transformData(tmp.collectedData, action.from, action.until, action.datacenter);
       break;
