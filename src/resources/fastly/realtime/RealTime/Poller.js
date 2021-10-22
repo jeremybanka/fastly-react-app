@@ -56,7 +56,6 @@ const dataReducer = (state:DataState, action:DataAction) => {
     default:
       return tmp;
   }
-  console.log({ tmp });
   return tmp;
 };
 
