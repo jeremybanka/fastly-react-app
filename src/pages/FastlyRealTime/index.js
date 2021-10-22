@@ -14,8 +14,11 @@ import { Box, Flexbox, Page, Text } from "cosmo";
 import Charts from "./Charts";
 import { RequestRejected } from "../../components";
 import { Verify } from "../../resources/fastly/verify";
+import RealTimeDatacenterSelect from "../../components/RealTimeDatacenterSelect";
 import _ from "lodash";
 
+import type { OnChange as HandleDatacenterChange } from "../../components/RealTimeDatacenterSelect";
+import type { OnUpdate as HandleDatacenterUpdate } from "../../components/RealTimeDatacenterSelect";
 import type { OnChange as HandleTimeRangeChange } from "../../components/TimerangePresets";
 import type { OnChange as HandleServiceChange } from "../../resources/fastly/services/Services/Select";
 
@@ -29,6 +32,22 @@ function FastlyRealTimePage(props: Props): React.Node {
   const match = useRouteMatch();
 
   const { serviceId } = params;
+  const { datacenter="" } = query;
+
+  const [datacenters, setDatacenters] = React.useState([]);
+
+  const handleDatacenterUpdate: HandleDatacenterUpdate = (datacenters) => {
+    setDatacenters(datacenters);
+  };
+
+  const handleDatacenterChange: HandleDatacenterChange = (datacenter) => {
+    history.push({
+      search: stringify({
+        ...query,
+        datacenter,
+      }),
+    });
+  };
 
   const handleTimerangeChange: HandleTimeRangeChange = (timerange) => {
     const { from, until } = timerange;
@@ -37,6 +56,7 @@ function FastlyRealTimePage(props: Props): React.Node {
         ...query,
         from,
         until,
+        datacenter,
       }),
     });
   };
@@ -45,7 +65,7 @@ function FastlyRealTimePage(props: Props): React.Node {
     const pathname = generatePath(match.path, { serviceId });
     history.push({
       pathname,
-      search: stringify(_.omit(query, ['from', 'until'])),
+      search: stringify(_.omit(query, ['from', 'until', 'datacenter'])),
     });
   };
 
@@ -88,12 +108,20 @@ function FastlyRealTimePage(props: Props): React.Node {
                 <Verify query={{ active_services_only: true }}>
                   {(rsrc) => (
                     <Verify.ServiceSelect
+                      label=""
                       resource={rsrc}
                       onChange={handleServiceChange}
                       value={serviceId}
                     />
                   )}
                 </Verify>
+              </Box>
+              <Box minWidth="250px" maxWidth="350px">
+                <RealTimeDatacenterSelect
+                  datacenters={datacenters}
+                  onChange={handleDatacenterChange}
+                  value={datacenter}
+                />
               </Box>
             </Flexbox>
           </Box>
@@ -102,9 +130,10 @@ function FastlyRealTimePage(props: Props): React.Node {
       <Page.Body>
         <Charts 
           key={serviceId}
-          params={{ serviceId }} 
+          params={{ serviceId, datacenter }} 
           query={query}
           onTimerangeChange={handleTimerangeChange}
+          onDatacentersUpdated={handleDatacenterUpdate}
         />
       </Page.Body>
     </Page>

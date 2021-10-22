@@ -4,10 +4,30 @@ import * as React from "react";
 import { RequestRejected } from "../../../../components";
 import { Box } from "cosmo";
 import type { RealTimeType } from "../"
-import transformData from "./transformData";
+import { transformData, extractDatacenters } from "./transformData";
+import type { RealTimeDataType } from "..";
 import _ from 'lodash';
 
-const dataInitialState = {
+type DataAction = {
+  type: string,
+  data?: ?RealTimeDataType[],
+  timestamp?: ?number,
+  from: ?number,
+  until: ?number,
+  datacenters?: string[],
+  setDatacenters?: ?(string[]) => void,
+  datacenter: ?string,
+};
+
+type DataState = {
+  filteredData: { date:number }[],
+  collectedData: { recorded:number }[],
+  lastReceived: ?number,
+  from: ?number,
+  until: ?number,
+}
+
+const dataInitialState:DataState = {
   filteredData: [],
   collectedData: [],
   lastReceived: null,
@@ -15,34 +35,35 @@ const dataInitialState = {
   until: null,
 }
 
-const dataReducer = (state, action) => {
-  let tmp = { ...state };
+const dataReducer = (state:DataState, action:DataAction) => {
+  let tmp:DataState = { ...state };
   switch (action.type) {
     case "set":
-      tmp.collectedData = _.takeRight([...transformData(action.data)], 120);
+      action.setDatacenters?.(_.uniq([...action.datacenters || [], ...extractDatacenters(action.data || [])]).sort());
+      tmp.collectedData = (action.data) ? [...action.data] : [];
       tmp.lastReceived = action.timestamp;
-      tmp.filteredData = (action.from && action.until) 
-        ? tmp.collectedData.filter((item) => (item.date >= action.from && item.date <= action.until))
-        : null;
+      tmp.filteredData = transformData(tmp.collectedData, action.from, action.until, action.datacenter);
       break;
     case "append":
-      tmp.collectedData = _.takeRight([...state.collectedData,...transformData(action.data)], 120);
+      action.setDatacenters?.(_.uniq([...action.datacenters || [], ...extractDatacenters(action.data || [])]).sort());
+      tmp.collectedData = (action.data) ? [...state.collectedData,...action.data] : [...state.collectedData];
       tmp.lastReceived = action.timestamp;
+      tmp.filteredData = transformData(tmp.collectedData, action.from, action.until, action.datacenter);
       break;
     case "filter":
-      tmp.filteredData = (action.from && action.until) 
-        ? tmp.collectedData.filter((item) => (item.date >= action.from && item.date <= action.until))
-        : null;
+      tmp.filteredData = transformData(state.collectedData, action.from, action.until, action.datacenter);
       break;
     default:
       return tmp;
   }
+  console.log({ tmp });
   return tmp;
 };
 
 type Props = {
   params: {
     serviceId: string,
+    datacenter: string,
   },
   resource: {
     state: {
@@ -62,14 +83,16 @@ type Props = {
     from?: number,
     until?: number,
   },
+  onDatacentersUpdated?: (datacenters: string[]) => void,
   children: (resource: Object) => React.Node,
 };
 const Poller = (props: Props): React.Node => {
-  const { params, resource, query, children } = props;
-  const { serviceId } = params;
+  const { params, resource, query, onDatacentersUpdated = (datacenters: string[]) => undefined, children } = props;
+  const { datacenter } = params;
   const { state } = resource;
   const { from, until } = query || { from: null, until: null };
 
+  const [datacenters, setDatacenters] = React.useState([]);
   const [dataState, dataDispatch] = React.useReducer(dataReducer, dataInitialState);
 
   const getLatest = async () => {
@@ -79,6 +102,11 @@ const Poller = (props: Props): React.Node => {
         type: "append", 
         data: response.Data,
         timestamp: response.Timestamp,
+        datacenters: datacenters,
+        from: from, 
+        until: until,
+        setDatacenters: setDatacenters,
+        datacenter: datacenter,
       });
     }
   };
@@ -89,8 +117,17 @@ const Poller = (props: Props): React.Node => {
   });
 
   React.useEffect(() => {
-    dataDispatch({ type: "filter", from: from, until: until })
-  }, [from, until]);
+    dataDispatch({ 
+      type: "filter", 
+      from: from, 
+      until: until,
+      datacenter: datacenter, 
+    })
+  }, [from, until, datacenter]);
+
+  React.useEffect(() => {
+    onDatacentersUpdated(datacenters)
+  }, [datacenters, onDatacentersUpdated]);
 
   if (state.rejected) return <RequestRejected reason={state.reason.message} />;
 
@@ -104,12 +141,15 @@ const Poller = (props: Props): React.Node => {
       timestamp: value.Timestamp,
       from: from,
       until: until,
+      datacenters: datacenters,
+      setDatacenters: setDatacenters,
+      datacenter: datacenter,
     });
   }
 
-  if (!dataState.filteredData && !dataState.collectedData.length) {
-    return <div>No data for Service ID: '{serviceId}' selected range.</div>
-  }
+  if (!dataState.filteredData.length) return (
+    <div>No results loaded for current selections.</div>
+  )
 
   
   return (

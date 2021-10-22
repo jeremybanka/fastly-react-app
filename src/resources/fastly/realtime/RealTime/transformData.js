@@ -27,15 +27,39 @@ type DataPoint = {
   [key: string]: number,
 };
 
-function transformData(dataset: RealTimeDataType[]): DataPoint[] {
-  return dataset.map((d:RealTimeDataType) => {
-    const edgeRequests = d.aggregated.hits + d.aggregated.miss
-    return _.assign({
-      date: new Date(d.recorded * 1000),
-      bandwidth: (d.aggregated.body_size + d.aggregated.header_size) * 8,
-      hit_ratio: 1 - d.aggregated.miss / edgeRequests
-    }, d.aggregated)
-  });
+function extractDatacenters(dataset: RealTimeDataType[]): string[] {
+  return _.chain(dataset)
+    .map((d:RealTimeDataType) => _.keys(d.datacenter))
+    .flatten()
+    .value();
+};
+
+const findTimeRange = (dataset: { recorded:number }[], from:?number, until:?number):[number, number] => {
+  let endTime = Math.floor(new Date() / 1000) * 1000;
+  if (until) endTime = until;
+  else if (dataset.length) endTime = _.last(dataset).recorded * 1000;
+  let startTime = endTime - (120 * 1000);
+  if (from) startTime = from;
+  return [startTime, endTime];
+};
+
+function transformData(dataset: { recorded:number }[], from:?number, until:?number, datacenter:?string): DataPoint[] {
+  const [startTime, endTime] = findTimeRange(dataset, from, until);
+  return dataset
+    .map((d) => _.assign({ date: new Date(d.recorded * 1000) }, d))
+    .filter((d) => d.date >= startTime && d.date <= endTime)
+    .map((d) => {
+      const obj = (datacenter && datacenter.length)
+        ? d.datacenter[datacenter] || {}
+        : d.aggregated;
+      const edgeRequests = (obj.hits || 0) + (obj.miss || 0);
+      return _.assign({ 
+        date: d.date,
+        bandwidth: ((obj.body_size || 0) + (d.aggregated.header_size || 0)) * 8,
+        hit_ratio: (obj.miss && edgeRequests) ? 1 - obj.miss / edgeRequests : 1,
+      }, obj)
+    })
 }
 
+export { extractDatacenters, transformData };
 export default transformData;
