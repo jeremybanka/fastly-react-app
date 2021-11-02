@@ -4,9 +4,9 @@ Observe@Edge Stats UI
 
 > **INTERNAL USE ONLY**. This is a demo proof-of-concept and not ready for production.
 
-## See it LIVE
+## See it [LIVE](https://observe-edge-ui.stg.k8s.secretcdn.net/)
 
-[Link to demo running in Staging](https://observe-edge-ui.stg.k8s.secretcdn.net/). See the following notes for how to access and use it.
+[Demo running in Staging](https://observe-edge-ui.stg.k8s.secretcdn.net/). See the following notes for how to access and use it.
 
 ### Using the demo
 
