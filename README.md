@@ -4,6 +4,16 @@ Observe@Edge Stats UI
 
 > **INTERNAL USE ONLY**. This is a demo proof-of-concept and not ready for production.
 
+## See it [LIVE](https://observe-edge-ui.stg.k8s.secretcdn.net/)
+
+[Demo running in Staging](https://observe-edge-ui.stg.k8s.secretcdn.net/). See the following notes for how to access and use it.
+
+### Using the demo
+
+ 1. You will need to log in with the Fastly Eng Okta. This is synced with regular Okta, so you should use the same username and password. If this doesn't work, check that you have the "Fastly-Eng Okta" chiclet on your [Okta home page](https://fastly.okta.com/). If not, ask IT for access.
+ 2. Once logged in with Okta, you will be presented with another ["Auth" page](https://observe-edge-ui.stg.k8s.secretcdn.net/auth). Here you should put either a Fastly API token or a Signal Sciences API token (or both). Both can be generated from the respective management consoles. E.g. [for Fastly, generate a new key here](https://manage.fastly.com/account/personal/tokens).
+ 3. Now you can choose a service in the dropdown to view its stats (this will differ depending on the customer you created a key for). If using the Fastly customer key, you can also paste any Service ID into the URL to view it, e.g. `https://observe-edge-ui.stg.k8s.secretcdn.net/fastly/<service_id>`
+
 ## Overview
 
 This is a demo site that uses live data from Fastly and Signal Sciences APIs to demonstrate
