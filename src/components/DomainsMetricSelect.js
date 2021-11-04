@@ -11,18 +11,18 @@ type Props = {
 
 const options: OptionType[] = [
   {
-    value: "resp_body_bytes",
-    label: "resp_body_bytes",
-    description: "Number of body bytes from domain.",
+    value: "edge_resp_body_bytes",
+    label: "edge_resp_body_bytes",
+    description: "Number of body bytes from domain to the edge.",
   },
   {
-    value: "resp_header_bytes",
-    label: "resp_header_bytes",
-    description: "Number of header bytes from domain.",
+    value: "edge_resp_header_bytes",
+    label: "edge_resp_header_bytes",
+    description: "Number of header bytes from domain to the edge.",
   },
   {
-    value: "edge",
-    label: "edge",
+    value: "edge_requests",
+    label: "edge_requests",
     description: "Number of requests from the edge to domain.",
   },
   {
@@ -139,6 +139,41 @@ const options: OptionType[] = [
     value: "status_5xx",
     label: "status_5xx",
     description: "Number of 5xx \"Server Error\" codes delivered from domain.",
+  },
+  {
+    value: "requests",
+    label: "requests",
+    description: "Number of requests processed from domain.",
+  },
+  {
+    value: "origin_fetches",
+    label: "origin_fetches",
+    description: "Number of requests sent to origin from domain.",
+  },
+  {
+    value: "origin_fetch_resp_header_bytes",
+    label: "origin_fetch_resp_header_bytes",
+    description: "Total header bytes received from origin from domain.",
+  },
+  {
+    value: "origin_fetch_resp_body_bytes",
+    label: "origin_fetch_resp_body_bytes",
+    description: "Total body bytes received from origin from domain.",
+  },
+  {
+    value: "bandwidth",
+    label: "bandwidth",
+    description: "Total bytes delivered from domain.",
+  },
+  {
+    value: "edge_hit_ratio",
+    label: "edge_hit_ratio",
+    description: "Ratio of cache hits to cache misses from domain (between 0 and 1).",
+  },
+  {
+    value: "origin_offload",
+    label: "origin_offload",
+    description: "Ratio of response bytes fetched from origin from domain (between 0 and 1). 0 means no bytes were fetched from the origin, and 1 means all bytes were fetched from the origin.",
   },
 ];
 
