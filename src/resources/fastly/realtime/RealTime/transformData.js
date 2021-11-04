@@ -8,14 +8,17 @@
       date: Thu Jan 07 2021 02:00:00 GMT-0800 (Pacific Standard Time)
       requests: 10,
       hit: 5,
-      miss: 20
+      miss: 20,
+      ...
     },
     {
       date: Thu Jan 07 2021 02:10:00 GMT-0800 (Pacific Standard Time)
       requests: 15,
       hit: 10,
-      miss: 25
+      miss: 25,
+      ...
     },
+    ...
   ]
 */
 
@@ -34,17 +37,17 @@ function extractDatacenters(dataset: RealTimeDataType[]): string[] {
     .value();
 };
 
-const findTimeRange = (dataset: { recorded:number }[], from:?number, until:?number):[number, number] => {
+const findTimeRange = (dataset: { recorded:number }[], limit:number, from:?number, until:?number):[number, number] => {
   let endTime = Math.floor(new Date() / 1000) * 1000;
   if (until) endTime = until;
   else if (dataset.length) endTime = _.last(dataset).recorded * 1000;
-  let startTime = endTime - (120 * 1000);
+  let startTime = endTime - (limit * 1000);
   if (from) startTime = from;
   return [startTime, endTime];
 };
 
-function transformData(dataset: { recorded:number }[], from:?number, until:?number, datacenter:?string): DataPoint[] {
-  const [startTime, endTime] = findTimeRange(dataset, from, until);
+function transformData(dataset: { recorded:number }[], limit, from:?number, until:?number, datacenter:?string): DataPoint[] {
+  const [startTime, endTime] = findTimeRange(dataset, limit, from, until);
   return dataset
     .map((d) => _.assign({ date: new Date(d.recorded * 1000) }, d))
     .filter((d) => d.date >= startTime && d.date <= endTime)

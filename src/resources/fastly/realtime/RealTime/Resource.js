@@ -11,7 +11,7 @@ import Poller from "./Poller";
 type Props = {
   params: {
     serviceId: string,
-    limit?: number,
+    limit: integer,
   },
   query?: {
     kind?: string,
@@ -38,7 +38,7 @@ function RealTime(props: Props): React.Node {
     },
   };
 
-  const url = `https://rt.fastly.com/v1/channel/${serviceId}/ts/h/limit/${limit || 120}?${qs}`
+  const url = `https://rt.fastly.com/v1/channel/${serviceId}/ts/h/limit/${limit}?${qs}`
 
   const getLatest = (ts) => ({
     url: `https://rt.fastly.com/v1/channel/${serviceId}/ts/${ts}?${qs}`,

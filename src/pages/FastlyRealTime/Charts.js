@@ -114,6 +114,7 @@ const FastlyRealTimeCharts = (props: Props): React.Node => {
   const [yScale, setYScale] = React.useState<"linear" | "log">("linear");
   const { params, query, onTimerangeChange, onDatacentersUpdated } = props;
   const { serviceId, datacenter } = params;
+  const seconds:integer = 120;
 
   const valueAsNumber = (value: string): number =>
     parseFloat(value.split(",").join(""));
@@ -121,10 +122,10 @@ const FastlyRealTimeCharts = (props: Props): React.Node => {
   return (
     <ChartProvider>
       <Grid>
-        <RealTime key={serviceId} params={{ serviceId }}>
+        <RealTime key={serviceId} params={{ serviceId, limit: seconds }}>
           {(rsrc) =>
             <RealTime.Poller 
-              params={{ serviceId, datacenter }} 
+              params={{ serviceId, datacenter, limit: seconds }} 
               resource={rsrc} 
               query={query}
               onDatacentersUpdated={onDatacentersUpdated}

@@ -38,20 +38,28 @@ const dataInitialState:DataState = {
 const dataReducer = (state:DataState, action:DataAction) => {
   let tmp:DataState = { ...state };
   switch (action.type) {
+    case "clear":
+      action.setDatacenters?.([]);
+      tmp.collectedData = [];
+      tmp.lastReceived = null;
+      tmp.filteredData = [];
+      tmp.from = null;
+      tmp.until = null;
+      break;
     case "set":
       action.setDatacenters?.(_.uniq([...action.datacenters || [], ...extractDatacenters(action.data || [])]).sort());
-      tmp.collectedData = (action.data) ? _.takeRight([...action.data], 120) : [];
+      tmp.collectedData = (action.data) ? _.takeRight([...action.data], action.limit) : [];
       tmp.lastReceived = action.timestamp;
-      tmp.filteredData = transformData(tmp.collectedData, action.from, action.until, action.datacenter);
+      tmp.filteredData = transformData(tmp.collectedData, action.limit, action.from, action.until, action.datacenter);
       break;
     case "append":
       action.setDatacenters?.(_.uniq([...action.datacenters || [], ...extractDatacenters(action.data || [])]).sort());
-      tmp.collectedData = _.takeRight((action.data) ? [...state.collectedData,...action.data] : [...state.collectedData], 120);
+      tmp.collectedData = _.takeRight((action.data) ? [...state.collectedData,...action.data] : [...state.collectedData], action.limit);
       tmp.lastReceived = action.timestamp;
-      tmp.filteredData = transformData(tmp.collectedData, action.from, action.until, action.datacenter);
+      tmp.filteredData = transformData(tmp.collectedData, action.limit, action.from, action.until, action.datacenter);
       break;
     case "filter":
-      tmp.filteredData = transformData(state.collectedData, action.from, action.until, action.datacenter);
+      tmp.filteredData = transformData(state.collectedData, action.limit, action.from, action.until, action.datacenter);
       break;
     default:
       return tmp;
@@ -63,6 +71,7 @@ type Props = {
   params: {
     serviceId: string,
     datacenter: string,
+    limit: integer,
   },
   resource: {
     state: {
@@ -87,7 +96,7 @@ type Props = {
 };
 const Poller = (props: Props): React.Node => {
   const { params, resource, query, onDatacentersUpdated = (datacenters: string[]) => undefined, children } = props;
-  const { datacenter } = params;
+  const { datacenter, limit } = params;
   const { state } = resource;
   const { from, until } = query || { from: null, until: null };
 
@@ -98,14 +107,15 @@ const Poller = (props: Props): React.Node => {
     if (dataState.lastReceived) {
       const response = await resource.actions.getLatest(dataState.lastReceived);
       dataDispatch({ 
-        type: "append", 
+        type: "append",
         data: response.Data,
         timestamp: response.Timestamp,
-        datacenters: datacenters,
-        from: from, 
-        until: until,
-        setDatacenters: setDatacenters,
-        datacenter: datacenter,
+        setDatacenters,
+        datacenters,
+        limit,
+        from,
+        until,
+        datacenter,
       });
     }
   };
@@ -118,14 +128,17 @@ const Poller = (props: Props): React.Node => {
   React.useEffect(() => {
     dataDispatch({ 
       type: "filter", 
-      from: from, 
-      until: until,
-      datacenter: datacenter, 
+      limit,
+      from,
+      until,
+      datacenter,
     })
-  }, [from, until, datacenter]);
+    return () => dataDispatch({ type: "clear" }) 
+  }, [limit, from, until, datacenter]);
 
   React.useEffect(() => {
-    onDatacentersUpdated(datacenters)
+    onDatacentersUpdated?.(datacenters)
+    return () => {}
   }, [datacenters, onDatacentersUpdated]);
 
   if (state.rejected) return <RequestRejected reason={state.reason.message} />;
@@ -138,18 +151,18 @@ const Poller = (props: Props): React.Node => {
       type: "set", 
       data: value.Data,
       timestamp: value.Timestamp,
-      from: from,
-      until: until,
-      datacenters: datacenters,
-      setDatacenters: setDatacenters,
-      datacenter: datacenter,
+      setDatacenters,
+      datacenters,
+      limit,
+      from,
+      until,
+      datacenter,
     });
   }
 
   if (!dataState.filteredData.length) return (
     <div>No results loaded for current selections.</div>
   )
-
   
   return (
     <>
