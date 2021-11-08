@@ -11,7 +11,7 @@ import Poller from "./Poller";
 type Props = {
   params: {
     serviceId: string,
-    limit: integer,
+    limit: number,
   },
   query?: {
     kind?: string,

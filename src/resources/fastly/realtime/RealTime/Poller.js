@@ -17,6 +17,7 @@ type DataAction = {
   datacenters?: string[],
   setDatacenters?: ?(string[]) => void,
   datacenter: ?string,
+  limit: number
 };
 
 type DataState = {
@@ -71,7 +72,7 @@ type Props = {
   params: {
     serviceId: string,
     datacenter: string,
-    limit: integer,
+    limit: number,
   },
   resource: {
     state: {
@@ -133,7 +134,13 @@ const Poller = (props: Props): React.Node => {
       until,
       datacenter,
     })
-    return () => dataDispatch({ type: "clear" }) 
+    return () => dataDispatch({ 
+      type: "clear",
+      limit,
+      from,
+      until,
+      datacenter
+    }) 
   }, [limit, from, until, datacenter]);
 
   React.useEffect(() => {

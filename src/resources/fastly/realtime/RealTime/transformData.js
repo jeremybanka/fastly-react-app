@@ -46,7 +46,7 @@ const findTimeRange = (dataset: { recorded:number }[], limit:number, from:?numbe
   return [startTime, endTime];
 };
 
-function transformData(dataset: { recorded:number }[], limit, from:?number, until:?number, datacenter:?string): DataPoint[] {
+function transformData(dataset: { recorded:number }[], limit:number, from:?number, until:?number, datacenter:?string): DataPoint[] {
   const [startTime, endTime] = findTimeRange(dataset, limit, from, until);
   return dataset
     .map((d) => _.assign({ date: new Date(d.recorded * 1000) }, d))
