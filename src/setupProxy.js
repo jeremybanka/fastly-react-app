@@ -9,11 +9,10 @@ module.exports = function (app) {
     })
   );
   app.use(
-    "/rt",
+    "/v1/channel",
     createProxyMiddleware({
       target: "https://rt.fastly.com",
       changeOrigin: true,
-      pathRewrite: { "^/rt/": "/" },
       headers: {
         Origin: "https://manage.fastly.com",
       },

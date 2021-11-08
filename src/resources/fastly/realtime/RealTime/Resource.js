@@ -38,10 +38,10 @@ function RealTime(props: Props): React.Node {
     },
   };
 
-  const url = `/rt/v1/channel/${serviceId}/ts/h/limit/${limit}${qs}`
+  const url = `/v1/channel/${serviceId}/ts/h/limit/${limit}${qs}`
 
   const getLatest = (ts) => ({
-    url: `/rt/v1/channel/${serviceId}/ts/${ts}?${qs}`,
+    url: `/v1/channel/${serviceId}/ts/${ts}?${qs}`,
     options: {
       ...options,
       method: "GET",
