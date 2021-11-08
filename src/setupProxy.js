@@ -13,6 +13,7 @@ module.exports = function (app) {
     createProxyMiddleware({
       target: "https://rt.fastly.com",
       changeOrigin: true,
+      pathRewrite: { "^/rt/": "/" },
       headers: {
         Origin: "https://manage.fastly.com",
       },

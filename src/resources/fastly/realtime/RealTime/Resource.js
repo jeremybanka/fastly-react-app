@@ -28,7 +28,7 @@ function RealTime(props: Props): React.Node {
   const { params, query, children } = props;
   const { serviceId, limit } = params;
   const qs = (query?.kind)
-    ? stringify({ kind: query.kind })
+    ? `?${stringify({ kind: query.kind })}`
     : '';
 
   const options = {
@@ -38,10 +38,10 @@ function RealTime(props: Props): React.Node {
     },
   };
 
-  const url = `https://rt.fastly.com/v1/channel/${serviceId}/ts/h/limit/${limit}?${qs}`
+  const url = `/rt/v1/channel/${serviceId}/ts/h/limit/${limit}${qs}`
 
   const getLatest = (ts) => ({
-    url: `https://rt.fastly.com/v1/channel/${serviceId}/ts/${ts}?${qs}`,
+    url: `/rt/v1/channel/${serviceId}/ts/${ts}?${qs}`,
     options: {
       ...options,
       method: "GET",
