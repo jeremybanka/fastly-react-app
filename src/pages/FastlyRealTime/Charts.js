@@ -10,10 +10,10 @@ import {
   themeGet,
   css,
 } from "cosmo";
-import { RealTime } from "../../resources/fastly/realtime";
-import { ChartWrapper } from "../../components"
-import type { Chart } from "../../components/ChartWrapper";
-import type { OnChange as HandleTimeRangeChange } from "../../components/TimerangePresets";
+import { RealTime } from "resources/fastly/realtime";
+import { ChartWrapper } from "components"
+import type { Chart } from "components/ChartWrapper";
+import type { OnChange as HandleTimeRangeChange } from "components/TimerangePresets";
 
 const height = 200;
 

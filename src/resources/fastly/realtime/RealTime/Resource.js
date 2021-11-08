@@ -3,8 +3,8 @@
 import * as React from "react";
 import { stringify } from "query-string";
 import { Resource } from "rsrc";
-import { AuthMissing } from "../../../../components";
-import useLocalStorage from "../../../../hooks/useLocalStorage";
+import { AuthMissing } from "components";
+import useLocalStorage from "hooks/useLocalStorage";
 import Chart from "./Chart";
 import Poller from "./Poller";
 

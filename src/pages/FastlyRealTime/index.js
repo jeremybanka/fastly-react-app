@@ -12,15 +12,15 @@ import {
 import { parse, stringify } from "query-string";
 import { Box, Flexbox, Page, Text } from "cosmo";
 import Charts from "./Charts";
-import { RequestRejected } from "../../components";
-import { Verify } from "../../resources/fastly/verify";
-import RealTimeDatacenterSelect from "../../components/RealTimeDatacenterSelect";
+import { RequestRejected } from "components";
+import { Verify } from "resources/fastly/verify";
+import RealTimeDatacenterSelect from "components/RealTimeDatacenterSelect";
 import _ from "lodash";
 
-import type { OnChange as HandleDatacenterChange } from "../../components/RealTimeDatacenterSelect";
-import type { OnUpdate as HandleDatacenterUpdate } from "../../components/RealTimeDatacenterSelect";
-import type { OnChange as HandleTimeRangeChange } from "../../components/TimerangePresets";
-import type { OnChange as HandleServiceChange } from "../../resources/fastly/services/Services/Select";
+import type { OnChange as HandleDatacenterChange } from "components/RealTimeDatacenterSelect";
+import type { OnUpdate as HandleDatacenterUpdate } from "components/RealTimeDatacenterSelect";
+import type { OnChange as HandleTimeRangeChange } from "components/TimerangePresets";
+import type { OnChange as HandleServiceChange } from "resources/fastly/services/Services/Select";
 
 type Props = {};
 

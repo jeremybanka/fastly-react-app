@@ -1,7 +1,7 @@
 // @flow
 
 import * as React from "react";
-import { RequestRejected } from "../../../../components";
+import { RequestRejected } from "components";
 import { Box } from "cosmo";
 import type { RealTimeType } from "../"
 import { transformData, extractDatacenters } from "./transformData";

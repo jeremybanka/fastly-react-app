@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { TimeseriesChart, TimeseriesLegend } from "rvis";
-import type { ChartType } from "../../../../components/ChartWrapper";
+import type { ChartType } from "components/ChartWrapper";
 import _ from 'lodash';
 
 type YScale = "linear" | "log";
