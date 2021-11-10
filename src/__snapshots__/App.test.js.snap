@@ -29,6 +29,12 @@ exports[`example snapshot test for <App /> 1`] = `
       </a>
       <a
         class="sc-bBXqnf flaYrT"
+        href="/realtime"
+      >
+        Real-Time
+      </a>
+      <a
+        class="sc-bBXqnf flaYrT"
         href="/sigsci"
       >
         Signal Sciences

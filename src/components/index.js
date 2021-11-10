@@ -11,6 +11,7 @@ import MultiSelectInput from "./MultiSelectInput";
 import Navigation from "./Navigation";
 import OriginsMetricSelect from "./OriginsMetricSelect";
 import DomainsMetricSelect from "./DomainsMetricSelect";
+import RealTimeMetricSelect from "./RealTimeMetricSelect";
 import RequestRejected from "./RequestRejected";
 import ThemePicker from "./ThemePicker";
 import TimerangeDisplay from "./TimerangeDisplay";
@@ -28,6 +29,7 @@ export {
   Navigation,
   OriginsMetricSelect,
   DomainsMetricSelect,
+  RealTimeMetricSelect,
   RequestRejected,
   ThemePicker,
   TimerangeDisplay,
