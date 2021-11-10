@@ -49,6 +49,10 @@
   },
   "devDependencies": {
     "flow-bin": "^0.140.0",
-    "prettier": "^2.2.1"
+    "prettier": "^2.2.1",
+    "faker": "^5.5.3",
+    "miragejs": "^0.1.42",
+    "cors": "^2.8.5",
+    "shared-mirage": "https://github.com/fastly/shared-mirage"
   }
 }

@@ -7,6 +7,7 @@ import { AuthMissing } from "components";
 import useLocalStorage from "hooks/useLocalStorage";
 import Chart from "./Chart";
 import Poller from "./Poller";
+import config from "config"
 
 type Props = {
   params: {
@@ -37,11 +38,11 @@ function RealTime(props: Props): React.Node {
       "Fastly-Key": accessToken
     },
   };
-
-  const url = `/v1/channel/${serviceId}/ts/h/limit/${limit}${qs}`
+  const host = (config.whistler && config.whistler.origin) || ''
+  const url = `${host}/v1/channel/${serviceId}/ts/h/limit/${limit}${qs}`
 
   const getLatest = (ts) => ({
-    url: `/v1/channel/${serviceId}/ts/${ts}?${qs}`,
+    url: `${host}/v1/channel/${serviceId}/ts/${ts}?${qs}`,
     options: {
       ...options,
       method: "GET",

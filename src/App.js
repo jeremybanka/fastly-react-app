@@ -6,6 +6,9 @@ import { theme as cosmoTheme, getTheme, Box, ThemeProvider } from "cosmo";
 import useLocalStorage from "./hooks/useLocalStorage";
 import { AuthPage, FastlyPage, FastlyOriginsPage, FastlyDomainsPage, FastlyRealTimePage, SigsciPage } from "./pages";
 import { GlobalStyle, Navigation } from "./components";
+import mirage from "./mirage";
+
+if (process.env.NODE_ENV === "development") mirage({ environment: process.env.NODE_ENV })
 
 function App(): React.Node {
   const location = useLocation();
