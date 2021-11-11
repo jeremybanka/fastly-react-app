@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { stringify } from "query-string";
-import { Resource } from "rsrc";
+import { Resource, createFetcher } from "rsrc";
 import { AuthMissing } from "components";
 import useLocalStorage from "hooks/useLocalStorage";
 import Chart from "./Chart";
@@ -22,6 +22,7 @@ type Props = {
 function RealTime(props: Props): React.Node {
   const [storedAuth] = useLocalStorage("fastlyAuth", {});
   const { accessToken } = storedAuth;
+  const fetcher = createFetcher({ fetchFunction: fetch })
 
   // Do not try to request if we don't have credentials
   if (!accessToken) return <AuthMissing />;
@@ -38,7 +39,8 @@ function RealTime(props: Props): React.Node {
       "Fastly-Key": accessToken
     },
   };
-  const host = (config.whistler && config.whistler.origin) || ''
+
+  const host = (process.env.REACT_APP_MIRAGE === "true" && config.whistler && config.whistler.origin) || ''
   const url = `${host}/v1/channel/${serviceId}/ts/h/limit/${limit}${qs}`
 
   const getLatest = (ts) => ({
@@ -58,7 +60,12 @@ function RealTime(props: Props): React.Node {
   });
 
   return (
-    <Resource url={url} options={options} actions={{getLatest, getHistory}}>
+    <Resource 
+      url={url} 
+      options={options}
+      actions={{getLatest, getHistory}}
+      fetcher={fetcher}
+    >
       {children}
     </Resource>
   );

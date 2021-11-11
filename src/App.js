@@ -8,7 +8,7 @@ import { AuthPage, FastlyPage, FastlyOriginsPage, FastlyDomainsPage, FastlyRealT
 import { GlobalStyle, Navigation } from "./components";
 import mirage from "./mirage";
 
-if (process.env.NODE_ENV === "development") mirage({ environment: process.env.NODE_ENV })
+if (process.env.REACT_APP_MIRAGE === "true") mirage({ environment: process.env.NODE_ENV })
 
 function App(): React.Node {
   const location = useLocation();
