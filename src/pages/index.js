@@ -1,10 +1,6 @@
 // @flow
 
-import AuthPage from "./Auth";
-import FastlyPage from "./Fastly";
-import FastlyOriginsPage from "./FastlyOrigins";
-import FastlyDomainsPage from "./FastlyDomains";
-import FastlyRealTimePage from "./FastlyRealTime";
-import SigsciPage from "./Sigsci";
+import AuthPage from "./Auth"
+import FastlyPage from "./Fastly"
 
-export { AuthPage, FastlyPage, FastlyOriginsPage, FastlyDomainsPage, FastlyRealTimePage, SigsciPage };
+export { AuthPage, FastlyPage }

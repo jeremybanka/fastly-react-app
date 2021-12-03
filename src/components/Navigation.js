@@ -1,17 +1,17 @@
 // @flow
 
-import * as React from "react";
-import { NavLink, useLocation } from "react-router-dom";
-import css from "@styled-system/css";
+import * as React from "react"
+import { NavLink, useLocation } from "react-router-dom"
+import css from "@styled-system/css"
 import {
   theme as cosmoTheme,
   getTheme,
   Box,
   ThemeProvider,
   styled,
-} from "cosmo";
-import { ThemePicker } from "./";
-import { parse, stringify } from "query-string";
+} from "cosmo"
+import { ThemePicker } from "./"
+import { parse, stringify } from "query-string"
 
 // The nav bar should ways be dark. We force the "dark" theme so that other
 // elements behave as expected on a dark background, but the tradeoff is that
@@ -26,16 +26,16 @@ const NavBar = styled("div")(() => {
     alignItems: "center",
     paddingLeft: "sm",
     paddingRight: "lg", // compensates for NavBar paddingLeft + NavItem padding
-  });
-});
+  })
+})
 
 const NavItems = styled("div")(() => {
   return css({
     display: "flexbox",
     // backgroundColor: "grays.6", // reversed
     backgroundColor: "grays.2",
-  });
-});
+  })
+})
 
 const NavItem = styled(NavLink)((props) => {
   return css({
@@ -51,18 +51,18 @@ const NavItem = styled(NavLink)((props) => {
       // color: "grays.3", // reversed
       color: "grays.5",
     },
-  });
-});
+  })
+})
 
 type Props = {
   theme: string,
   onThemeChange: (themeName: string) => void,
-};
+}
 
 function Navigation(props: Props): React.Node {
-  const search = useLocation().search;
-  const { from, until } = parse(search);
-  const { theme, onThemeChange } = props;
+  const search = useLocation().search
+  const { from, until } = parse(search)
+  const { theme, onThemeChange } = props
 
   return (
     <ThemeProvider theme={getTheme(cosmoTheme, "dark")}>
@@ -70,10 +70,6 @@ function Navigation(props: Props): React.Node {
         <NavItems>
           {[
             { path: "/fastly", label: "Fastly" },
-            { path: "/origins", label: "Origin Inspector" },
-            { path: "/domains", label: "Domain Inspector" },
-            { path: "/realtime", label: "Real-Time" },
-            { path: "/sigsci", label: "Signal Sciences" },
             { path: "/auth", label: "Auth" },
           ].map((x) => (
             <NavItem
@@ -92,7 +88,7 @@ function Navigation(props: Props): React.Node {
         <ThemePicker theme={theme} onChange={onThemeChange} />
       </NavBar>
     </ThemeProvider>
-  );
+  )
 }
 
-export default Navigation;
+export default Navigation
