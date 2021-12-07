@@ -3,13 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "preinstall": "yarn build:cosmo && yarn build:rvis",
-    "start": "react-scripts start",
-    "start-mirage": "REACT_APP_MIRAGE=true react-scripts start",
-    "build": "react-scripts build",
+    "preinstall": "yarn build:cosmo",
+    "start": "cross-env REACT_APP_ENVIRONMENT=test react-scripts start",
+    "start-mirage": "cross-env REACT_APP_ENVIRONMENT=development react-scripts start",
+    "build": "cross-env REACT_APP_ENVIRONMENT=production react-scripts build",
     "build:cosmo": "yarn --cwd ./lib/cosmo",
-    "build:rvis": "yarn --cwd ./lib/rvis",
-    "serve": "node server.js",
+    "serve": "cross-env REACT_APP_ENVIRONMENT=test node server.js",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
@@ -32,12 +31,15 @@
     ]
   },
   "dependencies": {
+    "@fastly/auth": "^4.3.3",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
     "cosmo": "./lib/cosmo",
+    "d3-format": "^3.0.1",
     "d3-time": "^2.0.0",
     "http-proxy-middleware": "^1.0.6",
+    "jquery": "^3.6.0",
     "query-string": "^6.13.8",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
@@ -45,7 +47,6 @@
     "react-scripts": "4.0.3",
     "react-select": "^4.0.2",
     "rsrc": "^1.2.0",
-    "rvis": "./lib/rvis",
     "shared-mirage": "https://github.com/fastly/shared-mirage",
     "web-vitals": "^0.2.4"
   },

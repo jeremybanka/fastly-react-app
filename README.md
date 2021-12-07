@@ -17,7 +17,6 @@ Observe@Edge Stats UI
 ## Overview
 
 This is a demo site that uses live data from Fastly and Signal Sciences APIs to demonstrate
-the [signalsciences/rvis](https://github.com/signalsciences/rvis) charting library.
 
 ## Getting started
 

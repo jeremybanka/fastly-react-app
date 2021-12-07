@@ -4,17 +4,13 @@ import * as React from "react"
 import { Switch, Route, Redirect, useLocation } from "react-router-dom"
 import { theme as cosmoTheme, getTheme, Box, ThemeProvider } from "cosmo"
 import useLocalStorage from "./hooks/useLocalStorage"
-import useAuth from "./hooks/useAuth"
+import useSession from "./hooks/useSession"
 import { AuthPage, FastlyPage } from "./pages"
 import { GlobalStyle, Navigation } from "./components"
-import mirage from "./mirage/index"
-
-mirage({})
 
 function App(): React.Node {
   const location = useLocation()
-  const auth = useAuth()
-  console.log(auth)
+  const [session] = useSession()
 
   // get browser-defined preference for dark mode
   const prefersDarkMode =
@@ -37,7 +33,9 @@ function App(): React.Node {
       <GlobalStyle />
       <Navigation theme={theme} onThemeChange={setTheme} />
       <Box padding="lg">
-        <p>LOADING: {auth.loading}</p>
+        <p>
+          LOADING: {session.user.id} {session.customer.id}
+        </p>
         <Switch>
           <Redirect exact from="/" to="/fastly" />
           <Route path={"/fastly/:serviceId?"}>

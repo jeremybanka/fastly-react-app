@@ -10,7 +10,6 @@ export default Model.extend({
   user: belongsTo(),
 
   save(...args) {
-    debugger
     const result = Model.prototype.save.apply(this, args)
     const { _schema } = this
 

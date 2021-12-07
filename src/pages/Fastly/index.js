@@ -1,10 +1,11 @@
 // @flow
 
 import * as React from "react"
-import { useParams, Redirect } from "react-router-dom"
+// import { useParams, Redirect } from "react-router-dom"
+import { useParams } from "react-router-dom"
 import { Box, Flexbox, Page, Text } from "cosmo"
-import { RequestRejected } from "../../components"
-import { Verify } from "../../resources/fastly/verify"
+// import { RequestRejected } from "../../components"
+// import { Verify } from "../../resources/fastly/verify"
 
 type Props = {}
 function FastlyPage(props: Props): React.Node {
@@ -13,6 +14,7 @@ function FastlyPage(props: Props): React.Node {
   const { serviceId } = params
 
   if (!serviceId) {
+    /*
     return (
       <Verify query={{ active_services_only: true }}>
         {(rsrc) => {
@@ -33,6 +35,7 @@ function FastlyPage(props: Props): React.Node {
         }}
       </Verify>
     )
+    */
   }
 
   return (
