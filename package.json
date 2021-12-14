@@ -8,6 +8,7 @@
     "start-mirage": "cross-env REACT_APP_ENVIRONMENT=development react-scripts start",
     "build": "cross-env REACT_APP_ENVIRONMENT=production react-scripts build",
     "build:cosmo": "yarn --cwd ./lib/cosmo",
+    "build:shared-mirage": "yarn --cwd ./lib/shared-mirage",
     "serve": "cross-env REACT_APP_ENVIRONMENT=test node server.js",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
@@ -31,7 +32,7 @@
     ]
   },
   "dependencies": {
-    "@fastly/auth": "^4.3.3",
+    "@fastly/auth": "./lib/@fastly/auth",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
@@ -39,7 +40,9 @@
     "d3-format": "^3.0.1",
     "d3-time": "^2.0.0",
     "http-proxy-middleware": "^1.0.6",
+    "inflected": "^2.1.0",
     "jquery": "^3.6.0",
+    "miragejs": "^0.1.43",
     "query-string": "^6.13.8",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
@@ -47,14 +50,13 @@
     "react-scripts": "4.0.3",
     "react-select": "^4.0.2",
     "rsrc": "^1.2.0",
-    "shared-mirage": "https://github.com/fastly/shared-mirage",
+    "shared-mirage": "file:.yalc/shared-mirage",
     "web-vitals": "^0.2.4"
   },
   "devDependencies": {
     "cors": "^2.8.5",
     "faker": "^5.5.3",
     "flow-bin": "^0.140.0",
-    "miragejs": "^0.1.42",
     "prettier": "^2.2.1"
   }
 }

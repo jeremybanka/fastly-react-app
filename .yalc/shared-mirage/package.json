@@ -1,0 +1,28 @@
+{
+  "name": "shared-mirage",
+  "version": "2.0.0",
+  "description": "Common Fastly configurations for Mirage JS.",
+  "main": "./dist/index.js",
+  "scripts": {
+    "start": "webpack-dev-server --mode development --open",
+    "build:umd": "rollup -c",
+    "build": "npm-run-all build:umd",
+    "test": "jest",
+    "lint": "eslint src tests"
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "author": "Fastly, Inc.",
+  "license": "none",
+  "dependencies": {
+    "faker": "^5.5.3",
+    "miragejs": "^0.1.42"
+  },
+  "peerDependencies": {
+    "miragejs": "^0.1.43",
+    "faker": "^5.5.3"
+  },
+  "yalcSig": "58fc57d222bd35f20792f0836ac080bf"
+}

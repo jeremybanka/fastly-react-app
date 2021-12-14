@@ -1,0 +1,35 @@
+{{#fui-popover class="flex-col--vcenter" align="right" as |isOpen toggle|}}
+  <button
+    aria-label="Toggle Promote to Admin Duration Options"
+    class="simple color--white {{if isOpen "focus"}}"
+    type="button"
+    {{on "click" toggle}}
+  >
+    {{if this.isPromoted 'Currently promoted to admin' 'Promote to admin'}}
+    <FuiIcon @class="margin-left--s" @name="caret" @rotate={{if isOpen 180 0}} />
+  </button>
+{{else}}
+  <ul class="fui-context-menu">
+    {{#if this.isPromoted}}
+      <li class="padding-x--l">Expires at <strong>{{this.localExpiresAtTime}}</strong></li>
+    {{/if}}
+    {{#each this.durations as |duration|}}
+      <li>
+        <button {{on 'click' (action this.doPromoteToAdmin duration)}} type="button" class="simple">
+          {{if this.isPromoted 'Add' 'For'}} {{pluralize duration 'hour'}}
+        </button>
+      </li>
+    {{/each}}
+  </ul>
+{{/fui-popover}}
+
+{{#if this.showExpirationWarning}}
+  <FuiModal @didClose={{action (mut this.showExpirationWarning) false}}>
+    <FuiModalHeader @close={{action (mut this.showExpirationWarning) false}}>
+      <h2>Your admin privileges will be expiring soon.</h2>
+    </FuiModalHeader>
+    <FuiModalBody>
+      <p class="text-align--center margin-bottom--m">If you need to retain these privileges for longer,<br> add time via the menu in the admin bar.</p>
+    </FuiModalBody>
+  </FuiModal>
+{{/if}}

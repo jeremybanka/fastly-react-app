@@ -1,0 +1,15 @@
+<div class='fui-chrome__content flex-row flex-row--hcenter text-align--center'>
+  <div>
+    <div class='fui-card padding--l margin-top--xl'>
+      <h2 class='margin-bottom--l'>This feature requires an additional layer of security.</h2>
+      <h3 class='margin-bottom--xl'>
+        {{#if this.session._session.token.saml}}
+          Authenticate with single sign-on (SSO) to continue.
+        {{else}}
+          Enter your password to continue.
+        {{/if}}
+      </h3>
+      <FuiSudoField @onSudo={{action this.onSudo}} />
+    </div>
+  </div>
+</div>
