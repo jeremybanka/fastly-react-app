@@ -1,5 +1,7 @@
 import Session from "../auth/session"
 import { atom } from "recoil"
+import featureState from "./features"
+import { useRecoilState } from "recoil"
 
 const sessionState = atom({
   key: "session",
@@ -17,8 +19,20 @@ const sessionState = atom({
   },
   effects_UNSTABLE: [
     ({ setSelf }) => {
+      const [features, setFeatures] = useRecoilState(featureState)
       const session = new Session({})
-      const sessionPromise = session.ensureSession({}).catch((err) => {})
+      const sessionPromise = session
+        .ensureSession({})
+        .then((session) => {
+          console.log("would like to set features to", session.features)
+          try {
+            setFeatures(session.features)
+          } catch (e) {
+            console.log("whoops", e)
+          }
+          return session
+        })
+        .catch((err) => {})
       setSelf(sessionPromise)
     },
   ],

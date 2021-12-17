@@ -4,10 +4,18 @@ import * as React from "react"
 
 import { Box, Flexbox, Page, Text } from "cosmo"
 
+import { isEnabledState } from "../../atoms/features"
+import { useRecoilValue } from "recoil"
+
 type Props = {
   session: any,
 }
 function FastlyPage(props: Props): React.Node {
+  const isExemptFromBilling = useRecoilValue(
+    isEnabledState("exemptFromTlsBilling")
+  )
+  console.log({ isExemptFromBilling })
+
   return (
     <Page>
       <Page.Header>
@@ -27,9 +35,13 @@ function FastlyPage(props: Props): React.Node {
       </Page.Header>
       <Page.Body>
         <Box maxWidth="400px">
-          <Text>
-            User: {props.session.user.id} Customer: {props.session.customer.id}
-          </Text>
+          <ul>
+            <li>User: {props.session.user.id}</li>
+            <li>Customer: {props.session.customer.id}</li>
+            <li>
+              exemptFromTlsBilling: {isExemptFromBilling ? "true" : "false"}
+            </li>
+          </ul>
         </Box>
       </Page.Body>
     </Page>

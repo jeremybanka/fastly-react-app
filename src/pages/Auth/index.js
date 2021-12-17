@@ -4,7 +4,7 @@ import * as React from "react"
 
 import { Box, Page, Text } from "cosmo"
 
-import sessionState from "../../hooks/useSession"
+import sessionState from "../../atoms/session"
 import { useRecoilValue } from "recoil"
 
 const Login = () => {

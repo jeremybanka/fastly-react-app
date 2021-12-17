@@ -1,7 +1,7 @@
 import * as React from "react"
 
 import { Redirect } from "react-router-dom"
-import sessionState from "../hooks/useSession"
+import sessionState from "../atoms/session"
 import { useRecoilValue } from "recoil"
 
 type Props = {
