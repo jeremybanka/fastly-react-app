@@ -1,11 +1,27 @@
 // @flow
 
 import * as React from "react"
+
+import { Box, Flexbox, Page, Text } from "cosmo"
+
+import sessionState from "../../hooks/useSession"
 // import { useParams, Redirect } from "react-router-dom"
 import { useParams } from "react-router-dom"
-import { Box, Flexbox, Page, Text } from "cosmo"
+import { useRecoilValue } from "recoil"
+
 // import { RequestRejected } from "../../components"
 // import { Verify } from "../../resources/fastly/verify"
+
+
+const UserData = () => {
+  const session = useRecoilValue(sessionState)
+
+  return (
+    <p>
+      LOADING: {session.user.id} {session.customer.id}
+    </p>
+  )
+}
 
 type Props = {}
 function FastlyPage(props: Props): React.Node {
@@ -51,6 +67,9 @@ function FastlyPage(props: Props): React.Node {
               <Page.Title>
                 <Text style={{ whiteSpace: "nowrap" }}>Fastly</Text>
               </Page.Title>
+              <React.Suspense fallback="LOADING">
+                <UserData />
+              </React.Suspense>
             </Flexbox>
           </Box>
         </Flexbox>

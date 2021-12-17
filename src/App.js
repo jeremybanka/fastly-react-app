@@ -1,16 +1,17 @@
 // @flow
 
 import * as React from "react"
-import { Switch, Route, Redirect, useLocation } from "react-router-dom"
-import { theme as cosmoTheme, getTheme, Box, ThemeProvider } from "cosmo"
-import useLocalStorage from "./hooks/useLocalStorage"
-import useSession from "./hooks/useSession"
+
 import { AuthPage, FastlyPage } from "./pages"
+import { Box, ThemeProvider, theme as cosmoTheme, getTheme } from "cosmo"
 import { GlobalStyle, Navigation } from "./components"
+import { Redirect, Route, Switch, useLocation } from "react-router-dom"
+
+import { RecoilRoot } from "recoil"
+import useLocalStorage from "./hooks/useLocalStorage"
 
 function App(): React.Node {
   const location = useLocation()
-  const [session] = useSession()
 
   // get browser-defined preference for dark mode
   const prefersDarkMode =
@@ -29,24 +30,23 @@ function App(): React.Node {
     : theme
 
   return (
-    <ThemeProvider theme={getTheme(cosmoTheme, brandedTheme)}>
-      <GlobalStyle />
-      <Navigation theme={theme} onThemeChange={setTheme} />
-      <Box padding="lg">
-        <p>
-          LOADING: {session.user.id} {session.customer.id}
-        </p>
-        <Switch>
-          <Redirect exact from="/" to="/fastly" />
-          <Route path={"/fastly/:serviceId?"}>
-            <FastlyPage />
-          </Route>
-          <Route path="/auth">
-            <AuthPage />
-          </Route>
-        </Switch>
-      </Box>
-    </ThemeProvider>
+    <RecoilRoot>
+      <ThemeProvider theme={getTheme(cosmoTheme, brandedTheme)}>
+        <GlobalStyle />
+        <Navigation theme={theme} onThemeChange={setTheme} />
+        <Box padding="lg">
+          <Switch>
+            <Redirect exact from="/" to="/fastly" />
+            <Route path={"/fastly/:serviceId?"}>
+              <FastlyPage />
+            </Route>
+            <Route path="/auth">
+              <AuthPage />
+            </Route>
+          </Switch>
+        </Box>
+      </ThemeProvider>
+    </RecoilRoot>
   )
 }
 

@@ -1,34 +1,28 @@
-import { useState, useEffect } from "react"
 import Session from "../auth/session"
+import { atom } from "recoil"
 
-const useSession = (key: string, initialValue: any): [any, Function] => {
-  const [session, setSession] = useState(() => {
-    return {
-      customer: {},
-      features: [],
-      permissions: {},
-      signedIn: false,
-      sudoEnabled: null,
-      user: {},
-      currentCustomerId: null,
-      token: {},
-      isInternalUser: null,
-      userId: null,
-    }
-  })
+const sessionState = atom({
+  key: "session",
+  default: {
+    customer: { id: "M4H...", name: "fastly" },
+    features: [],
+    permissions: {},
+    signedIn: false,
+    sudoEnabled: null,
+    user: { id: "123", name: "joe" },
+    currentCustomerId: null,
+    token: {},
+    isInternalUser: null,
+    userId: null,
+  },
+  effects_UNSTABLE: [
+    ({ setSelf }) => {
+      const session = new Session({})
+      const sessionPromise = session.ensureSession({})
+      setSelf(sessionPromise)
+    },
+  ],
+  dangerouslyAllowMutability: true,
+})
 
-  useEffect(() => {
-    const session = new Session({})
-
-    async function fetchData() {
-      await session.ensureSession({})
-      setSession(session)
-    }
-
-    fetchData()
-  }, [])
-
-  return [session, setSession]
-}
-
-export default useSession
+export default sessionState

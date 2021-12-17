@@ -49,6 +49,7 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
     "react-select": "^4.0.2",
+    "recoil": "^0.5.2",
     "rsrc": "^1.2.0",
     "shared-mirage": "file:.yalc/shared-mirage",
     "web-vitals": "^0.2.4"
