@@ -7,6 +7,7 @@ import { Box, ThemeProvider, theme as cosmoTheme, getTheme } from "cosmo"
 import { GlobalStyle, Navigation } from "./components"
 import { Redirect, Route, Switch, useLocation } from "react-router-dom"
 
+import EnsureAuth from "./components/EnsureAuth"
 import { RecoilRoot } from "recoil"
 import useLocalStorage from "./hooks/useLocalStorage"
 
@@ -38,7 +39,9 @@ function App(): React.Node {
           <Switch>
             <Redirect exact from="/" to="/fastly" />
             <Route path={"/fastly/:serviceId?"}>
-              <FastlyPage />
+              <EnsureAuth
+                render={(session) => <FastlyPage session={session} />}
+              />
             </Route>
             <Route path="/auth">
               <AuthPage />

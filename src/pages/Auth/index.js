@@ -1,8 +1,24 @@
 // @flow
 
 import * as React from "react"
-import { AuthConfigFastly } from "../../components"
+
 import { Box, Page, Text } from "cosmo"
+
+import sessionState from "../../hooks/useSession"
+import { useRecoilValue } from "recoil"
+
+const Login = () => {
+  const session = useRecoilValue(sessionState)
+  if (session) {
+    return (
+      <Text>
+        User: {session.user.id}
+        Customer: {session.customer.id}
+      </Text>
+    )
+  }
+  return <p>Not logged in</p>
+}
 
 type Props = {}
 function AuthPage(props: Props): React.Node {
@@ -13,13 +29,9 @@ function AuthPage(props: Props): React.Node {
       </Page.Header>
       <Page.Body>
         <Box maxWidth="400px">
-          <Text fontSize="xl" fontWeight="bold">
-            Fastly auth token
-          </Text>
-          <Box marginBottom="lg" />
-          <AuthConfigFastly />
-          <Box marginBottom="xxl" />
-          <Box marginBottom="lg" />
+          <React.Suspense fallback="LOADING">
+            <Login />
+          </React.Suspense>
         </Box>
       </Page.Body>
     </Page>

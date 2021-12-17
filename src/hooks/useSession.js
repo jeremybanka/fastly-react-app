@@ -18,7 +18,7 @@ const sessionState = atom({
   effects_UNSTABLE: [
     ({ setSelf }) => {
       const session = new Session({})
-      const sessionPromise = session.ensureSession({})
+      const sessionPromise = session.ensureSession({}).catch((err) => {})
       setSelf(sessionPromise)
     },
   ],
