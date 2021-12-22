@@ -23,14 +23,14 @@ function scenario(server) {
 
   const personaId = "maua-persona-0001"
 
-  const user = server.create("user", {
+  const user = server.create("user", "withTlsManagePermissions", {
     customer: fastlyCustomer,
     role: "admin",
     login: "testadmin@fastly.com",
     personaId,
   })
 
-  server.create("user", {
+  server.create("user", "withTlsReadPermissions", {
     customer: otherCustomer,
     role: "engineer",
     login: "engineer@other-customer.com",

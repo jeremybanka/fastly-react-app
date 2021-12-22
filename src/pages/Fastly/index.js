@@ -5,16 +5,20 @@ import * as React from "react"
 import { Box, Flexbox, Page, Text } from "cosmo"
 
 import { isEnabledState } from "../../atoms/features"
+import { permitted } from "../../atoms/permissions"
 import { useRecoilValue } from "recoil"
 
 type Props = {
   session: any,
 }
 function FastlyPage(props: Props): React.Node {
+  const canReadTls = useRecoilValue(
+    permitted({ resource: "tls", operation: "crud", scope: "account" })
+  )
   const isExemptFromBilling = useRecoilValue(
     isEnabledState("exemptFromTlsBilling")
   )
-  console.log({ isExemptFromBilling })
+  console.log({ canReadTls })
 
   return (
     <Page>
@@ -41,6 +45,7 @@ function FastlyPage(props: Props): React.Node {
             <li>
               exemptFromTlsBilling: {isExemptFromBilling ? "true" : "false"}
             </li>
+            <li>canReadTls: {canReadTls ? "true" : "false"}</li>
           </ul>
         </Box>
       </Page.Body>

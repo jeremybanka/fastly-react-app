@@ -9,7 +9,9 @@ type Props = {
 }
 const UserData = (props: Props) => {
   const session = useRecoilValue(sessionState)
-  if (session == null) return <Redirect to={"/auth"} />
+  if (session == null || session.user.id == null) {
+    return <Redirect to={"/auth"} />
+  }
   return props.render(session)
 }
 

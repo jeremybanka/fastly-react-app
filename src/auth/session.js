@@ -1,3 +1,7 @@
+/**
+ * NOTE: This is a temporary solution until we can get the @fast/auth library to properly import into a React project.
+ **/
+
 import {
   OtpSetupError,
   PasswordRotateError,
@@ -6,7 +10,7 @@ import {
 
 import LegacyPermissionStore from "./permission-store"
 import checkHeaders from "./utils/check-headers"
-import jQuery from "jquery"
+import jQuery from "jquery" // THIS REALLY NEEDS TO GO AWAY
 
 export const API_UNREACHABLE = "api-unreachable"
 const DEFAULT_API_ORIGIN = "https://api.fastly.com"

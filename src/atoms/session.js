@@ -1,7 +1,9 @@
+import Permissions from "../auth/permissions"
 import Session from "../auth/session"
 import { atom } from "recoil"
 import featureState from "./features"
-import { useRecoilState } from "recoil"
+import permissionState from "./permissions"
+import { useSetRecoilState } from "recoil"
 
 const sessionState = atom({
   key: "session",
@@ -18,22 +20,19 @@ const sessionState = atom({
     userId: null,
   },
   effects_UNSTABLE: [
-    ({ setSelf }) => {
-      const [features, setFeatures] = useRecoilState(featureState)
-      const session = new Session({})
-      const sessionPromise = session
-        .ensureSession({})
-        .then((session) => {
-          console.log("would like to set features to", session.features)
-          try {
-            setFeatures(session.features)
-          } catch (e) {
-            console.log("whoops", e)
-          }
-          return session
-        })
-        .catch((err) => {})
-      setSelf(sessionPromise)
+    async ({ setSelf }) => {
+      const setFeatures = useSetRecoilState(featureState)
+      const setPermissions = useSetRecoilState(permissionState)
+
+      let session = new Session({})
+      try {
+        session = await session.ensureSession({})
+        setFeatures(session.features)
+        const permissions = await new Permissions({ session })
+        await permissions.buildCache(session.authorizedPermissions)
+        setPermissions(permissions)
+        setSelf(session)
+      } catch (e) {} // auth failure. App will redirect.
     },
   ],
   dangerouslyAllowMutability: true,
