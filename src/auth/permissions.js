@@ -73,9 +73,9 @@ export default class Permissions {
 
       return {
         id: permissionId,
-        resource: permission.attributes.resource,
-        operation: permission.attributes.operation,
-        scope: serviceId || permission.attributes.scope,
+        resource: permission.resource,
+        operation: permission.operation,
+        scope: serviceId || permission.scope,
       }
     })
   }
