@@ -72,6 +72,79 @@ function scenario(server) {
       customer.features.models.push(features[featureName])
     })
   })
+
+  // Spotless-specific data
+  // ---------------------------------------------------------------------------
+
+  /*
+  export enum Regions {
+    global = 'global',
+    mbz200 = 'mbz200',
+    mbz100 = 'mbz100',
+    custom = 'custom',
+  }
+  */
+  ;[
+    { id: "151.101.2.133", region: "global", recordType: "A" },
+    { id: "151.101.66.133", region: "global", recordType: "A" },
+    { id: "151.101.130.133", region: "global", recordType: "A" },
+    { id: "151.101.194.133", region: "global", recordType: "A" },
+    { id: "d.sni.global.fastly.net", region: "global", recordType: "CNAME" },
+
+    { id: "151.111.11.199", region: "mbx100", recordType: "A" },
+    { id: "151.111.28.199", region: "mbx100", recordType: "A" },
+    { id: "151.111.34.199", region: "mbx100", recordType: "A" },
+    { id: "151.111.99.199", region: "mbx100", recordType: "A" },
+    { id: "2a04:4e42:900:115", region: "mbx100", recordType: "AAAA" },
+    { id: "2a04:4e42:200::115", region: "mbx100", recordType: "AAAA" },
+    { id: "2a04:4e42:400::115", region: "mbx100", recordType: "AAAA" },
+    { id: "2a04:4e42:600::115", region: "mbx100", recordType: "AAAA" },
+    { id: "d.sni.us-eu.fastly.net", region: "mbx100", recordType: "CNAME" },
+
+    { id: "151.128.88.201", region: "mbz200", recordType: "A" },
+    { id: "151.128.98.201", region: "mbz200", recordType: "A" },
+    { id: "151.128.112.201", region: "mbz200", recordType: "A" },
+    { id: "151.128.75.201", region: "mbz200", recordType: "A" },
+    { id: "2a04:4e42:900:99", region: "mbz200", recordType: "AAAA" },
+    { id: "2a04:4e42:200::99", region: "mbz200", recordType: "AAAA" },
+    { id: "2a04:4e42:400::99", region: "mbz200", recordType: "AAAA" },
+    { id: "2a04:4e42:600::99", region: "mbz200", recordType: "AAAA" },
+    {
+      id: "d.sni.otherstuff.fastly.net",
+      region: "mbz200",
+      recordType: "CNAME",
+    },
+    { id: "w.traffic.cbs.com", region: "custom", recordType: "CNAME" },
+  ].forEach((address) => server.create("dns-record", address))
+
+  const dnsRecords = server.schema.dnsRecords.all()
+
+  // tls-configurations
+  server.create("tls-configuration", {
+    customer: fastlyCustomer,
+    default: true,
+    dnsRecords,
+    httpProtocols: ["http/1.1", "http/2"],
+    name: "fastly-a",
+    tlsProtocols: ["1.2", "1.3"],
+  })
+
+  // In production, fastly has hundreds of tls-configs
+  let fastlyTlsConfigs = server.createList("tls-configuration", 157, {
+    customer: fastlyCustomer,
+    default: false,
+    dnsRecords,
+  })
+
+  const now = new Date()
+  fastlyTlsConfigs.concat(
+    server.create("tls-configuration", {
+      createdAt: now.setDate(now.getDate() - 7),
+      customer: fastlyCustomer,
+      dnsRecords,
+      name: "FASTLY-LAST-TLS-CONFIG",
+    })
+  )
 }
 
 export default scenario

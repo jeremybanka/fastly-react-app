@@ -1,6 +1,7 @@
 import * as React from "react"
 
 import { Redirect } from "react-router-dom"
+import { isOnline } from "../atoms/permissions"
 import sessionState from "../atoms/session"
 import { useRecoilValue } from "recoil"
 
@@ -9,6 +10,8 @@ type Props = {
 }
 const UserData = (props: Props) => {
   const session = useRecoilValue(sessionState)
+  const permissionsLoaded = useRecoilValue(isOnline)
+  if (permissionsLoaded === false) return ""
   if (session == null || session.user.id == null) {
     return <Redirect to={"/auth"} />
   }
