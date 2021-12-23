@@ -1,6 +1,7 @@
 import App from "./App"
 import { BrowserRouter } from "react-router-dom"
-import { Cache } from "rsrc"
+// import { Cache } from "rsrc"
+// @ts-ignore
 import { IntlProvider } from "cosmo"
 import React from "react"
 import ReactDOM from "react-dom"
@@ -13,13 +14,11 @@ if (process.env.REACT_APP_ENVIRONMENT === "development") {
 
 ReactDOM.render(
   <React.StrictMode>
-    <Cache>
-      <IntlProvider locale={"en"}>
-        <BrowserRouter>
-          <App />
-        </BrowserRouter>
-      </IntlProvider>
-    </Cache>
+    <IntlProvider locale={"en"}>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </IntlProvider>
   </React.StrictMode>,
   document.getElementById("root")
 )

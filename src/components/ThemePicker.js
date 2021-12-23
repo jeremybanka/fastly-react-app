@@ -1,15 +1,16 @@
-// @flow
+import * as React from "react"
 
-import * as React from "react";
-import { Box, SwitchInput } from "cosmo";
+import { Box, SwitchInput } from "cosmo"
 
+/*
 type Props = {
   theme: string,
   onChange: (themeName: string) => void,
 };
+*/
 
-function ThemePicker(props: Props): React.Node {
-  const { theme, onChange } = props;
+function ThemePicker(props) {
+  const { theme, onChange } = props
 
   return (
     <Box>
@@ -21,12 +22,12 @@ function ThemePicker(props: Props): React.Node {
           value: "dark",
           checked: theme === "dark",
           onChange: () => {
-            onChange(theme === "dark" ? "light" : "dark");
+            onChange(theme === "dark" ? "light" : "dark")
           },
         }}
       />
     </Box>
-  );
+  )
 }
 
-export default ThemePicker;
+export default ThemePicker

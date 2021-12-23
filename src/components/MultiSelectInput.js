@@ -1,9 +1,9 @@
-// @flow
+import * as React from "react"
 
-import * as React from "react";
-import Select, { components } from "react-select";
-import { Box, Text, ThemeConsumer } from "cosmo";
+import { Box, Text, ThemeConsumer } from "cosmo"
+import Select, { components } from "react-select"
 
+/*
 export type OptionType = {
   value: string,
   label: string,
@@ -15,10 +15,11 @@ type Props = {
   isLoading?: boolean,
   onChange: (options: OptionType[]) => void,
 };
+*/
 
-const Option = (optionProps: Object) => {
-  const { data } = optionProps;
-  const { Option } = components;
+const Option = (optionProps) => {
+  const { data } = optionProps
+  const { Option } = components
 
   return (
     <Option {...optionProps}>
@@ -33,20 +34,20 @@ const Option = (optionProps: Object) => {
         ) : null}
       </Text>
     </Option>
-  );
-};
+  )
+}
 
-const filterOptions = (option, searchText): boolean => {
-  const { value, label, description } = option.data;
+const filterOptions = (option, searchText) => {
+  const { value, label, description } = option.data
   return (
     value.toLowerCase().includes(searchText.toLowerCase()) ||
     label.toLowerCase().includes(searchText.toLowerCase()) ||
     description.toLowerCase().includes(searchText.toLowerCase())
-  );
-};
+  )
+}
 
-const MultiSelectInput = (props: Props): React.Node => {
-  const { value, onChange, options, isLoading = false } = props;
+const MultiSelectInput = (props) => {
+  const { value, onChange, options, isLoading = false } = props
 
   return (
     <ThemeConsumer>
@@ -92,7 +93,7 @@ const MultiSelectInput = (props: Props): React.Node => {
         />
       )}
     </ThemeConsumer>
-  );
-};
+  )
+}
 
-export default MultiSelectInput;
+export default MultiSelectInput

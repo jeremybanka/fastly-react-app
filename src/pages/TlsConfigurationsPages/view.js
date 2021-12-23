@@ -1,20 +1,15 @@
-// @flow
-
 import * as React from "react"
 
 import { Box, Flexbox, Page, Text } from "cosmo"
 
 import { Link } from "react-router-dom"
 import { Redirect } from "react-router-dom"
-import sessionState from "atoms/session"
+import sessionState from "../../atoms/session"
 import { useParams } from "react-router-dom"
 import { useQuery } from "react-query"
 import { useRecoilValue } from "recoil"
 
-type Props = {
-  session: any,
-}
-function TlsConfigurationDetailsPage(props: Props): React.Node {
+function TlsConfigurationDetailsPage(props) {
   // Auth, permissions, and features
   // ---------------------------------------------------------------------------
   const session = useRecoilValue(sessionState)

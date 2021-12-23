@@ -1,5 +1,3 @@
-// @flow
-
 import * as React from "react"
 
 import { Box, Page, Text } from "cosmo"
@@ -20,8 +18,7 @@ const Login = () => {
   return <p>Not logged in</p>
 }
 
-type Props = {}
-function AuthPage(props: Props): React.Node {
+function AuthPage(props) {
   return (
     <Page>
       <Page.Header>

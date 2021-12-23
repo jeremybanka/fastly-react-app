@@ -1,5 +1,3 @@
-// @flow
-
 import * as React from "react"
 
 import { AuthPage, TlsConfigurationsPages } from "./pages"
@@ -13,7 +11,7 @@ import { ReactQueryDevtools } from "react-query/devtools"
 import { RecoilRoot } from "recoil"
 import useLocalStorage from "./hooks/useLocalStorage"
 
-function App(): React.Node {
+function App() {
   const location = useLocation()
   const queryClient = new QueryClient({
     defaultOptions: { queries: { retry: 0 } },

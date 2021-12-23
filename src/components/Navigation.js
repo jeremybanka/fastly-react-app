@@ -1,5 +1,3 @@
-// @flow
-
 import * as React from "react"
 
 import {
@@ -56,12 +54,7 @@ const NavItem = styled(NavLink)((props) => {
   })
 })
 
-type Props = {
-  theme: string,
-  onThemeChange: (themeName: string) => void,
-}
-
-function Navigation(props: Props): React.Node {
+function Navigation(props) {
   const search = useLocation().search
   const { from, until } = parse(search)
   const { theme, onThemeChange } = props

@@ -1,4 +1,4 @@
-export default {
+const data = {
   predefinedRoles: [
     {
       role: 'user',
@@ -214,3 +214,6 @@ export default {
     },
   ],
 }
+
+export default data
+

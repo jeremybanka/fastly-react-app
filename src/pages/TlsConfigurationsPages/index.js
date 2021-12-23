@@ -1,5 +1,3 @@
-// @flow
-
 import * as React from "react"
 
 import { Box, Flexbox, Page, Text } from "cosmo"
@@ -11,10 +9,7 @@ import { permitted } from "../../atoms/permissions"
 import { useQuery } from "react-query"
 import { useRecoilValue } from "recoil"
 
-type Props = {
-  session: any,
-}
-function FastlyPage(props: Props): React.Node {
+function FastlyPage(props) {
   // Auth, permissions, and features
   // ---------------------------------------------------------------------------
   const canReadTls = useRecoilValue(
