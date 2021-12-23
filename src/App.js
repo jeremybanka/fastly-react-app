@@ -9,6 +9,7 @@ import { QueryClient, QueryClientProvider } from "react-query"
 import { Redirect, Route, Switch, useLocation } from "react-router-dom"
 
 import EnsureAuth from "./components/EnsureAuth"
+import { ReactQueryDevtools } from "react-query/devtools"
 import { RecoilRoot } from "recoil"
 import useLocalStorage from "./hooks/useLocalStorage"
 
@@ -36,6 +37,8 @@ function App(): React.Node {
 
   return (
     <QueryClientProvider client={queryClient}>
+      <ReactQueryDevtools initialIsOpen={false} />
+
       <RecoilRoot>
         <ThemeProvider theme={getTheme(cosmoTheme, brandedTheme)}>
           <GlobalStyle />

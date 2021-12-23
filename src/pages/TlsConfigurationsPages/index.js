@@ -40,7 +40,7 @@ function FastlyPage(props: Props): React.Node {
     return payload.data
   }
   const { isLoading, isError, data, error } = useQuery(
-    "tls-configurations",
+    ["tls-configurations"],
     fetchTlsConfigs
   )
 

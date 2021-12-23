@@ -4,6 +4,7 @@ import * as React from "react"
 
 import { Box, Flexbox, Page, Text } from "cosmo"
 
+import { Link } from "react-router-dom"
 import { Redirect } from "react-router-dom"
 import sessionState from "atoms/session"
 import { useParams } from "react-router-dom"
@@ -36,7 +37,7 @@ function TlsConfigurationDetailsPage(props: Props): React.Node {
     return payload.data
   }
   const { isLoading, isError, data, error } = useQuery(
-    "tls-configurations",
+    ["tls-configurations", id],
     fetchTlsConfigs
   )
 
@@ -51,8 +52,6 @@ function TlsConfigurationDetailsPage(props: Props): React.Node {
     }
     return <span>Error: {error.message}</span>
   }
-
-  console.log({ data })
 
   // Render
   // ---------------------------------------------------------------------------
@@ -73,17 +72,18 @@ function TlsConfigurationDetailsPage(props: Props): React.Node {
           flexWrap="wrap"
         >
           <Box marginBottom="xs">
-            <Flexbox alignItems="flex-start" flexWrap="wrap" gap="md">
-              <Page.Title>
-                <Text style={{ whiteSpace: "nowrap" }}>TLS Configurations</Text>
-              </Page.Title>
-            </Flexbox>
+            <Page.Title>
+              <Text style={{ whiteSpace: "nowrap" }}>
+                TLS Configurations Detail
+              </Text>
+            </Page.Title>
+            <Link to="/tls-configurations">Back to TLS Configurations</Link>
           </Box>
         </Flexbox>
       </Page.Header>
       <Page.Body>
         <Box>
-          <h2>Data</h2>
+          <h2>{data.attributes.name}</h2>
           {attributes.map((attribute) => (
             <p key={attribute}>
               {attribute}: {data.attributes[attribute]}
