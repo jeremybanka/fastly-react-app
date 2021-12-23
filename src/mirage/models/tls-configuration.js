@@ -1,6 +1,8 @@
-import { Model, belongsTo, hasMany } from "miragejs"
+import sharedMirage from "shared-mirage"
 
-export default Model.extend({
+import { belongsTo, hasMany } from "miragejs"
+
+export default sharedMirage.base.Model.extend({
   customer: belongsTo(),
   dnsRecords: hasMany(),
 })

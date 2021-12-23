@@ -1,4 +1,4 @@
-import { Model } from "miragejs"
+import sharedMirage from "shared-mirage"
 
-export default Model
+export default sharedMirage.base.Model.extend()
 

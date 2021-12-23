@@ -1,29 +1,35 @@
-import { dasherize, underscore } from "inflected"
+import { dasherize, underscore, camelize } from "inflected"
 
 import { createServer } from "miragejs"
+import factories from "./factories"
+import models from "./models"
 import scenario from "./default"
 import sharedMirage from "shared-mirage"
-
-import dnsRecord from "./models/dns-record"
-import tlsConfiguration from "./models/tls-configuration"
 import spotlessRoutes from "./routes/spotless"
-import tlsConfigurationFactory from "./factories/tls-configuration"
-import dnsRecordFactory from "./factories/dns-record"
+
+const localMirage = {
+  models,
+  factories,
+  serializers: {},
+  fixtures: {},
+}
 
 export function makeServer({ environment = "test" } = {}) {
   const baseConfig = {}
+  for (const section in localMirage) {
+    baseConfig[section] = Object.entries(localMirage[section]).reduce(
+      (memo, [key, value]) =>
+        Object.assign(memo, { [camelize(underscore(key), false)]: value }),
+      {}
+    )
+  }
   for (const section in sharedMirage.fastly) {
     baseConfig[section] = Object.entries(sharedMirage.fastly[section]).reduce(
       (memo, [key, value]) =>
         Object.assign(memo, { [dasherize(underscore(key))]: value }),
-      {}
+      baseConfig[section]
     )
   }
-
-  baseConfig.models.dnsRecord = dnsRecord
-  baseConfig.models.tlsConfiguration = tlsConfiguration
-  baseConfig.factories.tlsConfiguration = tlsConfigurationFactory
-  baseConfig.factories.dnsRecord = dnsRecordFactory
 
   const fullConfig = {
     ...baseConfig,
