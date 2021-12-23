@@ -75,15 +75,6 @@ function scenario(server) {
 
   // Spotless-specific data
   // ---------------------------------------------------------------------------
-
-  /*
-  export enum Regions {
-    global = 'global',
-    mbz200 = 'mbz200',
-    mbz100 = 'mbz100',
-    custom = 'custom',
-  }
-  */
   ;[
     { id: "151.101.2.133", region: "global", recordType: "A" },
     { id: "151.101.66.133", region: "global", recordType: "A" },

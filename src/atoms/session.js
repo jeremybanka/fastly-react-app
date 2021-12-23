@@ -7,7 +7,7 @@ import { useSetRecoilState } from "recoil"
 
 const sessionState = atom({
   key: "session",
-  default: {},
+  default: null,
   effects_UNSTABLE: [
     async ({ setSelf }) => {
       const setFeatures = useSetRecoilState(featureState)
@@ -21,7 +21,10 @@ const sessionState = atom({
         await permissions.buildCache(session.authorizedPermissions)
         setPermissions(permissions)
         setSelf(session)
-      } catch (e) {} // auth failure. App will redirect.
+      } catch (e) {
+        console.log("ERROR", e) // Should remove this
+        setPermissions({})
+      } // auth failure. App will redirect.
     },
   ],
   dangerouslyAllowMutability: true,

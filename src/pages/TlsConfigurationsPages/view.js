@@ -5,26 +5,25 @@ import * as React from "react"
 import { Box, Flexbox, Page, Text } from "cosmo"
 
 import { Redirect } from "react-router-dom"
-import { isEnabledState } from "../../atoms/features"
-import { permitted } from "../../atoms/permissions"
 import sessionState from "atoms/session"
+import { useParams } from "react-router-dom"
 import { useQuery } from "react-query"
 import { useRecoilValue } from "recoil"
 
 type Props = {
   session: any,
 }
-function FastlyPage(props: Props): React.Node {
+function TlsConfigurationDetailsPage(props: Props): React.Node {
+  // Auth, permissions, and features
+  // ---------------------------------------------------------------------------
   const session = useRecoilValue(sessionState)
-  const canReadTls = useRecoilValue(
-    permitted({ resource: "tls", operation: "crud", scope: "account" })
-  )
-  const isExemptFromBilling = useRecoilValue(
-    isEnabledState("exemptFromTlsBilling")
-  )
+
+  // API call
+  // ---------------------------------------------------------------------------
+  const { id } = useParams()
 
   const fetchTlsConfigs = async () => {
-    const response = await fetch("/tls/configurations", {
+    const response = await fetch(`/tls/configurations/${id}`, {
       headers: { "fastly-key": session.token.access_token },
     })
     if (!response.ok) {
@@ -34,15 +33,15 @@ function FastlyPage(props: Props): React.Node {
       throw new Error("Network response was not ok")
     }
     const payload = await response.json()
-    console.log({ response })
     return payload.data
   }
-
   const { isLoading, isError, data, error } = useQuery(
     "tls-configurations",
     fetchTlsConfigs
   )
 
+  // What to do while waiting for data-load or error-condition
+  // ---------------------------------------------------------------------------
   if (isLoading) {
     return <span>Loading...</span>
   }
@@ -53,8 +52,18 @@ function FastlyPage(props: Props): React.Node {
     return <span>Error: {error.message}</span>
   }
 
-  console.log(data)
+  console.log({ data })
 
+  // Render
+  // ---------------------------------------------------------------------------
+  const attributes = [
+    "bulk",
+    "created-at",
+    "default",
+    "name",
+    "service",
+    "updated-at",
+  ]
   return (
     <Page>
       <Page.Header>
@@ -66,33 +75,24 @@ function FastlyPage(props: Props): React.Node {
           <Box marginBottom="xs">
             <Flexbox alignItems="flex-start" flexWrap="wrap" gap="md">
               <Page.Title>
-                <Text style={{ whiteSpace: "nowrap" }}>Fastly</Text>
+                <Text style={{ whiteSpace: "nowrap" }}>TLS Configurations</Text>
               </Page.Title>
             </Flexbox>
           </Box>
         </Flexbox>
       </Page.Header>
       <Page.Body>
-        <Box maxWidth="400px">
-          <ul>
-            <li>User: {props.session.user.id}</li>
-            <li>Customer: {props.session.customer.id}</li>
-            <li>
-              exemptFromTlsBilling: {isExemptFromBilling ? "true" : "false"}
-            </li>
-            <li>canReadTls: {canReadTls ? "true" : "false"}</li>
-            <ul>
-              {data.map((tlsConfiguration) => (
-                <li key={tlsConfiguration.id}>
-                  {tlsConfiguration.attributes.name}
-                </li>
-              ))}
-            </ul>
-          </ul>
+        <Box>
+          <h2>Data</h2>
+          {attributes.map((attribute) => (
+            <p key={attribute}>
+              {attribute}: {data.attributes[attribute]}
+            </p>
+          ))}
         </Box>
       </Page.Body>
     </Page>
   )
 }
 
-export default FastlyPage
+export default TlsConfigurationDetailsPage

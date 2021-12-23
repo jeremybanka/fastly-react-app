@@ -2,7 +2,7 @@
 
 import * as React from "react"
 
-import { AuthPage, FastlyPage } from "./pages"
+import { AuthPage, TlsConfigurationsPages } from "./pages"
 import { Box, ThemeProvider, theme as cosmoTheme, getTheme } from "cosmo"
 import { GlobalStyle, Navigation } from "./components"
 import { QueryClient, QueryClientProvider } from "react-query"
@@ -42,10 +42,19 @@ function App(): React.Node {
           <Navigation theme={theme} onThemeChange={setTheme} />
           <Box padding="lg">
             <Switch>
-              <Redirect exact from="/" to="/fastly" />
-              <Route path={"/fastly/:serviceId?"}>
+              <Redirect exact from="/" to="/tls-configuration" />
+              <Route path="/tls-configurations/:id">
                 <EnsureAuth
-                  render={(session) => <FastlyPage session={session} />}
+                  render={(session) => (
+                    <TlsConfigurationsPages.View session={session} />
+                  )}
+                />
+              </Route>
+              <Route path="/tls-configurations">
+                <EnsureAuth
+                  render={(session) => (
+                    <TlsConfigurationsPages.Index session={session} />
+                  )}
                 />
               </Route>
               <Route path="/auth">

@@ -12,7 +12,7 @@ const UserData = (props: Props) => {
   const session = useRecoilValue(sessionState)
   const permissionsLoaded = useRecoilValue(isOnline)
   if (permissionsLoaded === false) return ""
-  if (session == null || session.user.id == null) {
+  if (session == null) {
     return <Redirect to={"/auth"} />
   }
   return props.render(session)

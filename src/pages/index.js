@@ -1,6 +1,13 @@
 // @flow
 
 import AuthPage from "./Auth"
-import FastlyPage from "./Fastly"
+import TlsConfigurationsIndexPage from "./TlsConfigurationsPages/index"
+import TlsConfigurationsViewPage from "./TlsConfigurationsPages/view"
 
-export { AuthPage, FastlyPage }
+const TlsConfigurationsPages = {
+  Index: TlsConfigurationsIndexPage,
+  View: TlsConfigurationsViewPage,
+}
+
+export { AuthPage, TlsConfigurationsPages }
+

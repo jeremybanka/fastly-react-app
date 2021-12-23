@@ -1,17 +1,19 @@
 // @flow
 
 import * as React from "react"
-import { NavLink, useLocation } from "react-router-dom"
-import css from "@styled-system/css"
+
 import {
-  theme as cosmoTheme,
-  getTheme,
   Box,
   ThemeProvider,
+  theme as cosmoTheme,
+  getTheme,
   styled,
 } from "cosmo"
-import { ThemePicker } from "./"
+import { NavLink, useLocation } from "react-router-dom"
 import { parse, stringify } from "query-string"
+
+import { ThemePicker } from "./"
+import css from "@styled-system/css"
 
 // The nav bar should ways be dark. We force the "dark" theme so that other
 // elements behave as expected on a dark background, but the tradeoff is that
@@ -69,7 +71,7 @@ function Navigation(props: Props): React.Node {
       <NavBar>
         <NavItems>
           {[
-            { path: "/fastly", label: "Fastly" },
+            { path: "/tls-configurations", label: "TLS" },
             { path: "/auth", label: "Auth" },
           ].map((x) => (
             <NavItem
