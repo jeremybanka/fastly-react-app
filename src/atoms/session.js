@@ -13,9 +13,9 @@ const sessionState = atom({
       const setFeatures = useSetRecoilState(featureState)
       const setPermissions = useSetRecoilState(permissionState)
 
-      let session = new Session({})
+      let session = new Session({}) // should we pass apiOrigin, authPath, and client?
       try {
-        session = await session.ensureSession({})
+        session = await session.ensureSession({}) // should we pass includeServices?
         setFeatures(session.features)
         const permissions = await new Permissions({ session })
         await permissions.buildCache(session.authorizedPermissions)

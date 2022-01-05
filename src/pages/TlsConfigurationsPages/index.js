@@ -9,7 +9,7 @@ import { permitted } from "../../atoms/permissions"
 import { useQuery } from "react-query"
 import { useRecoilValue } from "recoil"
 
-function FastlyPage(props) {
+function TlsConfigurationsIndex(props) {
   // Auth, permissions, and features
   // ---------------------------------------------------------------------------
   const canReadTls = useRecoilValue(
@@ -103,4 +103,4 @@ function FastlyPage(props) {
   )
 }
 
-export default FastlyPage
+export default TlsConfigurationsIndex
