@@ -5,22 +5,21 @@ import { isOnline } from "../atoms/permissions"
 import sessionState from "../atoms/session"
 import { useRecoilValue } from "recoil"
 
-/*
 type Props = {
-  render: React.Node,
+  render: (session: any) => JSX.Element,
 }
-*/
-const UserData = (props) => {
+
+const UserData = (props: Props) => {
   const session = useRecoilValue(sessionState)
   const permissionsLoaded = useRecoilValue(isOnline)
-  if (permissionsLoaded === false) return ""
+  if (permissionsLoaded === false) return <div/>
   if (session == null) {
     return <Redirect to={"/auth"} />
   }
   return props.render(session)
 }
 
-function EnsureAuth(props) {
+function EnsureAuth(props: Props) {
   return (
     <React.Suspense fallback="">
       <UserData render={props.render} />

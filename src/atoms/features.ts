@@ -7,8 +7,8 @@ const featureState = atom({
 
 export const isEnabledState = selectorFamily({
   key: "isEnabled",
-  get: (featureName) => ({ get }) => {
-    const features = get(featureState)
+  get: (featureName: string) => ({ get }) => {
+    const features = get(featureState) as string[]
     return features.includes(featureName)
   },
 })

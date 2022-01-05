@@ -1,6 +1,7 @@
 import * as React from "react"
 
 import { AuthPage, TlsConfigurationsPages } from "./pages"
+// @ts-ignore
 import { Box, ThemeProvider, theme as cosmoTheme, getTheme } from "cosmo"
 import { GlobalStyle, Navigation } from "./components"
 import { QueryClient, QueryClientProvider } from "react-query"
