@@ -7,6 +7,7 @@
     "start": "cross-env REACT_APP_ENVIRONMENT=test react-scripts start",
     "start-mirage": "cross-env REACT_APP_ENVIRONMENT=development react-scripts start",
     "build": "cross-env REACT_APP_ENVIRONMENT=production react-scripts build",
+    "cypress:open": "cross-env REACT_APP_ENVIRONMENT=test cypress open",
     "build:cosmo": "yarn --cwd ./lib/cosmo",
     "build:shared-mirage": "yarn --cwd ./lib/shared-mirage",
     "lint": "eslint 'src/**/*.ts' 'src/**/*.js'",
@@ -63,8 +64,11 @@
     "web-vitals": "^0.2.4"
   },
   "devDependencies": {
+    "@cypress/react": "^5.12.0",
+    "@cypress/webpack-dev-server": "^1.8.0",
     "@types/react-router-dom": "^5.3.2",
     "cors": "^2.8.5",
+    "cypress": "^9.2.0",
     "faker": "^5.5.3",
     "flow-bin": "^0.140.0",
     "prettier": "^2.2.1",

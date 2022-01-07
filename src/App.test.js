@@ -1,16 +1,8 @@
-import { render } from "@testing-library/react";
-import { MemoryRouter } from "react-router";
-import App from "./App";
+import App from "./App"
+import React from "react"
+import { mount } from "@cypress/react"
 
-// This is an example test that just snapshots the <App />.
-// Expectation is that this test would be removed in favour of more discreet
-// component tests.
-
-test("example snapshot test for <App />", () => {
-  const { asFragment } = render(
-    <MemoryRouter>
-      <App />
-    </MemoryRouter>
-  );
-  expect(asFragment()).toMatchSnapshot();
-});
+it("renders learn react link", () => {
+  mount(<App />)
+  cy.get("#/tls-configurations").contains("TLS")
+})

@@ -68,6 +68,7 @@ function Navigation(props) {
             { path: "/auth", label: "Auth" },
           ].map((x) => (
             <NavItem
+              id={x.path}
               key={x.path}
               to={{
                 pathname: x.path,

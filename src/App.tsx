@@ -1,16 +1,20 @@
 import * as React from "react"
 
-import { AuthPage, TlsConfigurationsPages } from "./pages"
+// import { AuthPage, TlsConfigurationsPages } from "./pages"
 // @ts-ignore
 import { Box, ThemeProvider, theme as cosmoTheme, getTheme } from "cosmo"
 import { GlobalStyle, Navigation } from "./components"
 import { QueryClient, QueryClientProvider } from "react-query"
-import { Redirect, Route, Switch, useLocation } from "react-router-dom"
 
-import EnsureAuth from "./components/EnsureAuth"
+// import EnsureAuth from "./components/EnsureAuth"
 import { ReactQueryDevtools } from "react-query/devtools"
 import { RecoilRoot } from "recoil"
+import UserData from "./UserData"
 import useLocalStorage from "./hooks/useLocalStorage"
+import { useLocation } from "react-router-dom"
+
+// import { Redirect, Route, Switch, useLocation } from "react-router-dom"
+
 
 function App() {
   const location = useLocation()
@@ -43,6 +47,8 @@ function App() {
           <GlobalStyle />
           <Navigation theme={theme} onThemeChange={setTheme} />
           <Box padding="lg">
+            <UserData />
+            {/*
             <Switch>
               <Redirect exact from="/" to="/tls-configuration" />
               <Route path="/tls-configurations/:id">
@@ -63,6 +69,7 @@ function App() {
                 <AuthPage />
               </Route>
             </Switch>
+          */}
           </Box>
         </ThemeProvider>
       </RecoilRoot>

@@ -15,6 +15,7 @@ const ALL_FEATURES = [
 const DEFAULT_FEATURES = ["gsEmailValidations"]
 
 function scenario(server) {
+  debugger
   const fastlyCustomer = server.create("customer", {
     name: "Fastly",
     id: "M4HCwJxJPGCIBSlRd5ETh",
