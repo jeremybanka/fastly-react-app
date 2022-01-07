@@ -15,12 +15,14 @@ const sessionState = atom({
 
       let session = new Session({}) // should we pass apiOrigin, authPath, and client?
       try {
+        console.log("attempting to get session")
         session = await session.ensureSession({}) // should we pass includeServices?
+        setSelf(session)
+        console.log({ session })
         setFeatures(session.features)
         const permissions = await new Permissions({ session })
         await permissions.buildCache(session.authorizedPermissions)
         setPermissions(permissions)
-        setSelf(session)
       } catch (e) {
         console.log("ERROR", e) // Should remove this
         setPermissions({})

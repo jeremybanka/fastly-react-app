@@ -91,7 +91,10 @@ function TlsConfigurationsIndex(props) {
           <ul>
             {data.map((tlsConfiguration) => (
               <li key={tlsConfiguration.id}>
-                <Link to={`/tls-configurations/${tlsConfiguration.id}`}>
+                <Link
+                  data-testid={tlsConfiguration.id}
+                  to={`/tls-configurations/${tlsConfiguration.id}`}
+                >
                   {tlsConfiguration.attributes.name}
                 </Link>
               </li>

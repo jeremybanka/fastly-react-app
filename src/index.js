@@ -7,14 +7,15 @@ import { BrowserRouter } from "react-router-dom"
 import { IntlProvider } from "cosmo"
 import React from "react"
 import ReactDOM from "react-dom"
-// import { makeServer } from "./mirage"
-import { makeServer } from "./server"
+import { makeServer } from "./mirage"
+// import { makeServer } from "./server"
 import reportWebVitals from "./reportWebVitals"
 
 if (process.env.REACT_APP_ENVIRONMENT === "development") {
   // const serverConfig = generateServerConfig({ environment: "development" })
   // createServer(serverConfig)
-  makeServer({ environment: "development" })
+  const server = makeServer({ environment: "development" })
+  server.logging = true
 }
 
 // @ts-ignore

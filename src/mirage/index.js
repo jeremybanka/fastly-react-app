@@ -1,13 +1,11 @@
 import { Model, createServer } from "miragejs"
 import { camelize, dasherize, underscore } from "inflected"
 
-// import auth from "./routes/auth"
 import factories from "./factories"
 import models from "./models"
 import scenario from "./default"
 import sharedMirage from "shared-mirage"
-
-// import spotlessRoutes from "./routes/spotless"
+import spotlessRoutes from "./routes/spotless"
 
 models.user = Model
 
@@ -42,24 +40,12 @@ export function makeServer({ environment = "test" } = {}) {
       return scenario(server)
     },
     routes() {
-      // const server = this
-      /*
-      // sharedMirage.routes.Auth(server, { origin: "https://api.fastly.com" })
-      auth(server, { origin: "https://api.fastly.com" })
+      const server = this
+      sharedMirage.routes.Auth(server, { origin: "https://api.fastly.com" })
       sharedMirage.routes.Iam(server, { origin: "https://api.fastly.com" })
       spotlessRoutes(server, { origin: "https://api.fastly.com" })
-      */
-      this.get("https://localhost:3000/api/users", (schema) => {
-        return schema.users.all()
-      })
-      this.get("https://api.fastly.com/api/users", (schema) => {
-        return schema.users.all()
-      })
-      this.get("/api/users", (schema) => {
-        return schema.users.all()
-      })
     },
   }
-
+  console.log(fullConfig)
   return createServer(fullConfig)
 }
