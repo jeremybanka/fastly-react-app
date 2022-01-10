@@ -74,9 +74,12 @@ function TlsConfigurationsIndex(props) {
         <Box maxWidth="400px">
           <h2>Auth</h2>
           <ul>
-            <li>User ID: {props.session.user.id}</li>
+            <li data-testid={`user-${props.session.user.id}`}>
+              User: ID: {props.session.user.id} | login:{" "}
+              {props.session.user.login} | role: {props.session.user.role}
+            </li>
             <li>Customer ID: {props.session.customer.id}</li>
-            <li>
+            <li data-testid="feature-check">
               <strong>Feature-check:</strong> exemptFromTlsBilling:{" "}
               {isExemptFromBilling ? "true" : "false"}
             </li>

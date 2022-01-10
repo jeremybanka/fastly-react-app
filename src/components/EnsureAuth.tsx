@@ -1,7 +1,8 @@
 import * as React from "react"
 
+import { isOnline, permitted } from "../atoms/permissions"
+
 import { Redirect } from "react-router-dom"
-import { isOnline } from "../atoms/permissions"
 import sessionState from "../atoms/session"
 import { useRecoilValue } from "recoil"
 
@@ -12,8 +13,17 @@ type Props = {
 const UserData = (props: Props) => {
   const session = useRecoilValue(sessionState)
   const permissionsLoaded = useRecoilValue(isOnline)
+  const canManageTls = useRecoilValue(
+    permitted({ resource: "tls", operation: "crud", scope: "account" })
+  )
+  const canReadTls = useRecoilValue(
+    permitted({ resource: "tls", operation: "crud", scope: "account" })
+  )
+  const noTlsPermissions = !canManageTls && !canReadTls
+
   if (permissionsLoaded === false) return null
-  if (session == null) {
+
+  if (session == null || noTlsPermissions) {
     return <Redirect to={"/auth"} />
   }
   return props.render(session)
