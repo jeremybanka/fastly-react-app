@@ -66,6 +66,7 @@ function Navigation(props) {
           {[
             { path: "/tls-configurations", label: "TLS" },
             { path: "/auth", label: "Auth" },
+            { path: "/posts", label: "Posts" },
           ].map((x) => (
             <NavItem
               id={x.path}

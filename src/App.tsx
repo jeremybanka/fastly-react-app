@@ -1,22 +1,25 @@
-import * as React from "react"
-
 import { AuthPage, TlsConfigurationsPages } from "./pages"
 // @ts-ignore
 import { Box, ThemeProvider, theme as cosmoTheme, getTheme } from "cosmo"
 import { GlobalStyle, Navigation } from "./components"
-import { QueryClient, QueryClientProvider } from "react-query"
+import {
+  QueryClient,
+  QueryClientProvider,
+} from "react-query";
 import { Redirect, Route, Switch, useLocation } from "react-router-dom"
 
 import EnsureAuth from "./components/EnsureAuth"
-import { ReactQueryDevtools } from "react-query/devtools"
+import Post from "./Post"
+import Posts from "./Posts"
+import React from "react";
+import { ReactQueryDevtools } from "react-query/devtools";
 import { RecoilRoot } from "recoil"
 import useLocalStorage from "./hooks/useLocalStorage"
 
-function App() {
+const queryClient = new QueryClient();
+
+export default function App() {
   const location = useLocation()
-  const queryClient = new QueryClient({
-    defaultOptions: { queries: { retry: 0 } },
-  })
 
   // get browser-defined preference for dark mode
   const prefersDarkMode =
@@ -30,21 +33,20 @@ function App() {
   )
 
   // e.g. 'light' → 'fastlyLight'
+  // const brandedTheme = 'light'
   const brandedTheme = location.pathname.includes("fastly")
     ? `fastly${theme.replace(theme[0], theme[0].toUpperCase())}`
     : theme
 
   return (
     <QueryClientProvider client={queryClient}>
-      <ReactQueryDevtools initialIsOpen={false} />
-
       <RecoilRoot>
         <ThemeProvider theme={getTheme(cosmoTheme, brandedTheme)}>
           <GlobalStyle />
           <Navigation theme={theme} onThemeChange={setTheme} />
           <Box padding="lg">
             <Switch>
-              <Redirect exact from="/" to="/tls-configuration" />
+              <Redirect exact from="/" to="/posts" />
               <Route path="/tls-configurations/:id">
                 <EnsureAuth
                   render={(session) => (
@@ -59,15 +61,28 @@ function App() {
                   )}
                 />
               </Route>
+              <Route path="/posts/:id">
+                <EnsureAuth
+                  render={(session) => (
+                    <Post session={session}/>
+                  )}
+                />
+              </Route>
+              <Route path="/posts">
+                <EnsureAuth
+                  render={(session) => (
+                    <Posts session={session}/>
+                  )}
+                />
+              </Route>
               <Route path="/auth">
                 <AuthPage />
               </Route>
             </Switch>
           </Box>
+          <ReactQueryDevtools initialIsOpen />
         </ThemeProvider>
       </RecoilRoot>
     </QueryClientProvider>
-  )
+  );
 }
-
-export default App
