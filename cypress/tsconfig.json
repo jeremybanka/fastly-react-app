@@ -4,5 +4,5 @@
     "lib": ["esnext", "dom"],
     "types": ["cypress"]
   },
-  "include": ["**/*.ts"]
+  "include": ["**/*.ts", "../src/typings.ts"]
 }

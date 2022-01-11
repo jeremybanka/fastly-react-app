@@ -1,3 +1,34 @@
+// Session
+// ---------------------------------------------------------------------------
+enum UserRole {
+  admin = "admin",
+  user = "user",
+}
+
+type User = {
+  id: string | number
+  name: string
+  role: UserRole
+  login: string
+}
+
+type Token = {
+  access_token: string
+}
+
+type Customer = {
+  id: string | number
+  name: string
+}
+
+export type Session = {
+  token: Token
+  customer: Customer
+  signedIn: boolean
+  features: string[]
+  user: User
+}
+
 // mirage
 // ---------------------------------------------------------------------------
 

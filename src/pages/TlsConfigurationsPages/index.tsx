@@ -1,55 +1,46 @@
 import * as React from "react"
 
+// @ts-ignore
 import { Box, Flexbox, Page, Text } from "cosmo"
+import { fetchTlsConfigs, queryKeys } from "./queryKeys"
 
 import { Link } from "react-router-dom"
 import { Redirect } from "react-router-dom"
+import type { Session } from '../../typings'
+import type { TlsConfiguration } from "./queryKeys"
 import { isEnabledState } from "../../atoms/features"
 import { permitted } from "../../atoms/permissions"
 import { useQuery } from "react-query"
 import { useRecoilValue } from "recoil"
 
-function TlsConfigurationsIndex(props) {
-  // Auth, permissions, and features
+type Props = {
+  session: Session
+}
+
+function TlsConfigurationsIndex(props: Props) {
+  // permissions and features
   // ---------------------------------------------------------------------------
   const canReadTls = useRecoilValue(
     permitted({ resource: "tls", operation: "crud", scope: "account" })
   )
-  const isExemptFromBilling = useRecoilValue(
-    isEnabledState("exemptFromTlsBilling")
-  )
+  const isExemptFromBilling = useRecoilValue(isEnabledState("exemptFromTlsBilling"))
 
   // API call
   // ---------------------------------------------------------------------------
-  const fetchTlsConfigs = async () => {
-    const response = await fetch("/tls/configurations", {
-      headers: { "fastly-key": props.session.token.access_token },
-    })
-    if (!response.ok) {
-      if (response.status === 401) {
-        throw new Error("Unauthorized")
-      }
-      throw new Error("Network response was not ok")
-    }
-    const payload = await response.json()
-    return payload.data
-  }
-  const { isLoading, isError, data, error } = useQuery(
-    ["tls-configurations"],
-    fetchTlsConfigs
-  )
+  const tlsConfigurations = useQuery(queryKeys.all, fetchTlsConfigs(props.session))
 
   // What to do while waiting for data-load or error-condition
   // ---------------------------------------------------------------------------
-  if (isLoading) {
+  if (tlsConfigurations.isLoading) {
     return <span>Loading...</span>
   }
-  if (isError) {
-    if (error.message === "Unauthorized") {
+  if (tlsConfigurations.error instanceof Error) {
+    if (tlsConfigurations.error.message === "Unauthorized") {
       return <Redirect to={"/auth"} />
     }
-    return <span>Error: {error.message}</span>
+    return <span>Error: {tlsConfigurations.error.message}</span>
   }
+  if (tlsConfigurations.isSuccess === false) return <span>Error</span>
 
   // Render
   // ---------------------------------------------------------------------------
@@ -92,7 +83,7 @@ function TlsConfigurationsIndex(props) {
         <Box>
           <h2>Data</h2>
           <ul>
-            {data.map((tlsConfiguration) => (
+            {tlsConfigurations.data.map((tlsConfiguration: TlsConfiguration) => (
               <li key={tlsConfiguration.id}>
                 <Link
                   data-testid={tlsConfiguration.id}
