@@ -44,6 +44,7 @@ export function makeServer({ environment = "test" } = {}) {
       sharedMirage.routes.Auth(server, { origin: "https://api.fastly.com" })
       sharedMirage.routes.Iam(server, { origin: "https://api.fastly.com" })
       spotlessRoutes(server, { origin: "https://api.fastly.com" })
+      this.passthrough("https://jsonplaceholder.typicode.com/**")
     },
   }
   console.log(fullConfig)

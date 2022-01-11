@@ -1,19 +1,13 @@
-// import { Response, createServer } from "miragejs"
-
 import App from "./App"
 import { BrowserRouter } from "react-router-dom"
-// import { Cache } from "rsrc"
 // @ts-ignore
 import { IntlProvider } from "cosmo"
 import React from "react"
 import ReactDOM from "react-dom"
 import { makeServer } from "./mirage"
-// import { makeServer } from "./server"
 import reportWebVitals from "./reportWebVitals"
 
 if (process.env.REACT_APP_ENVIRONMENT === "development") {
-  // const serverConfig = generateServerConfig({ environment: "development" })
-  // createServer(serverConfig)
   const server = makeServer({ environment: "development" })
   server.logging = true
 }
