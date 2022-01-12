@@ -19,13 +19,10 @@ type Props = {
 }
 
 function TlsConfigurationDetailsPage(props: Props) {
-  // API call
+  // Model
   // ---------------------------------------------------------------------------
   const { id } = useParams<TlsConfigurationDetailsParams>()
-
-  const tlsConfiguration = useQuery(
-    queryKeys.detail(id),
-    useTlsConfig(id, props.session)
+  const tlsConfiguration = useQuery(queryKeys.detail(id), useTlsConfig(id, props.session)
   )
 
   // What to do while waiting for data-load or error-condition

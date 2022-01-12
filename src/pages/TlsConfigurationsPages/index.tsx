@@ -18,16 +18,16 @@ type Props = {
 }
 
 function TlsConfigurationsIndex(props: Props) {
+  // Model
+  // ---------------------------------------------------------------------------
+  const tlsConfigurations = useQuery(queryKeys.all, useTlsConfigs(props.session))
+
   // permissions and features
   // ---------------------------------------------------------------------------
   const canReadTls = useRecoilValue(
     permitted({ resource: "tls", operation: "crud", scope: "account" })
   )
   const isExemptFromBilling = useRecoilValue(isEnabledState("exemptFromTlsBilling"))
-
-  // API call
-  // ---------------------------------------------------------------------------
-  const tlsConfigurations = useQuery(queryKeys.all, useTlsConfigs(props.session))
 
   // What to do while waiting for data-load or error-condition
   // ---------------------------------------------------------------------------
