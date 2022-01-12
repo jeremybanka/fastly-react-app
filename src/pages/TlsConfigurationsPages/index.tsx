@@ -2,12 +2,12 @@ import * as React from "react"
 
 // @ts-ignore
 import { Box, Flexbox, Page, Text } from "cosmo"
-import { queryKeys, useTlsConfigs } from "./queryKeys"
+import { queryKeys, useTlsConfigs } from "./query"
 
 import { Link } from "react-router-dom"
 import { Redirect } from "react-router-dom"
 import type { Session } from '../../typings'
-import type { TlsConfiguration } from "./queryKeys"
+import type { TlsConfiguration } from "./query"
 import { isEnabledState } from "../../atoms/features"
 import { permitted } from "../../atoms/permissions"
 import { useQuery } from "react-query"
