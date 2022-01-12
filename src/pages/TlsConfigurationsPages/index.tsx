@@ -2,7 +2,7 @@ import * as React from "react"
 
 // @ts-ignore
 import { Box, Flexbox, Page, Text } from "cosmo"
-import { fetchTlsConfigs, queryKeys } from "./queryKeys"
+import { queryKeys, useTlsConfigs } from "./queryKeys"
 
 import { Link } from "react-router-dom"
 import { Redirect } from "react-router-dom"
@@ -27,7 +27,7 @@ function TlsConfigurationsIndex(props: Props) {
 
   // API call
   // ---------------------------------------------------------------------------
-  const tlsConfigurations = useQuery(queryKeys.all, fetchTlsConfigs(props.session))
+  const tlsConfigurations = useQuery(queryKeys.all, useTlsConfigs(props.session))
 
   // What to do while waiting for data-load or error-condition
   // ---------------------------------------------------------------------------

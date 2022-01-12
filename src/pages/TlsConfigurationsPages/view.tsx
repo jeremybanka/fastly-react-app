@@ -1,52 +1,45 @@
 import * as React from "react"
 
+// @ts-ignore
 import { Box, Flexbox, Page, Text } from "cosmo"
+import { queryKeys, useTlsConfig } from "./queryKeys"
 
 import { Link } from "react-router-dom"
 import { Redirect } from "react-router-dom"
-import sessionState from "../../atoms/session"
+import type { Session } from '../../typings'
 import { useParams } from "react-router-dom"
 import { useQuery } from "react-query"
-import { useRecoilValue } from "recoil"
 
-function TlsConfigurationDetailsPage(props) {
-  // Auth, permissions, and features
-  // ---------------------------------------------------------------------------
-  const session = useRecoilValue(sessionState)
+type TlsConfigurationDetailsParams = {
+  id: string
+}
 
+type Props = {
+  session: Session
+}
+
+function TlsConfigurationDetailsPage(props: Props) {
   // API call
   // ---------------------------------------------------------------------------
-  const { id } = useParams()
+  const { id } = useParams<TlsConfigurationDetailsParams>()
 
-  const fetchTlsConfigs = async () => {
-    const response = await fetch(`/tls/configurations/${id}`, {
-      headers: { "fastly-key": session.token.access_token },
-    })
-    if (!response.ok) {
-      if (response.status === 401) {
-        throw new Error("Unauthorized")
-      }
-      throw new Error("Network response was not ok")
-    }
-    const payload = await response.json()
-    return payload.data
-  }
-  const { isLoading, isError, data, error } = useQuery(
-    ["tls-configurations", id],
-    fetchTlsConfigs
+  const tlsConfiguration = useQuery(
+    queryKeys.detail(id),
+    useTlsConfig(id, props.session)
   )
 
   // What to do while waiting for data-load or error-condition
   // ---------------------------------------------------------------------------
-  if (isLoading) {
+  if (tlsConfiguration.isLoading) {
     return <span>Loading...</span>
   }
-  if (isError) {
-    if (error.message === "Unauthorized") {
+  if (tlsConfiguration.error instanceof Error) {
+    if (tlsConfiguration.error.message === "Unauthorized") {
       return <Redirect to={"/auth"} />
     }
-    return <span>Error: {error.message}</span>
+    return <span>Error: {tlsConfiguration.error.message}</span>
   }
+  if (tlsConfiguration.isSuccess === false) return <span>Error</span>
 
   // Render
   // ---------------------------------------------------------------------------
@@ -78,10 +71,10 @@ function TlsConfigurationDetailsPage(props) {
       </Page.Header>
       <Page.Body>
         <Box>
-          <h2>{data.attributes.name}</h2>
+          <h2>{tlsConfiguration.data.attributes.name}</h2>
           {attributes.map((attribute) => (
             <p key={attribute}>
-              {attribute}: {data.attributes[attribute]}
+              {attribute}: {tlsConfiguration.data.attributes[attribute]}
             </p>
           ))}
         </Box>
