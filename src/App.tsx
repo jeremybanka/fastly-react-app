@@ -1,4 +1,4 @@
-import { AuthPage, TlsConfigurationsPages } from "./pages"
+import { AuthPage, PostPages, TlsConfigurationsPages } from "./pages"
 // @ts-ignore
 import { Box, ThemeProvider, theme as cosmoTheme, getTheme } from "cosmo"
 import { GlobalStyle, Navigation } from "./components"
@@ -9,8 +9,6 @@ import {
 import { Redirect, Route, Switch, useLocation } from "react-router-dom"
 
 import EnsureAuth from "./components/EnsureAuth"
-import Post from "./Post"
-import Posts from "./Posts"
 import React from "react";
 import { ReactQueryDevtools } from "react-query/devtools";
 import { RecoilRoot } from "recoil"
@@ -64,14 +62,14 @@ export default function App() {
               <Route path="/posts/:id">
                 <EnsureAuth
                   render={(session) => (
-                    <Post session={session}/>
+                    <PostPages.View session={session}/>
                   )}
                 />
               </Route>
               <Route path="/posts">
                 <EnsureAuth
                   render={(session) => (
-                    <Posts session={session}/>
+                    <PostPages.Index session={session}/>
                   )}
                 />
               </Route>

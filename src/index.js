@@ -1,6 +1,5 @@
 import App from "./App"
 import { BrowserRouter } from "react-router-dom"
-// @ts-ignore
 import { IntlProvider } from "cosmo"
 import React from "react"
 import ReactDOM from "react-dom"
@@ -12,15 +11,11 @@ if (process.env.REACT_APP_ENVIRONMENT === "development") {
   server.logging = true
 }
 
-// @ts-ignore
 if (window.Cypress) {
   console.log("Cypress detected, setting up proxy")
-  // @ts-ignore
   window.server = makeServer({ environment: "test" })
-  // @ts-ignore
   window.server.logging = true
 
-  // @ts-ignore
   window.runCypressMirageFunctions()
 }
 

@@ -1,23 +1,6 @@
-import {
-  useQuery,
-  useQueryClient,
-} from "react-query";
-
 import { Link } from "react-router-dom"
-
-function usePosts() {
-  return useQuery("posts", async () => {
-    const response = await fetch("https://jsonplaceholder.typicode.com/posts");
-    if (!response.ok) {
-      if (response.status === 401) {
-        throw new Error("Unauthorized")
-      }
-      throw new Error("Network response was not ok")
-    }
-    const payload = await response.json()
-    return payload
-  });
-}
+import { usePosts } from "./query"
+import { useQueryClient } from "react-query";
 
 // @ts-ignore
 export default function Posts({ session }: { session: any }) {
