@@ -2,7 +2,7 @@ import * as React from "react"
 
 // @ts-ignore
 import { Box, Flexbox, Page, Text } from "cosmo"
-import { queryKeys, useTlsConfig } from "./queryKeys"
+import { queryKeys, useTlsConfig } from "./query"
 
 import { Link } from "react-router-dom"
 import { Redirect } from "react-router-dom"
