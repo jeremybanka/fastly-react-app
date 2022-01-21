@@ -1,38 +1,32 @@
 import { AuthPage, PostPages, TlsConfigurationsPages } from "./pages"
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 // @ts-ignore
 import { Box, ThemeProvider, theme as cosmoTheme, getTheme } from "cosmo"
 import { GlobalStyle, Navigation } from "./components"
-import {
-  QueryClient,
-  QueryClientProvider,
-} from "react-query";
+import { QueryClient, QueryClientProvider } from "react-query"
 import { Redirect, Route, Switch, useLocation } from "react-router-dom"
 
 import EnsureAuth from "./components/EnsureAuth"
-import React from "react";
-import { ReactQueryDevtools } from "react-query/devtools";
+// @ts-ignore
+import React from "react"
+import { ReactQueryDevtools } from "react-query/devtools"
 import { RecoilRoot } from "recoil"
 import useLocalStorage from "./hooks/useLocalStorage"
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient()
 
-export default function App() {
+export default function App(): React.ReactNode {
   const location = useLocation()
 
   // get browser-defined preference for dark mode
-  const prefersDarkMode =
-    window.matchMedia &&
-    window.matchMedia("(prefers-color-scheme: dark)").matches
+  const prefersDarkMode = window?.matchMedia(`(prefers-color-scheme: dark)`).matches
 
   // store theme preference in local storage
-  const [theme, setTheme] = useLocalStorage(
-    "theme",
-    prefersDarkMode ? "dark" : "light"
-  )
+  const [theme, setTheme] = useLocalStorage(`theme`, prefersDarkMode ? `dark` : `light`)
 
   // e.g. 'light' → 'fastlyLight'
   // const brandedTheme = 'light'
-  const brandedTheme = location.pathname.includes("fastly")
+  const brandedTheme = location.pathname.includes(`fastly`)
     ? `fastly${theme.replace(theme[0], theme[0].toUpperCase())}`
     : theme
 
@@ -46,32 +40,24 @@ export default function App() {
             <Switch>
               <Redirect exact from="/" to="/posts" />
               <Route path="/tls-configurations/:id">
-                <EnsureAuth
-                  render={(session) => (
-                    <TlsConfigurationsPages.View session={session} />
-                  )}
-                />
+                <EnsureAuth>
+                  <TlsConfigurationsPages.View />
+                </EnsureAuth>
               </Route>
               <Route path="/tls-configurations">
-                <EnsureAuth
-                  render={(session) => (
-                    <TlsConfigurationsPages.Index session={session} />
-                  )}
-                />
+                <EnsureAuth>
+                  <TlsConfigurationsPages.Index />
+                </EnsureAuth>
               </Route>
               <Route path="/posts/:id">
-                <EnsureAuth
-                  render={(session) => (
-                    <PostPages.View session={session}/>
-                  )}
-                />
+                <EnsureAuth>
+                  <PostPages.View />
+                </EnsureAuth>
               </Route>
               <Route path="/posts">
-                <EnsureAuth
-                  render={(session) => (
-                    <PostPages.Index session={session}/>
-                  )}
-                />
+                <EnsureAuth>
+                  <PostPages.Index />
+                </EnsureAuth>
               </Route>
               <Route path="/auth">
                 <AuthPage />
@@ -82,5 +68,5 @@ export default function App() {
         </ThemeProvider>
       </RecoilRoot>
     </QueryClientProvider>
-  );
+  )
 }

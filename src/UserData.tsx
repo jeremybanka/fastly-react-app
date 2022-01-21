@@ -1,4 +1,4 @@
-import React from 'react'
+import type { FC } from "react"
 import { useQuery } from "react-query"
 
 interface QueryResult {
@@ -8,24 +8,21 @@ interface QueryResult {
   error: any
 }
 
-export default function UserData() {
+const UserData: FC = () => {
   // API call
   // ---------------------------------------------------------------------------
   const fetchUsers = async () => {
-    const response = await fetch("https://api.fastly.com/api/users", {})
+    const response = await fetch(`https://api.fastly.com/api/users`, {})
     if (!response.ok) {
       if (response.status === 401) {
-        throw new Error("Unauthorized")
+        throw new Error(`Unauthorized`)
       }
-      throw new Error("Network response was not ok")
+      throw new Error(`Network response was not ok`)
     }
     const payload = await response.json()
     return payload.data
   }
-  const { isLoading, isError, data, error }: QueryResult = useQuery(
-    ["users"],
-    fetchUsers
-  )
+  const { isLoading, isError, data, error }: QueryResult = useQuery([`users`], fetchUsers)
 
   // What to do while waiting for data-load or error-condition
   // ---------------------------------------------------------------------------
@@ -35,11 +32,11 @@ export default function UserData() {
   if (isError) {
     return <span>Error: {error.message}</span>
   }
-    
+
   return (
     <div>
       <ul>
-        {data.length === 0 && (<p data-testid="no-users">No users</p>)}
+        {data.length === 0 && <p data-testid="no-users">No users</p>}
         {data.map((user: any) => (
           <li data-testid={`user-${user.id}`} key={user.id}>
             {user.attributes.name}
@@ -49,3 +46,5 @@ export default function UserData() {
     </div>
   )
 }
+
+export default UserData

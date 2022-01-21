@@ -1,4 +1,4 @@
-import { createGlobalStyle } from "cosmo";
+import { createGlobalStyle } from "cosmo"
 
 const GlobalStyle = createGlobalStyle`
   *,
@@ -15,6 +15,6 @@ const GlobalStyle = createGlobalStyle`
     color: ${({ theme }) => theme.colors.grays[8]};
     background-color: ${({ theme }) => theme.colors.grays[0]};
   }
-`;
+`
 
-export default GlobalStyle;
+export default GlobalStyle

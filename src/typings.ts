@@ -1,32 +1,47 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 // Session
 // ---------------------------------------------------------------------------
+// TODO: fix redundancies with src/auth/session.ts
 enum UserRole {
-  admin = "admin",
-  user = "user",
+  admin = `admin`,
+  user = `user`,
 }
 
-type User = {
-  id: string | number
+type UserType = {
+  admin_role_expires_at: number
+  id: number | string
   name: string
   role: UserRole
   login: string
 }
 
 type Token = {
-  access_token: string
+  access_token?: string
 }
 
-type Customer = {
-  id: string | number
+export type CustomerType = {
+  id: number | string
   name: string
 }
 
 export type Session = {
-  token: Token
-  customer: Customer
+  authorizedPermissions: FixAnyPlease
+  token: Token | null
+  customer: CustomerType | null
   signedIn: boolean
   features: string[]
-  user: User
+  user: UserType | null
+}
+
+export type PermissionItem = {
+  resource: string
+  operation: string
+  scope: string
+}
+
+export type PermissionObject = {
+  has: (resource: string, operation: string, scope: string) => boolean
 }
 
 // mirage
@@ -45,11 +60,7 @@ export type MirageServer = {
   patch: (path: string, arg?: ModelOrFunction) => void
   del: (path: string, arg?: ModelOrFunction) => void
   db: Db
-  create: (
-    modelName: string,
-    arg1?: FixAnyPlease,
-    options?: FixAnyPlease
-  ) => any
+  create: (modelName: string, arg1?: FixAnyPlease, options?: FixAnyPlease) => any
   createList: (modelName: string, count: number, options?: FixAnyPlease) => any
   session: FixAnyPlease
   schema: Schema
@@ -76,7 +87,7 @@ interface DbInterface {
   remove: () => void
 }
 
-interface Db {
+export interface Db {
   customers: DbInterface
   tlsCertificates: DbInterface
   tlsActivations: DbInterface

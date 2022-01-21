@@ -1,39 +1,34 @@
 import * as React from "react"
 
-import { isOnline, permitted } from "../atoms/permissions"
+import sessionState, { permitted } from "../atoms/session"
 
+import type { FC } from "react"
 import { Redirect } from "react-router-dom"
-import sessionState from "../atoms/session"
 import { useRecoilValue } from "recoil"
 
-type Props = {
-  render: (session: any) => JSX.Element,
-}
-
-const UserData = (props: Props) => {
+const UserData: FC = ({ children }) => {
   const session = useRecoilValue(sessionState)
-  const permissionsLoaded = useRecoilValue(isOnline)
   const canManageTls = useRecoilValue(
-    permitted({ resource: "tls", operation: "crud", scope: "account" })
+    permitted({ resource: `tls`, operation: `crud`, scope: `account` })
   )
   const canReadTls = useRecoilValue(
-    permitted({ resource: "tls", operation: "crud", scope: "account" })
+    permitted({ resource: `tls`, operation: `crud`, scope: `account` })
   )
   const noTlsPermissions = !canManageTls && !canReadTls
 
-  if (permissionsLoaded === false) return null
-
   if (session == null || noTlsPermissions) {
-    return <Redirect to={"/auth"} />
+    return <Redirect to={`/auth`} />
   }
-  return props.render(session)
+  return <>{children}</>
 }
 
-function EnsureAuth(props: Props) {
+const EnsureAuth: FC = ({ children }) => {
   return (
-    <React.Suspense fallback="">
-      <UserData render={props.render} />
-    </React.Suspense>
+    <>
+      <React.Suspense fallback="">
+        <UserData>{children}</UserData>
+      </React.Suspense>
+    </>
   )
 }
 

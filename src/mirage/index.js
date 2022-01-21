@@ -16,19 +16,17 @@ const localMirage = {
   fixtures: {},
 }
 
-export function makeServer({ environment = "test" } = {}) {
+export function makeServer({ environment = `test` } = {}) {
   const baseConfig = {}
   for (const section in localMirage) {
     baseConfig[section] = Object.entries(localMirage[section]).reduce(
-      (memo, [key, value]) =>
-        Object.assign(memo, { [camelize(underscore(key), false)]: value }),
+      (memo, [key, value]) => Object.assign(memo, { [camelize(underscore(key), false)]: value }),
       {}
     )
   }
   for (const section in sharedMirage.fastly) {
     baseConfig[section] = Object.entries(sharedMirage.fastly[section]).reduce(
-      (memo, [key, value]) =>
-        Object.assign(memo, { [dasherize(underscore(key))]: value }),
+      (memo, [key, value]) => Object.assign(memo, { [dasherize(underscore(key))]: value }),
       baseConfig[section]
     )
   }
@@ -40,11 +38,10 @@ export function makeServer({ environment = "test" } = {}) {
       return scenario(server)
     },
     routes() {
-      const server = this
-      sharedMirage.routes.Auth(server, { origin: "https://api.fastly.com" })
-      sharedMirage.routes.Iam(server, { origin: "https://api.fastly.com" })
-      spotlessRoutes(server, { origin: "https://api.fastly.com" })
-      this.passthrough("https://jsonplaceholder.typicode.com/**")
+      sharedMirage.routes.Auth(this, { origin: `https://api.fastly.com` })
+      sharedMirage.routes.Iam(this, { origin: `https://api.fastly.com` })
+      spotlessRoutes(this, { origin: `https://api.fastly.com` })
+      this.passthrough(`https://jsonplaceholder.typicode.com/**`)
     },
   }
   console.log(fullConfig)

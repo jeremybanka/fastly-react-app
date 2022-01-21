@@ -1,6 +1,6 @@
 import getDataFromRequest from "../utils/get-data-from-request"
 
-export default function AuthRoutes(server, { origin = "" }) {
+export default function AuthRoutes(server, { origin = `` }) {
   server.get(`${origin}/verify`, function (schema, request) {
     const { customer, user, token } = getDataFromRequest(server, request)
 
@@ -15,10 +15,7 @@ export default function AuthRoutes(server, { origin = "" }) {
         customer_id: customer.id,
       })
       if (customerServices.models) {
-        const serviceArray = customerServices.models.map(({ id, name }) => [
-          id,
-          name,
-        ])
+        const serviceArray = customerServices.models.map(({ id, name }) => [id, name])
         services = Object.fromEntries(serviceArray)
       } else {
         services = {}
@@ -28,8 +25,8 @@ export default function AuthRoutes(server, { origin = "" }) {
     /**
      * Token
      */
-    token.update({ updated_at: "new value" })
-    localStorage.removeItem("keepTokens")
+    token.update({ updated_at: `new value` })
+    localStorage.removeItem(`keepTokens`)
 
     const response = {
       customer,
@@ -56,16 +53,16 @@ export default function AuthRoutes(server, { origin = "" }) {
         return { id, name, operation, resource }
       }
       const accountPermissions = permissions
-        .filter((perm) => ["account", "internal"].includes(perm.scope))
+        .filter((perm) => [`account`, `internal`].includes(perm.scope))
         .map((perm) => structurePerm(perm))
       const servicePermissions = permissions
-        .filter((perm) => perm.scope === "service")
+        .filter((perm) => perm.scope === `service`)
         .map((perm) => structurePerm(perm))
       const authorizedPermissions = {
         account_permissions: accountPermissions.map(({ id }) => id),
         service_permissions: [
           {
-            service_id: "all_services",
+            service_id: `all_services`,
             permissions: servicePermissions.map(({ id }) => id),
           },
         ],
@@ -75,7 +72,7 @@ export default function AuthRoutes(server, { origin = "" }) {
 
     try {
       // will throw if there is no mirage session serializer, so fall back to response
-      return this.serialize(response, "session")
+      return this.serialize(response, `session`)
     } catch (e) {
       return response
     }
@@ -84,32 +81,24 @@ export default function AuthRoutes(server, { origin = "" }) {
   server.get(`${origin}/customer-features`)
   server.get(`${origin}/customer-features/:id`)
   server.get(`${origin}/customers`, function (schema, request) {
-    const nameFilter = (
-      request.queryParams["filter[name][match]"] || ""
-    ).toLowerCase()
-    return schema.customers.where(
-      (c) => c.name && c.name.toLowerCase().includes(nameFilter)
-    )
+    const nameFilter = (request.queryParams[`filter[name][match]`] || ``).toLowerCase()
+    return schema.customers.where((c) => c.name && c.name.toLowerCase().includes(nameFilter))
   })
-  server.get(`${origin}/customers/:id`, "customer")
+  server.get(`${origin}/customers/:id`, `customer`)
 
   server.get(`${origin}/services`, function (schema, request) {
-    const nameFilter = (
-      request.queryParams["filter[name][match]"] || ""
-    ).toLowerCase()
-    if (request.queryParams["filter[domains.name]"] === "oopsie.woopsie.com") {
+    const nameFilter = (request.queryParams[`filter[name][match]`] || ``).toLowerCase()
+    if (request.queryParams[`filter[domains.name]`] === `oopsie.woopsie.com`) {
       return new Response(
         400,
         {},
-        { errors: [{ detail: "oh no! something went horribly wrong" }] }
+        { errors: [{ detail: `oh no! something went horribly wrong` }] }
       )
     }
-    return schema.services.where((s) =>
-      s.name.toLowerCase().includes(nameFilter)
-    )
+    return schema.services.where((s) => s.name.toLowerCase().includes(nameFilter))
   })
 
-  server.get(`${origin}/current_user/capabilities`, "customer-capability")
+  server.get(`${origin}/current_user/capabilities`, `customer-capability`)
 
   server.get(`${origin}/features`)
   server.get(`${origin}/features/:id`)

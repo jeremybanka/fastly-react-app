@@ -5,11 +5,4 @@ import Navigation from "./Navigation"
 import RequestRejected from "./RequestRejected"
 import ThemePicker from "./ThemePicker"
 
-export {
-  AuthMissing,
-  GlobalStyle,
-  MultiSelectInput,
-  Navigation,
-  RequestRejected,
-  ThemePicker,
-}
+export { AuthMissing, GlobalStyle, MultiSelectInput, Navigation, RequestRejected, ThemePicker }

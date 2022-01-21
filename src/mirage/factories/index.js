@@ -1,5 +1,5 @@
-import DnsRecord from './dns-record'
-import TlsConfiguration from './tls-configuration'
+import DnsRecord from "./dns-record"
+import TlsConfiguration from "./tls-configuration"
 
 const factories = {
   DnsRecord,
@@ -7,4 +7,3 @@ const factories = {
 }
 
 export default factories
-
