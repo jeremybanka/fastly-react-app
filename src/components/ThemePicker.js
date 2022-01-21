@@ -17,12 +17,12 @@ function ThemePicker(props) {
       <SwitchInput
         label="Dark mode"
         input={{
-          id: "theme",
-          name: "theme",
-          value: "dark",
-          checked: theme === "dark",
+          id: `theme`,
+          name: `theme`,
+          value: `dark`,
+          checked: theme === `dark`,
           onChange: () => {
-            onChange(theme === "dark" ? "light" : "dark")
+            onChange(theme === `dark` ? `light` : `dark`)
           },
         }}
       />

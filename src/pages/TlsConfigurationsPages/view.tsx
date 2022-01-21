@@ -1,29 +1,25 @@
 import * as React from "react"
 
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 // @ts-ignore
 import { Box, Flexbox, Page, Text } from "cosmo"
-import { queryKeys, useTlsConfig } from "./query"
+import { Link, Redirect, useParams } from "react-router-dom"
 
-import { Link } from "react-router-dom"
-import { Redirect } from "react-router-dom"
-import type { Session } from '../../typings'
-import { useParams } from "react-router-dom"
-import { useQuery } from "react-query"
+import type { FC } from "react"
+import sessionState from "../../atoms/session"
+import { useRecoilValue } from "recoil"
+import { useTlsConfig } from "./query"
 
 type TlsConfigurationDetailsParams = {
   id: string
 }
 
-type Props = {
-  session: Session
-}
-
-function TlsConfigurationDetailsPage(props: Props) {
+const TlsConfigurationDetailsPage: FC = () => {
   // Model
   // ---------------------------------------------------------------------------
   const { id } = useParams<TlsConfigurationDetailsParams>()
-  const tlsConfiguration = useQuery(queryKeys.detail(id), useTlsConfig(id, props.session)
-  )
+  const session = useRecoilValue(sessionState)
+  const tlsConfiguration = useTlsConfig(id, session)
 
   // What to do while waiting for data-load or error-condition
   // ---------------------------------------------------------------------------
@@ -31,8 +27,8 @@ function TlsConfigurationDetailsPage(props: Props) {
     return <span>Loading...</span>
   }
   if (tlsConfiguration.error instanceof Error) {
-    if (tlsConfiguration.error.message === "Unauthorized") {
-      return <Redirect to={"/auth"} />
+    if (tlsConfiguration.error.message === `Unauthorized`) {
+      return <Redirect to={`/auth`} />
     }
     return <span>Error: {tlsConfiguration.error.message}</span>
   }
@@ -40,27 +36,14 @@ function TlsConfigurationDetailsPage(props: Props) {
 
   // Render
   // ---------------------------------------------------------------------------
-  const attributes = [
-    "bulk",
-    "created-at",
-    "default",
-    "name",
-    "service",
-    "updated-at",
-  ]
+  const attributes = [`bulk`, `created-at`, `default`, `name`, `service`, `updated-at`]
   return (
     <Page>
       <Page.Header>
-        <Flexbox
-          alignItems="flex-start"
-          justifyContent="space-between"
-          flexWrap="wrap"
-        >
+        <Flexbox alignItems="flex-start" justifyContent="space-between" flexWrap="wrap">
           <Box marginBottom="xs">
             <Page.Title>
-              <Text style={{ whiteSpace: "nowrap" }}>
-                TLS Configurations Detail
-              </Text>
+              <Text style={{ whiteSpace: `nowrap` }}>TLS Configurations Detail</Text>
             </Page.Title>
             <Link to="/tls-configurations">Back to TLS Configurations</Link>
           </Box>
@@ -68,10 +51,10 @@ function TlsConfigurationDetailsPage(props: Props) {
       </Page.Header>
       <Page.Body>
         <Box>
-          <h2>{tlsConfiguration.data.attributes.name}</h2>
+          <h2>{tlsConfiguration?.data?.attributes?.name}</h2>
           {attributes.map((attribute) => (
             <p key={attribute}>
-              {attribute}: {tlsConfiguration.data.attributes[attribute]}
+              {attribute}: {tlsConfiguration?.data?.attributes[attribute]}
             </p>
           ))}
         </Box>

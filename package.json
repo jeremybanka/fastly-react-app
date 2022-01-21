@@ -17,10 +17,9 @@
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
+    "parserOptions": {
+      "project": "./tsconfig.json"
+    }
   },
   "browserslist": {
     "production": [
@@ -46,6 +45,7 @@
     "cosmo": "./lib/cosmo",
     "d3-format": "^3.0.1",
     "d3-time": "^2.0.0",
+    "eslint-plugin-react-hooks": "^4.3.0",
     "http-proxy-middleware": "^1.0.6",
     "inflected": "^2.1.0",
     "jquery": "^3.6.0",
@@ -66,9 +66,19 @@
   "devDependencies": {
     "@cypress/react": "^5.12.0",
     "@cypress/webpack-dev-server": "^1.8.0",
+    "@types/jquery": "^3.5.13",
     "@types/react-router-dom": "^5.3.2",
+    "@typescript-eslint/eslint-plugin": "^5.0.0",
+    "@typescript-eslint/parser": "^5.9.1",
     "cors": "^2.8.5",
     "cypress": "^9.2.0",
+    "eslint": "^8.0.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-import-resolver-typescript": "^2.5.0",
+    "eslint-plugin-import": "^2.25.4",
+    "eslint-plugin-jest": "^25.2.1",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-react": "^7.22.0",
     "faker": "^5.5.3",
     "flow-bin": "^0.140.0",
     "prettier": "^2.2.1",

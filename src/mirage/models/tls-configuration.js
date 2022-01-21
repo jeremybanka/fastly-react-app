@@ -6,4 +6,3 @@ export default sharedMirage.base.Model.extend({
   customer: belongsTo(),
   dnsRecords: hasMany(),
 })
-

@@ -1,5 +1,5 @@
 export default function getDataFromToken(server, request) {
-  const accessToken = request.requestHeaders['fastly-key']
+  const accessToken = request.requestHeaders[`fastly-key`]
 
   const token = server.schema.tokens.findBy({ access_token: accessToken })
   if (!token) {
@@ -7,11 +7,11 @@ export default function getDataFromToken(server, request) {
     return null
   }
 
-  const customer = token.customer
+  const { customer } = token
   if (!customer) {
     console.error(`No customer found for fastly-key ${accessToken}`)
   }
-  const user = token.user
+  const { user } = token
   if (!user) {
     console.error(`No user found for fastly-key ${accessToken}`)
   }

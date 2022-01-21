@@ -2,32 +2,32 @@ import App from "./App"
 import { BrowserRouter } from "react-router-dom"
 import { IntlProvider } from "cosmo"
 import React from "react"
-import ReactDOM from "react-dom"
 import { makeServer } from "./mirage"
+import { render } from "react-dom"
 import reportWebVitals from "./reportWebVitals"
 
-if (process.env.REACT_APP_ENVIRONMENT === "development") {
-  const server = makeServer({ environment: "development" })
+if (process.env.REACT_APP_ENVIRONMENT === `development`) {
+  const server = makeServer({ environment: `development` })
   server.logging = true
 }
 
 if (window.Cypress) {
-  console.log("Cypress detected, setting up proxy")
-  window.server = makeServer({ environment: "test" })
+  console.log(`Cypress detected, setting up proxy`)
+  window.server = makeServer({ environment: `test` })
   window.server.logging = true
 
   window.runCypressMirageFunctions()
 }
 
-ReactDOM.render(
+render(
   <React.StrictMode>
-    <IntlProvider locale={"en"}>
+    <IntlProvider locale={`en`}>
       <BrowserRouter>
         <App />
       </BrowserRouter>
     </IntlProvider>
   </React.StrictMode>,
-  document.getElementById("root")
+  document.getElementById(`root`)
 )
 
 // If you want to start measuring performance in your app, pass a function

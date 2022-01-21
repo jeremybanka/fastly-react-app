@@ -18,7 +18,7 @@ const Login = () => {
   return <p>Not logged in</p>
 }
 
-function AuthPage(props) {
+function AuthPage() {
   return (
     <Page>
       <Page.Header>

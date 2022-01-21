@@ -1,6 +1,7 @@
 /**
- * NOTE: This is a temporary solution until we can get the @fast/auth library to properly import into a React project.
- **/
+ * NOTE: This is a temporary solution until we can get the @fast/auth library to
+ * properly import into a React project.
+ */
 
 export default class PermissionStore {
   constructor() {
@@ -16,7 +17,7 @@ export default class PermissionStore {
     const capabilities = json.data
 
     assert(
-      "@fastly/auth/permission-store: add expects an Array of capabilities",
+      `@fastly/auth/permission-store: add expects an Array of capabilities`,
       Array.isArray(capabilities)
     )
 
@@ -55,8 +56,8 @@ function assert(message, test) {
 
 /* eslint-disable camelcase */
 const SCOPE_TYPES = {
-  customer_capabilities: "customer",
-  service_capabilities: "service",
+  customer_capabilities: `customer`,
+  service_capabilities: `service`,
 }
 /* eslint-enable camelcase */
 
@@ -66,9 +67,7 @@ function scope(capability) {
 
   const scopeType = SCOPE_TYPES[type]
   if (!scopeType) {
-    console.warn(
-      `permission-store: no permission scope for capability with type ${type}`
-    )
+    console.warn(`permission-store: no permission scope for capability with type ${type}`)
     return null
   }
 
