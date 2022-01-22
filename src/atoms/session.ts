@@ -1,6 +1,6 @@
-import type { PermissionItem, PermissionObject } from "../typings"
 import { atom, selector, selectorFamily } from "recoil"
 
+import type { AccountPermissionsType } from "../auth/permissions"
 import Permissions from "../auth/permissions"
 import SessionObject from "../auth/session"
 
@@ -12,7 +12,7 @@ const sessionState = atom<SessionObject>({
   dangerouslyAllowMutability: true,
 })
 
-export const permissionState = selector<PermissionObject | null>({
+export const permissionState = selector<Permissions | null>({
   key: `permissions`,
   get: async ({ get }) => {
     const session = get(sessionState)
@@ -49,10 +49,10 @@ export const isOnline = selector({
  * @param resource: string
  * @param operation: "read" | "write" | "delete" | "crud"
  **/
-export const permitted = selectorFamily<boolean | null, PermissionItem>({
+export const permitted = selectorFamily<boolean | null, AccountPermissionsType>({
   key: `permitted`,
-  get: ({ resource, operation, scope }: PermissionItem) => ({ get }) => {
-    const permissions = get(permissionState) as PermissionObject | null
+  get: ({ resource, operation, scope }: AccountPermissionsType) => ({ get }) => {
+    const permissions = get(permissionState) as Permissions | null
     if (permissions == null) return false
     return new Promise((resolve) => {
       if (permissions.has == null) resolve(null) // maybe reject instead?

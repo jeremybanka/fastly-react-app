@@ -1,7 +1,7 @@
 import { Link, useParams } from "react-router-dom"
 
 import type { FC } from "react"
-import type { Session } from "../../typings"
+import Session from "../../auth/session"
 import sessionState from "../../atoms/session"
 import { usePost } from "./query"
 import { useRecoilValue } from "recoil"
