@@ -7,7 +7,7 @@ const ACCOUNT_SCOPE = `account`
 const INTERNAL_SCOPE = `internal`
 
 export type AccountPermissionsType = {
-  id: string
+  id?: string
   resource: string
   operation: string
   scope: string // account, all_services, or SID

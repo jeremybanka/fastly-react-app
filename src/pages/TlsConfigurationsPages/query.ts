@@ -1,5 +1,5 @@
 import type { QueryObserverBaseResult } from "react-query"
-import type { Session } from "../../typings"
+import Session from "../../auth/session"
 import { useQuery } from "react-query"
 
 type TlsConfigurationAttributes = {

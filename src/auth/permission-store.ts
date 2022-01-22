@@ -3,7 +3,15 @@
  * properly import into a React project.
  */
 
+type CapabilityType = {
+  attributes: any
+  type: Scopes
+  relationships: any
+}
+
 export default class PermissionStore {
+  _store: any
+
   constructor() {
     this._store = new Set()
   }
@@ -13,7 +21,7 @@ export default class PermissionStore {
    * capabilities as its primary data
    * @public
    */
-  add(json) {
+  add(json: any) {
     const capabilities = json.data
 
     assert(
@@ -21,7 +29,7 @@ export default class PermissionStore {
       Array.isArray(capabilities)
     )
 
-    capabilities.forEach((capability) => {
+    capabilities.forEach((capability: CapabilityType) => {
       const prefix = scope(capability)
       if (!prefix) return
 
@@ -43,12 +51,12 @@ export default class PermissionStore {
    * or `'service.456def.stats.read'`
    * @return {boolean} whether the store has a permission that matches
    */
-  has(permission) {
+  has(permission: string): boolean {
     return this._store.has(permission)
   }
 }
 
-function assert(message, test) {
+function assert(message: string, test: boolean) {
   if (!test) {
     throw new Error(message)
   }
@@ -62,7 +70,7 @@ const SCOPE_TYPES = {
 /* eslint-enable camelcase */
 
 /* eslint-disable no-console */
-function scope(capability) {
+function scope(capability: CapabilityType): string | null {
   const { type } = capability
 
   const scopeType = SCOPE_TYPES[type]
@@ -78,4 +86,9 @@ function scope(capability) {
   }
 
   return `${scopeType}.${relationship.data.id}`
+}
+
+enum Scopes {
+  customer = `customer_capabilities`,
+  service = `service_capabilities`,
 }

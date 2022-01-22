@@ -1,49 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-// Session
-// ---------------------------------------------------------------------------
-// TODO: fix redundancies with src/auth/session.ts
-enum UserRole {
-  admin = `admin`,
-  user = `user`,
-}
-
-type UserType = {
-  admin_role_expires_at: number
-  id: number | string
-  name: string
-  role: UserRole
-  login: string
-}
-
-type Token = {
-  access_token?: string
-}
-
-export type CustomerType = {
-  id: number | string
-  name: string
-}
-
-export type Session = {
-  authorizedPermissions: FixAnyPlease
-  token: Token | null
-  customer: CustomerType | null
-  signedIn: boolean
-  features: string[]
-  user: UserType | null
-}
-
-export type PermissionItem = {
-  resource: string
-  operation: string
-  scope: string
-}
-
-export type PermissionObject = {
-  has: (resource: string, operation: string, scope: string) => boolean
-}
-
 // mirage
 // ---------------------------------------------------------------------------
 

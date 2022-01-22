@@ -64,7 +64,7 @@ type OptionType = {
   type?: string
 }
 
-type TokenType = {
+export type TokenType = {
   accessToken?: string
   access_token?: string
   created_at: number
@@ -74,7 +74,7 @@ type TokenType = {
   sudo_expires_at: number
 }
 
-type CustomerType = {
+export type CustomerType = {
   id: string
   name: string
 }

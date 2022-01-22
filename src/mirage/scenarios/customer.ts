@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import type { CustomerType, MirageServer } from "../../typings"
-
+import type { CustomerType } from "../../auth/session"
 import { DEFAULT_FEATURES } from "../../utils/features"
 import type { Features } from "../../enums"
+import type { MirageServer } from "../../typings"
 
 // mirage
 // ---------------------------------------------------------------------------
