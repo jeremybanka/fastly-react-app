@@ -2,13 +2,12 @@ import { atom, selector, selectorFamily } from "recoil"
 
 import type { AccountPermissionsType } from "../auth/permissions"
 import Permissions from "../auth/permissions"
-import SessionObject from "../auth/session"
+import Session from "../auth/session"
 
-const sessionState = atom<SessionObject>({
+const sessionState = atom<Session>({
   key: `session`,
-  default: new SessionObject({}).ensureSession({}),
+  default: new Session({}).ensureSession({}),
   // should we pass apiOrigin, authPath, and client?
-  effects_UNSTABLE: [],
   dangerouslyAllowMutability: true,
 })
 
@@ -54,6 +53,7 @@ export const permitted = selectorFamily<boolean | null, AccountPermissionsType>(
   get: ({ resource, operation, scope }: AccountPermissionsType) => ({ get }) => {
     const permissions = get(permissionState) as Permissions | null
     if (permissions == null) return false
+    // necessary to return a promise here?
     return new Promise((resolve) => {
       if (permissions.has == null) resolve(null) // maybe reject instead?
       resolve(permissions.has(resource, operation, scope))

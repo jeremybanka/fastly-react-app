@@ -1,9 +1,8 @@
-import * as React from "react"
-
 import sessionState, { permitted } from "../atoms/session"
 
 import type { FC } from "react"
 import { Redirect } from "react-router-dom"
+import { Suspense } from "react"
 import { useRecoilValue } from "recoil"
 
 const UserData: FC = ({ children }) => {
@@ -24,11 +23,9 @@ const UserData: FC = ({ children }) => {
 
 const EnsureAuth: FC = ({ children }) => {
   return (
-    <>
-      <React.Suspense fallback="">
-        <UserData>{children}</UserData>
-      </React.Suspense>
-    </>
+    <Suspense fallback="">
+      <UserData>{children}</UserData>
+    </Suspense>
   )
 }
 
