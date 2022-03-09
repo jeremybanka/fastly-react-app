@@ -1,17 +1,14 @@
-import * as React from "react"
-
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 // @ts-ignore
 import { Box, Flexbox, Page, Text } from "cosmo"
 import { Link, Redirect } from "react-router-dom"
 import sessionState, { isEnabledState, permitted } from "../../atoms/session"
+import { useRecoilValue } from "recoil"
 
 import type { FC } from "react"
 import type { TlsConfiguration } from "./query"
-import { useRecoilValue } from "recoil"
 import { useTlsConfigs } from "./query"
 
-// function TlsConfigurationsIndex(): ReturnType<FC> {
 const TlsConfigurationsIndex: FC = () => {
   // Model
   // ---------------------------------------------------------------------------

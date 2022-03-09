@@ -3,14 +3,45 @@
  * properly import into a React project.
  */
 
+enum Scopes {
+  customer = `customer`,
+  service = `service`,
+}
+
+type AttributeType = {
+  [key: string]: string
+}
+
+type DataType = {
+  id: string
+}
+
+type RelationshipData = {
+  data: DataType
+}
+
+type RelationshipType = {
+  [Scopes.customer]: RelationshipData
+  [Scopes.service]: RelationshipData
+}
+
 type CapabilityType = {
-  attributes: any
-  type: Scopes
-  relationships: any
+  attributes: AttributeType
+  type: `customer_capabilities` | `service_capabilities`
+  relationships: RelationshipType
+}
+
+type StoreType = {
+  add: (thing: string) => void
+  has: (permission: string) => boolean
+}
+
+type JsonBlob = {
+  data: CapabilityType[]
 }
 
 export default class PermissionStore {
-  _store: any
+  _store: StoreType
 
   constructor() {
     this._store = new Set()
@@ -21,7 +52,7 @@ export default class PermissionStore {
    * capabilities as its primary data
    * @public
    */
-  add(json: any) {
+  add(json: JsonBlob): void {
     const capabilities = json.data
 
     assert(
@@ -64,8 +95,8 @@ function assert(message: string, test: boolean) {
 
 /* eslint-disable camelcase */
 const SCOPE_TYPES = {
-  customer_capabilities: `customer`,
-  service_capabilities: `service`,
+  customer_capabilities: Scopes.customer,
+  service_capabilities: Scopes.service,
 }
 /* eslint-enable camelcase */
 
@@ -78,17 +109,13 @@ function scope(capability: CapabilityType): string | null {
     console.warn(`permission-store: no permission scope for capability with type ${type}`)
     return null
   }
+  if (capability.relationships == null) return null
 
-  const relationship = (capability.relationships || {})[scopeType]
+  const relationship = capability.relationships[scopeType]
   if (!relationship) {
     console.warn(`permission-store: no relationship of type ${type}`)
     return null
   }
 
   return `${scopeType}.${relationship.data.id}`
-}
-
-enum Scopes {
-  customer = `customer_capabilities`,
-  service = `service_capabilities`,
 }

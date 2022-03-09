@@ -44,6 +44,7 @@ var baseConfig = {
       rules: {
         "no-extra-semi": `off`,
         "@typescript-eslint/no-extra-semi": 0,
+        "@typescript-eslint/explicit-function-return-type": [`error`],
         "@typescript-eslint/explicit-member-accessibility": [`error`],
         "@typescript-eslint/ban-ts-comment": `off`,
         "@typescript-eslint/prefer-enum-initializers": `error`,
