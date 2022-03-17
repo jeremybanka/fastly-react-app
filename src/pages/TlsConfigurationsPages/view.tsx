@@ -28,7 +28,7 @@ const TlsConfigurationDetailsPage: FC = () => {
   }
   if (tlsConfiguration.error instanceof Error) {
     if (tlsConfiguration.error.message === `Unauthorized`) {
-      return <Redirect to={`/auth`} />
+      return <Redirect to={`/auth/sign-in`} />
     }
     return <span>Error: {tlsConfiguration.error.message}</span>
   }

@@ -59,7 +59,7 @@ export default function App(): React.ReactNode {
                   <PostPages.Index />
                 </EnsureAuth>
               </Route>
-              <Route path="/auth">
+              <Route path="/auth/sign-in">
                 <AuthPage />
               </Route>
             </Switch>

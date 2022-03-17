@@ -16,7 +16,7 @@ const UserData: FC = ({ children }) => {
   const noTlsPermissions = !canManageTls && !canReadTls
 
   if (session == null || noTlsPermissions) {
-    return <Redirect to={`/auth`} />
+    return <Redirect to={`/auth/sign-in`} />
   }
   return <>{children}</>
 }

@@ -2,20 +2,22 @@ import * as React from "react"
 
 import { Box, Page, Text } from "cosmo"
 
+import { AuthConfigFastly } from "../../components"
 import sessionState from "../../atoms/session"
 import { useRecoilValue } from "recoil"
 
-const Login = () => {
+const ShowUserInfo = () => {
   const session = useRecoilValue(sessionState)
-  if (session) {
-    return (
-      <Text>
-        User: {session.user.id}
-        Customer: {session.customer.id}
-      </Text>
-    )
+  if (session.user == null) {
+    return <AuthConfigFastly />
   }
-  return <p>Not logged in</p>
+
+  return (
+    <Text>
+      User: {session.user.id}
+      Customer: {session.customer.id}
+    </Text>
+  )
 }
 
 function AuthPage() {
@@ -27,7 +29,7 @@ function AuthPage() {
       <Page.Body>
         <Box maxWidth="400px">
           <React.Suspense fallback="LOADING">
-            <Login />
+            <ShowUserInfo />
           </React.Suspense>
         </Box>
       </Page.Body>

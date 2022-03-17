@@ -3,9 +3,11 @@
 // mirage
 // ---------------------------------------------------------------------------
 
+export type StoredAuth = { accessToken?: string | null; user?: string | null }
+
 type Callback = (schema: Schema, request: Request) => any
 type ModelOrFunction = Callback | string
-type FixAnyPlease = any
+export type FixAnyPlease = any
 
 export type MirageServer = {
   namespace: string

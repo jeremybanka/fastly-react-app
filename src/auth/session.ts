@@ -453,6 +453,10 @@ export default class Session {
             response = extractPayload(response)
             const { token } = this
 
+            if (response.token == null) {
+              reject(didSignOut(this, true))
+            }
+
             if (response.token.hasOwnProperty(`access_token`)) { // eslint-disable-line
               console.warn(`\`access_token\` found on \`response.token\`, removing`) // eslint-disable-line no-console
               delete response.token.access_token

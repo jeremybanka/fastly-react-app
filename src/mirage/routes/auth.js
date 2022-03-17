@@ -2,7 +2,12 @@ import getDataFromRequest from "../utils/get-data-from-request"
 
 export default function AuthRoutes(server, { origin = `` }) {
   server.get(`${origin}/verify`, function (schema, request) {
-    const { customer, user, token } = getDataFromRequest(server, request)
+    const parsedData = getDataFromRequest(server, request)
+    if (parsedData == null) {
+      return new Response(401, {}, { errors: [{ detail: `Not authorized` }] })
+    }
+
+    const { customer, user, token } = parsedData
 
     const features = schema.features.all().models
     let services = null

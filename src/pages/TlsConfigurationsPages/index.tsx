@@ -29,7 +29,7 @@ const TlsConfigurationsIndex: FC = () => {
   }
   if (tlsConfigurations.error instanceof Error) {
     if (tlsConfigurations.error.message === `Unauthorized`) {
-      return <Redirect to={`/auth`} />
+      return <Redirect to={`/auth/sign-in`} />
     }
     return <span>Error: {tlsConfigurations.error.message}</span>
   }
