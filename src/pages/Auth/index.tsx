@@ -1,13 +1,14 @@
 import * as React from "react"
 
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+// @ts-ignore
 import { Box, Page, Text } from "cosmo"
 
 import { AuthConfigFastly } from "../../components"
-import sessionState from "../../atoms/session"
-import { useRecoilValue } from "recoil"
+import useAuth from "../../components/AuthProvider/use"
 
 const ShowUserInfo = () => {
-  const session = useRecoilValue(sessionState)
+  const { session } = useAuth()
   if (session.user == null) {
     return <AuthConfigFastly />
   }
@@ -15,7 +16,7 @@ const ShowUserInfo = () => {
   return (
     <Text>
       User: {session.user.id}
-      Customer: {session.customer.id}
+      Customer: {session.customer?.id}
     </Text>
   )
 }
@@ -28,9 +29,7 @@ function AuthPage() {
       </Page.Header>
       <Page.Body>
         <Box maxWidth="400px">
-          <React.Suspense fallback="LOADING">
-            <ShowUserInfo />
-          </React.Suspense>
+          <ShowUserInfo />
         </Box>
       </Page.Body>
     </Page>

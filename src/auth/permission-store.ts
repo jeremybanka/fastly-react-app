@@ -36,7 +36,7 @@ type StoreType = {
   has: (permission: string) => boolean
 }
 
-type JsonBlob = {
+export type CapabilitiesResponse = {
   data: CapabilityType[]
 }
 
@@ -52,7 +52,7 @@ export default class PermissionStore {
    * capabilities as its primary data
    * @public
    */
-  add(json: JsonBlob): void {
+  add(json: CapabilitiesResponse): void {
     const capabilities = json.data
 
     assert(

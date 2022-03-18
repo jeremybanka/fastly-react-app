@@ -37,7 +37,7 @@ function scenario(server) {
     personaId,
   })
 
-  const token = server.create(`token`, { customer: fastlyCustomer, user })
+  server.create(`token`, { customer: fastlyCustomer, user })
 
   server.create(`customer-capability`, {
     customer: fastlyCustomer,
@@ -49,10 +49,20 @@ function scenario(server) {
     tls: [`read`],
   })
 
+  /*
+  // We want to invalidate the current token so the user has to re-authenticate
+  const foo = JSON.parse(window.sessionStorage.getItem(`fastly-auth__session__active-token`))
+  foo.access_token = `EXPIRED_TOKEN`
+  window.sessionStorage.setItem(`fastly-auth__session__active-token`, JSON.stringify(foo))
+  */
+
+  /*
+  // 'fastly-auth__session__token-store'
   const keepTokens = localStorage.getItem(KEEP_TOKENS_KEY)
   if (!keepTokens && server.session) {
     server.session.token = token
   }
+  */
 
   const features = ALL_FEATURES.reduce((memo, name) => {
     memo[name] = server.create(`feature`, {

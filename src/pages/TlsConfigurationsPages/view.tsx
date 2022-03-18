@@ -1,13 +1,12 @@
-import * as React from "react"
+// import * as React from "react"
 
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 // @ts-ignore
 import { Box, Flexbox, Page, Text } from "cosmo"
 import { Link, Redirect, useParams } from "react-router-dom"
+import useAuth from "../../components/AuthProvider/use"
 
 import type { FC } from "react"
-import sessionState from "../../atoms/session"
-import { useRecoilValue } from "recoil"
 import { useTlsConfig } from "./query"
 
 type TlsConfigurationDetailsParams = {
@@ -18,7 +17,8 @@ const TlsConfigurationDetailsPage: FC = () => {
   // Model
   // ---------------------------------------------------------------------------
   const { id } = useParams<TlsConfigurationDetailsParams>()
-  const session = useRecoilValue(sessionState)
+  const { session } = useAuth()
+  // const session = useRecoilValue(sessionState)
   const tlsConfiguration = useTlsConfig(id, session)
 
   // What to do while waiting for data-load or error-condition

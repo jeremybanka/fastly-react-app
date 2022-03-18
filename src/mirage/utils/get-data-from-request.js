@@ -3,7 +3,7 @@ export default function getDataFromToken(server, request) {
 
   const token = server.schema.tokens.findBy({ access_token: accessToken })
   if (!token) {
-    console.error(`No token found for fastly-key ${accessToken}`)
+    console.error(`No token found in database for fastly-key ${accessToken}`)
     return null
   }
 

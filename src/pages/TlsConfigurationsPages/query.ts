@@ -1,5 +1,6 @@
 import type { QueryObserverBaseResult } from "react-query"
-import Session from "../../auth/session"
+import type { Session } from "../../auth/session"
+import { getToken } from "../../auth/session"
 import { useQuery } from "react-query"
 
 type TlsConfigurationAttributes = {
@@ -22,8 +23,9 @@ const queryKeys = {
 export function useTlsConfigs(session: Session): QueryObserverBaseResult<TlsConfiguration[]> {
   const getTlsConfigs = async (): Promise<TlsConfiguration[]> => {
     if (session == null) throw new Error(`No session`)
+    const token = getToken()
     const response = await fetch(`/tls/configurations`, {
-      headers: { "fastly-key": session?.token?.access_token || `` },
+      headers: { "fastly-key": token?.access_token || `` },
     })
     if (!response.ok) {
       if (response.status === 401) {
@@ -44,8 +46,9 @@ export function useTlsConfig(
 ): QueryObserverBaseResult<TlsConfiguration> {
   const getTlsConfig = async (id: string): Promise<TlsConfiguration> => {
     if (session == null) throw new Error(`No session`)
+    const token = getToken()
     const response = await fetch(`/tls/configurations/${id}`, {
-      headers: { "fastly-key": session?.token?.access_token || `` },
+      headers: { "fastly-key": token?.access_token || `` },
     })
     if (!response.ok) {
       if (response.status === 401) {

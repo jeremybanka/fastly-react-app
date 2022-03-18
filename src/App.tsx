@@ -5,9 +5,8 @@ import { Box, ThemeProvider, theme as cosmoTheme, getTheme } from "cosmo"
 import { GlobalStyle, Navigation } from "./components"
 import { QueryClient, QueryClientProvider } from "react-query"
 import { Redirect, Route, Switch, useLocation } from "react-router-dom"
+import AuthProvider from "./components/AuthProvider"
 
-import EnsureAuth from "./components/EnsureAuth"
-// @ts-ignore
 import React from "react"
 import { ReactQueryDevtools } from "react-query/devtools"
 import { RecoilRoot } from "recoil"
@@ -34,37 +33,31 @@ export default function App(): React.ReactNode {
     <QueryClientProvider client={queryClient}>
       <RecoilRoot>
         <ThemeProvider theme={getTheme(cosmoTheme, brandedTheme)}>
-          <GlobalStyle />
-          <Navigation theme={theme} onThemeChange={setTheme} />
-          <Box padding="lg">
-            <Switch>
-              <Redirect exact from="/" to="/posts" />
-              <Route path="/tls-configurations/:id">
-                <EnsureAuth>
+          <AuthProvider>
+            <GlobalStyle />
+            <Navigation theme={theme} onThemeChange={setTheme} />
+            <Box padding="lg">
+              <Switch>
+                <Redirect exact from="/" to="/posts" />
+                <Route path="/tls-configurations/:id">
                   <TlsConfigurationsPages.View />
-                </EnsureAuth>
-              </Route>
-              <Route path="/tls-configurations">
-                <EnsureAuth>
+                </Route>
+                <Route path="/tls-configurations">
                   <TlsConfigurationsPages.Index />
-                </EnsureAuth>
-              </Route>
-              <Route path="/posts/:id">
-                <EnsureAuth>
+                </Route>
+                <Route path="/posts/:id">
                   <PostPages.View />
-                </EnsureAuth>
-              </Route>
-              <Route path="/posts">
-                <EnsureAuth>
+                </Route>
+                <Route path="/posts">
                   <PostPages.Index />
-                </EnsureAuth>
-              </Route>
-              <Route path="/auth/sign-in">
-                <AuthPage />
-              </Route>
-            </Switch>
-          </Box>
-          <ReactQueryDevtools initialIsOpen />
+                </Route>
+                <Route path="/auth/sign-in">
+                  <AuthPage />
+                </Route>
+              </Switch>
+            </Box>
+            <ReactQueryDevtools initialIsOpen />
+          </AuthProvider>
         </ThemeProvider>
       </RecoilRoot>
     </QueryClientProvider>

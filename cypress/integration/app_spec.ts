@@ -39,7 +39,7 @@ function signIn(
 describe(`My First Test`, () => {
   it.skip(`redirects to the auth page if the user is not logged in`, () => {
     cy.visit(`http://localhost:3000/tls-configurations`)
-    cy.url().should(`eq`, `http://localhost:3000/auth`)
+    cy.url().should(`eq`, `http://localhost:3000/auth/sign-in`)
   })
 
   it(`shows the user_id and customer_id for fastly customer`, () => {
@@ -67,7 +67,7 @@ describe(`My First Test`, () => {
       signIn(server, { user: { login: `testuser@regularjoes.com`, role: `user` } }, [], ``)
     )
     cy.visit(`http://localhost:3000/tls-configurations`)
-    cy.url().should(`eq`, `http://localhost:3000/auth`)
+    cy.url().should(`eq`, `http://localhost:3000/auth/sign-in`)
   })
 
   it(`shows the feature-check false when not enabled`, () => {

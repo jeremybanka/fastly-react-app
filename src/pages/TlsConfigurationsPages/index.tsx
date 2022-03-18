@@ -2,8 +2,7 @@
 // @ts-ignore
 import { Box, Flexbox, Page, Text } from "cosmo"
 import { Link, Redirect } from "react-router-dom"
-import sessionState, { isEnabledState, permitted } from "../../atoms/session"
-import { useRecoilValue } from "recoil"
+import useAuth from "../../components/AuthProvider/use"
 
 import type { FC } from "react"
 import type { TlsConfiguration } from "./query"
@@ -12,15 +11,14 @@ import { useTlsConfigs } from "./query"
 const TlsConfigurationsIndex: FC = () => {
   // Model
   // ---------------------------------------------------------------------------
-  const session = useRecoilValue(sessionState)
+  const { session, actions } = useAuth()
   const tlsConfigurations = useTlsConfigs(session)
 
   // permissions and features
   // ---------------------------------------------------------------------------
-  const canReadTls = useRecoilValue(
-    permitted({ resource: `tls`, operation: `crud`, scope: `account` })
-  )
-  const isExemptFromBilling = useRecoilValue(isEnabledState(`exemptFromTlsBilling`))
+  const canReadTls = actions.checkPermissions(`tls`, `crud`, `account`)
+  const isExemptFromBilling = actions.isFeatureEnabled(`exemptFromTlsBilling`)
+  if (canReadTls == false) return <Redirect to="/auth/sign-in" />
 
   // What to do while waiting for data-load or error-condition
   // ---------------------------------------------------------------------------

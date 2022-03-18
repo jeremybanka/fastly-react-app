@@ -1,18 +1,16 @@
 import { Link, useParams } from "react-router-dom"
 
 import type { FC } from "react"
-import Session from "../../auth/session"
-import sessionState from "../../atoms/session"
+import useAuth from "../../components/AuthProvider/use"
 import { usePost } from "./query"
-import { useRecoilValue } from "recoil"
 
 type Params = {
   id: string
 }
 
 const PostPage: FC = () => {
+  const { session } = useAuth()
   const { id } = useParams<Params>()
-  const session = useRecoilValue(sessionState) as Session
   const { status, data, error, isFetching } = usePost(id)
 
   return (
