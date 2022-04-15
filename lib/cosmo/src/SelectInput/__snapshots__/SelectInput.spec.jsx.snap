@@ -1,0 +1,87 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SelectInput test suite renders the stored snapshot 1`] = `
+<div
+  class="Box-sc-1v2etov-0 kAhoak"
+>
+  <div
+    class="Box-sc-1v2etov-0 hKYyow"
+  >
+    <label
+      class="Text-sc-6c1xd4-0 fktwGx"
+      color="grays.6"
+      font-size="xs"
+      for="tastes-umami"
+      letter-spacing="xs"
+    >
+      Umami
+      <span
+        class="Text-sc-6c1xd4-0 jWbYly"
+        color="grays.4"
+      >
+        (optional)
+      </span>
+    </label>
+  </div>
+  <div
+    class="SelectInput__StyledInputContainer-sc-1v1fvwr-0 eAgXAT"
+  >
+    <select
+      checked=""
+      class="SelectInput__StyledInput-sc-1v1fvwr-1 jQCMll"
+      id="tastes-umami"
+      name="tastes"
+    >
+      <option
+        value="a"
+      >
+        A
+      </option>
+      <option
+        value="b"
+      >
+        B
+      </option>
+      <option
+        value="c"
+      >
+        C
+      </option>
+    </select>
+    <span
+      class="SelectInput__StyledArrow-sc-1v1fvwr-2 gXZxIC"
+    >
+      <span
+        class="Icon"
+      >
+        <svg
+          class="Icon-svg"
+          style="fill:currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"
+          />
+          <path
+            d="M0 0h24v24H0V0z"
+            fill="none"
+          />
+        </svg>
+      </span>
+    </span>
+  </div>
+  <div
+    class="Box-sc-1v2etov-0 dUYKhU"
+    font-size="xxs"
+  >
+    <label
+      class="Text-sc-6c1xd4-0 bDXzpq"
+      color="grays.4"
+      font-size="xxs"
+      for="tastes-umami"
+    >
+      Mystery flavor
+    </label>
+  </div>
+</div>
+`;

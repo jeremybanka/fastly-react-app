@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`InputHelper test suite renders the stored snapshot 1`] = `
+<label
+  class="Text-sc-6c1xd4-0 bDXzpq"
+  color="grays.4"
+  font-size="xxs"
+>
+  Helper
+</label>
+`;

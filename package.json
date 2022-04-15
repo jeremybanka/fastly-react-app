@@ -1,0 +1,86 @@
+{
+  "name": "fastly-react-app",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "preinstall": "yarn build:cosmo",
+    "start": "cross-env REACT_APP_ENVIRONMENT=test react-scripts start",
+    "start-mirage": "cross-env REACT_APP_ENVIRONMENT=development react-scripts start",
+    "build": "cross-env REACT_APP_ENVIRONMENT=production react-scripts build",
+    "cypress:open": "cross-env REACT_APP_ENVIRONMENT=test cypress open",
+    "build:cosmo": "yarn --cwd ./lib/cosmo",
+    "build:shared-mirage": "yarn --cwd ./lib/shared-mirage",
+    "lint": "eslint 'src/**/*.ts' 'src/**/*.js'",
+    "serve": "cross-env REACT_APP_ENVIRONMENT=test node server.js",
+    "test": "react-scripts test",
+    "tsc": "tsc --noEmit -w",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "parserOptions": {
+      "project": "./tsconfig.json"
+    }
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "dependencies": {
+    "@testing-library/jest-dom": "^5.11.4",
+    "@testing-library/react": "^11.1.0",
+    "@testing-library/user-event": "^12.1.10",
+    "@types/jest": "^27.0.3",
+    "@types/node": "^17.0.4",
+    "@types/react": "^17.0.38",
+    "@types/react-dom": "^17.0.11",
+    "cosmo": "./lib/cosmo",
+    "d3-format": "^3.0.1",
+    "d3-time": "^2.0.0",
+    "eslint-plugin-react-hooks": "^4.3.0",
+    "http-proxy-middleware": "^1.0.6",
+    "inflected": "^2.1.0",
+    "jquery": "^3.6.0",
+    "luxon": "^2.2.0",
+    "miragejs": "^0.1.43",
+    "query-string": "^6.13.8",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "react-query": "^3.34.5",
+    "react-router-dom": "^5.2.0",
+    "react-scripts": "5",
+    "react-select": "^4.0.2",
+    "recoil": "^0.5.2",
+    "rsrc": "^1.2.0",
+    "shared-mirage": "file:.yalc/shared-mirage",
+    "web-vitals": "^0.2.4"
+  },
+  "devDependencies": {
+    "@cypress/react": "^5.12.0",
+    "@cypress/webpack-dev-server": "^1.8.0",
+    "@types/jquery": "^3.5.14",
+    "@types/react-router-dom": "^5.3.2",
+    "@typescript-eslint/eslint-plugin": "^5.0.0",
+    "@typescript-eslint/parser": "^5.9.1",
+    "cors": "^2.8.5",
+    "cypress": "^9.2.0",
+    "eslint": "^8.0.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-import-resolver-typescript": "^2.5.0",
+    "eslint-plugin-import": "^2.25.4",
+    "eslint-plugin-jest": "^25.2.1",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-react": "^7.22.0",
+    "faker": "^5.5.3",
+    "flow-bin": "^0.140.0",
+    "prettier": "^2.2.1",
+    "typescript": "^4.5.4"
+  }
+}

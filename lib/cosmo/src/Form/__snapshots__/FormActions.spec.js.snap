@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FormActions test suite renders the stored snapshot 1`] = `
+<div
+  class="Box-sc-1v2etov-0 gLqHcs"
+>
+  Hi
+</div>
+`;

@@ -1,0 +1,121 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`example snapshot test for <App /> 1`] = `
+<DocumentFragment>
+  <div
+    class="sc-kfzAmx fGnnXi"
+  >
+    <div
+      class="sc-fKFyDc gTMLx"
+    >
+      <a
+        aria-current="page"
+        class="sc-bBXqnf flaYrT isActive"
+        href="/fastly"
+      >
+        Fastly
+      </a>
+      <a
+        class="sc-bBXqnf flaYrT"
+        href="/origins"
+      >
+        Origin Inspector
+      </a>
+      <a
+        class="sc-bBXqnf flaYrT"
+        href="/domains"
+      >
+        Domain Inspector
+      </a>
+      <a
+        class="sc-bBXqnf flaYrT"
+        href="/realtime"
+      >
+        Real-Time
+      </a>
+      <a
+        class="sc-bBXqnf flaYrT"
+        href="/sigsci"
+      >
+        Signal Sciences
+      </a>
+      <a
+        class="sc-bBXqnf flaYrT"
+        href="/auth"
+      >
+        Auth
+      </a>
+    </div>
+    <div
+      class="sc-dlfnbm eiGZdo"
+    />
+    <div
+      class="sc-dlfnbm isWJdv"
+    >
+      <div
+        class="sc-dlfnbm isWJdv"
+      >
+        <div
+          class="sc-jrAGrp ipUvmh"
+        >
+          <div
+            class="sc-dlfnbm isWJdv"
+          >
+            <label
+              class="sc-bkzZxe iTwkIl"
+              for="theme"
+            >
+              <input
+                class="sc-fFubgz hHftiS"
+                id="theme"
+                name="theme"
+                type="checkbox"
+                value="dark"
+              />
+              <div
+                class="sc-idOhPF cKYVLL"
+              />
+            </label>
+          </div>
+          <div
+            class="sc-dlfnbm cMVmUG"
+          >
+            <div
+              class="sc-dlfnbm isWJdv"
+            >
+              <label
+                class="sc-hHftDr bkogVI"
+                color="grays.6"
+                font-size="xs"
+                font-weight="semibold"
+                for="theme"
+                letter-spacing="sm"
+              >
+                Dark mode
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    class="sc-dlfnbm ePuIJd"
+  >
+    <div
+      class="sc-dlfnbm gxZzRO"
+    >
+      <span
+        class="sc-hHftDr zPloS"
+        font-weight="semibold"
+      >
+        🔑 Auth credentials missing
+      </span>
+      <div
+        class="sc-dlfnbm ikYQkK"
+      />
+      Are your auth credentials present and correct?
+    </div>
+  </div>
+</DocumentFragment>
+`;

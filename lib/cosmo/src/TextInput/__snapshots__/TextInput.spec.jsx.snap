@@ -1,0 +1,84 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TextInput test suite renders the stored snapshot 1`] = `
+<div
+  class="Box-sc-1v2etov-0 dAYJRP"
+  width="100%"
+>
+  <div
+    class="Box-sc-1v2etov-0 hKYyow"
+  >
+    <div
+      class="Flexbox-sc-18yd7vq-0 cBxaMO"
+    >
+      <div
+        class="Box-sc-1v2etov-0 kAhoak"
+      >
+        <label
+          class="Text-sc-6c1xd4-0 fktwGx"
+          color="grays.6"
+          font-size="xs"
+          for="email"
+          letter-spacing="xs"
+        >
+          Email
+          <span
+            class="Text-sc-6c1xd4-0 jWbYly"
+            color="grays.4"
+          >
+            (optional)
+          </span>
+        </label>
+      </div>
+      <div
+        class="Box-sc-1v2etov-0 kAhoak"
+      >
+        <label
+          class="Text-sc-6c1xd4-0 bDXzpq"
+          color="grays.4"
+          font-size="xxs"
+          for="email"
+        >
+          11/15
+        </label>
+      </div>
+    </div>
+  </div>
+  <input
+    class="TextInput__StyledInput-za5t3m-0 jAcTdQ"
+    id="email"
+    maxlength="15"
+    minlength="3"
+    name="email"
+    placeholder="you@somewhere.com"
+    type="text"
+    value="me@here.com"
+  />
+  <div
+    class="Box-sc-1v2etov-0 dUYKhU"
+    font-size="xxs"
+  >
+    <label
+      class="Text-sc-6c1xd4-0 bDXzpq"
+      color="grays.4"
+      font-size="xxs"
+      for="email"
+    >
+      You'll use this to sign in
+    </label>
+  </div>
+  <div
+    class="Box-sc-1v2etov-0 dUYKhU"
+    font-size="xxs"
+  >
+    <label
+      class="Text-sc-6c1xd4-0 frfOcY"
+      color="reds.5"
+      font-size="xxs"
+      for="email"
+    >
+      Please use a standard email format
+    </label>
+  </div>
+</div>
+`;

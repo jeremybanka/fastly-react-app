@@ -1,0 +1,49 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SwitchInput test suite renders the stored snapshot 1`] = `
+<div
+  class="Box-sc-1v2etov-0 kAhoak"
+>
+  <div
+    class="Flexbox-sc-18yd7vq-0 dZrqmk"
+  >
+    <div
+      class="Box-sc-1v2etov-0 kAhoak"
+    >
+      <label
+        class="SwitchInput__StyledInputContainer-xapx83-1 lbDSnN"
+        for="colors-blue"
+      >
+        <input
+          checked=""
+          class="SwitchInput__StyledInput-xapx83-0 cgzsJw"
+          id="colors-blue"
+          name="colors"
+          type="checkbox"
+        />
+        <div
+          class="SwitchInput__StyledSwitch-xapx83-2 hWaFXU"
+        />
+      </label>
+    </div>
+    <div
+      class="Box-sc-1v2etov-0 fAwoJg"
+    >
+      <div
+        class="Box-sc-1v2etov-0 kAhoak"
+      >
+        <label
+          class="Text-sc-6c1xd4-0 jUjMgA"
+          color="grays.6"
+          font-size="xs"
+          font-weight="semibold"
+          for="colors-blue"
+          letter-spacing="sm"
+        >
+          Blue
+        </label>
+      </div>
+    </div>
+  </div>
+</div>
+`;
