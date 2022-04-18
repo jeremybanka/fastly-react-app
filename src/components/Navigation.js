@@ -58,6 +58,7 @@ function Navigation(props) {
       <NavBar>
         <NavItems>
           {[
+            { path: `/authors`, label: `Authors (SUMMIT)` },
             { path: `/tls-configurations`, label: `TLS` },
             { path: `/auth`, label: `Auth` },
             { path: `/posts`, label: `Posts` },

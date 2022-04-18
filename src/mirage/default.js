@@ -15,6 +15,11 @@ const ALL_FEATURES = [
 const DEFAULT_FEATURES = [`gsEmailValidations`]
 
 function scenario(server) {
+  const author = server.create(`author`, { firstName: `Octavia`, lastName: `Butler` })
+  const book = server.create(`book`, { author, name: `Fledgling`, isbn: `123456789` })
+  author.books = [book]
+  author.save()
+
   const fastlyCustomer = server.create(`customer`, {
     name: `Fastly`,
     id: `M4HCwJxJPGCIBSlRd5ETh`,

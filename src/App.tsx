@@ -1,12 +1,12 @@
-import { AuthPage, PostPages, TlsConfigurationsPages } from "./pages"
+import { AuthPage, AuthorPages, BookPages, PostPages, TlsConfigurationsPages } from "./pages"
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 // @ts-ignore
 import { Box, ThemeProvider, theme as cosmoTheme, getTheme } from "cosmo"
 import { GlobalStyle, Navigation } from "./components"
 import { QueryClient, QueryClientProvider } from "react-query"
 import { Redirect, Route, Switch, useLocation } from "react-router-dom"
-import AuthProvider from "./components/AuthProvider"
 
+import AuthProvider from "./components/AuthProvider"
 import React from "react"
 import { ReactQueryDevtools } from "react-query/devtools"
 import { RecoilRoot } from "recoil"
@@ -44,6 +44,12 @@ export default function App(): React.ReactNode {
                 </Route>
                 <Route path="/tls-configurations">
                   <TlsConfigurationsPages.Index />
+                </Route>
+                <Route path="/books/:id">
+                  <BookPages.View />
+                </Route>
+                <Route path="/authors">
+                  <AuthorPages.Index />
                 </Route>
                 <Route path="/posts/:id">
                   <PostPages.View />

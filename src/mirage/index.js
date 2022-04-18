@@ -2,6 +2,7 @@ import { Model, createServer } from "miragejs"
 import { camelize, dasherize, underscore } from "inflected"
 
 import AuthRoutes from "./routes/auth"
+import AuthorRoutes from "./routes/authors"
 import factories from "./factories"
 import models from "./models"
 import scenario from "./default"
@@ -40,6 +41,7 @@ export function makeServer({ environment = `test` } = {}) {
     },
     routes() {
       AuthRoutes(this, { origin: `https://api.fastly.com` })
+      AuthorRoutes(this, { origin: `https://api.fastly.com` })
       // sharedMirage.routes.Auth(this, { origin: `https://api.fastly.com` })
       sharedMirage.routes.Iam(this, { origin: `https://api.fastly.com` })
       spotlessRoutes(this, { origin: `https://api.fastly.com` })
