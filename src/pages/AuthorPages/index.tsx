@@ -1,18 +1,23 @@
-import type { Author, Book } from "./query"
-
+import type { Author } from "./query"
+import AuthorCard from "../../components/AuthorCard"
 import type { FC } from "react"
-import { Link } from "react-router-dom"
-import React from "react"
+import useAuth from "../../components/AuthProvider/use"
 import { useAuthors } from "./query"
+// import { useAuthors } from "./query"
 
 const AuthorPages: FC = () => {
-  const authors = useAuthors()
+  const { session } = useAuth()
+  const authors = useAuthors(session)
+
+  function onEdit(author: Author, field: string, value: string) {
+    console.log(author, field, value)
+  }
 
   return (
     <div>
       <h1>Authors</h1>
       <div>
-        {authors.status === `loading` ? (
+        {authors === undefined ? (
           `Loading...`
         ) : authors.status === `error` ? (
           <span>Error: {authors?.error?.message}</span>
@@ -28,22 +33,8 @@ const AuthorPages: FC = () => {
                 padding: `10px`,
               }}
             >
-              {authors?.data?.map((author: Author) => (
-                <div key={author.id}>
-                  <div>
-                    <input value={author.attributes[`first-name`]} />
-                  </div>
-                  <div>
-                    <input value={author.attributes[`last-name`]} />
-                  </div>
-                  <ul>
-                    {author.books.map((book: Book) => (
-                      <li key={book.id}>
-                        <Link to={`/books/${book.id}`}>{book.attributes[`name`]}</Link>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+              {authors?.map((author: Author) => (
+                <AuthorCard key={author.id} author={author} onEdit={onEdit} />
               ))}
             </div>
             <div>{authors.isFetching ? `Background Updating...` : ` `}</div>

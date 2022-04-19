@@ -11,7 +11,7 @@ type Params = {
 const BookPage: FC = () => {
   const { session } = useAuth()
   const { id } = useParams<Params>()
-  const { status, data, error, isFetching } = useBook(id)
+  const book = useBook(session, id)
 
   return (
     <div>
@@ -19,15 +19,12 @@ const BookPage: FC = () => {
         {session?.user?.name}
         <Link to={`/authors`}> Back </Link>
       </div>
-      {!id || status === `loading` ? (
+      {book == undefined ? (
         `Loading...`
-      ) : status === `error` ? (
-        <span>Error: {error?.message}</span>
       ) : (
         <>
-          <h1>{data?.attributes[`name`]}</h1>
-          <h1>{data?.attributes[`isbn`]}</h1>
-          <div>{isFetching ? `Background Updating...` : ` `}</div>
+          <h1>{book?.attributes[`name`]}</h1>
+          <h1>{book?.attributes[`isbn`]}</h1>
         </>
       )}
     </div>

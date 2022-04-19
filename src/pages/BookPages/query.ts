@@ -1,21 +1,17 @@
 import type { Book } from "../AuthorPages/query"
-import type { QueryObserverBaseResult } from "react-query"
-import { useQuery } from "react-query"
+import type { Session } from "../../auth/session"
+import { getToken } from "../../auth/session"
+import useSWR from "swr"
 
-const getBookById = async (id: string) => {
-  const response = await fetch(`/books/${id}`)
-  if (!response.ok) {
-    if (response.status === 401) {
-      throw new Error(`Unauthorized`)
-    }
-    throw new Error(`Network response was not ok`)
-  }
-  const payload = await response.json()
-  return payload.data
-}
-
-export function useBook(bookId: string): QueryObserverBaseResult<Book, Error> {
-  return useQuery<Book, Error>([`book`, bookId], () => getBookById(bookId), {
-    enabled: !!bookId,
-  })
+export function useBook(session: Session, bookId: string): Book {
+  if (session == null) throw new Error(`No session`)
+  const token = getToken()
+  const fetcher = (url: string) =>
+    fetch(url, {
+      headers: { "fastly-key": token?.access_token || `` },
+    }).then((response) => response.json())
+  const { data, error } = useSWR(`/books/${bookId}`, fetcher)
+  if (!data) return data
+  if (error) throw error
+  return data.data
 }

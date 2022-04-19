@@ -1,6 +1,5 @@
 import AuthPage from "./Auth"
 import AuthorIndexPage from "./AuthorPages/index"
-import AuthorViewPage from "./AuthorPages/view"
 import BookViewPage from "./BookPages/view"
 import PostIndexPage from "./PostPages/index"
 import PostViewPage from "./PostPages/view"
@@ -19,7 +18,6 @@ const PostPages = {
 
 const AuthorPages = {
   Index: AuthorIndexPage,
-  View: AuthorViewPage,
 }
 
 const BookPages = {

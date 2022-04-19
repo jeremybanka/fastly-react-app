@@ -8,7 +8,6 @@ import { Redirect, Route, Switch, useLocation } from "react-router-dom"
 
 import AuthProvider from "./components/AuthProvider"
 import React from "react"
-import { ReactQueryDevtools } from "react-query/devtools"
 import { RecoilRoot } from "recoil"
 import useLocalStorage from "./hooks/useLocalStorage"
 
@@ -62,7 +61,6 @@ export default function App(): React.ReactNode {
                 </Route>
               </Switch>
             </Box>
-            <ReactQueryDevtools initialIsOpen />
           </AuthProvider>
         </ThemeProvider>
       </RecoilRoot>
