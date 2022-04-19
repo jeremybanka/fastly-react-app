@@ -10,8 +10,6 @@ type Props = {
 }
 
 const AuthorCard: FC<Props> = ({ author, onEdit }) => {
-  // NO MERGE
-  debugger // eslint-disable-line
   const [firstName, setFirstName] = useState(author.attributes[`first-name`])
   const [lastName, setLastName] = useState(author.attributes[`last-name`])
 

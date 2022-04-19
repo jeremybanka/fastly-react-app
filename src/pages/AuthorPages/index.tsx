@@ -3,7 +3,6 @@ import AuthorCard from "../../components/AuthorCard"
 import type { FC } from "react"
 import useAuth from "../../components/AuthProvider/use"
 import { useAuthors } from "./query"
-// import { useAuthors } from "./query"
 
 const AuthorPages: FC = () => {
   const { session } = useAuth()
